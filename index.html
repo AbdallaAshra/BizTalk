@@ -1,0 +1,634 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#1B4FD8;--blue-light:#EEF2FF;--blue-dark:#1338A8;--text:#1a1a2e;--muted:#6b7280;--border:#e5e7eb;--card:#fff;--bg:#f8fafc;--accent:#0ea5e9;--green:#059669;--amber:#d97706}
+body{font-family:var(--font-sans,system-ui,sans-serif);color:var(--color-text-primary);background:transparent;font-size:15px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+nav{background:var(--color-background-primary);border-bottom:0.5px solid var(--color-border-tertiary);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
+.logo{font-size:20px;font-weight:500;color:#1B4FD8;letter-spacing:-0.5px}
+.logo span{color:var(--color-text-primary)}
+.nav-links{display:flex;gap:4px;flex-wrap:wrap}
+.nav-links button{background:none;border:none;padding:6px 10px;border-radius:var(--border-radius-md);cursor:pointer;font-size:13px;color:var(--color-text-secondary);transition:background 0.15s,color 0.15s}
+.nav-links button:hover,.nav-links button.active{background:var(--color-background-secondary);color:var(--color-text-primary)}
+.page{display:none;padding-bottom:3rem}
+.page.active{display:block}
+.hero{background:linear-gradient(135deg,#1B4FD8 0%,#0ea5e9 100%);color:#fff;padding:4rem 2rem;text-align:center}
+.hero h1{font-size:clamp(24px,5vw,42px);font-weight:500;margin-bottom:1rem;line-height:1.2}
+.hero p{font-size:clamp(14px,2vw,17px);opacity:0.9;max-width:580px;margin:0 auto 2rem;line-height:1.6}
+.btn{display:inline-block;padding:10px 22px;border-radius:var(--border-radius-lg);cursor:pointer;font-size:14px;font-weight:500;border:none;transition:transform 0.1s,opacity 0.1s}
+.btn:active{transform:scale(0.97)}
+.btn-white{background:#fff;color:#1B4FD8}
+.btn-white:hover{opacity:0.9}
+.btn-primary{background:#1B4FD8;color:#fff}
+.btn-primary:hover{background:#1338A8}
+.btn-outline{background:none;border:1.5px solid var(--color-border-secondary);color:var(--color-text-primary)}
+.btn-outline:hover{background:var(--color-background-secondary)}
+.section{padding:2.5rem 1.5rem;max-width:900px;margin:0 auto}
+.section-title{font-size:22px;font-weight:500;margin-bottom:0.4rem}
+.section-sub{color:var(--color-text-secondary);font-size:14px;margin-bottom:2rem;line-height:1.6}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
+.icon-box{width:40px;height:40px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:0.75rem}
+.ib-blue{background:#EEF2FF}
+.ib-teal{background:#ECFDF5}
+.ib-amber{background:#FFFBEB}
+.ib-pink{background:#FDF2F8}
+.card h3{font-size:15px;font-weight:500;margin-bottom:0.4rem}
+.card p{font-size:13px;color:var(--color-text-secondary);line-height:1.5}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500}
+.badge-blue{background:#EEF2FF;color:#1B4FD8}
+.badge-green{background:#ECFDF5;color:#059669}
+.badge-amber{background:#FFFBEB;color:#d97706}
+.tag-free{background:#ECFDF5;color:#059669;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500}
+.tag-pro{background:#EEF2FF;color:#1B4FD8;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500}
+hr.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:2rem 0}
+.quiz-q{margin-bottom:1.5rem}
+.quiz-q .qtext{font-size:15px;font-weight:500;margin-bottom:0.75rem;line-height:1.4}
+.quiz-opt{display:flex;flex-direction:column;gap:6px}
+.quiz-opt label{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);cursor:pointer;font-size:14px;transition:background 0.1s}
+.quiz-opt label:hover{background:var(--color-background-secondary)}
+.quiz-opt input[type=radio]{accent-color:#1B4FD8}
+.result-box{border-radius:var(--border-radius-lg);padding:1.5rem;text-align:center;margin-top:1.5rem}
+.progress-bar{height:6px;background:var(--color-border-tertiary);border-radius:3px;margin-bottom:0.5rem;overflow:hidden}
+.progress-fill{height:100%;background:#1B4FD8;border-radius:3px;transition:width 0.3s}
+.step-indicator{font-size:13px;color:var(--color-text-secondary);margin-bottom:1.5rem}
+.slide-nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem;gap:1rem}
+.slide-content{min-height:200px}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.75rem}
+.vocab-item{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:0.75rem 1rem}
+.vocab-term{font-size:14px;font-weight:500;color:#1B4FD8;margin-bottom:2px}
+.vocab-def{font-size:13px;color:var(--color-text-secondary);line-height:1.4}
+.vocab-ex{font-size:12px;color:var(--color-text-secondary);font-style:italic;margin-top:4px;line-height:1.3}
+.pricing-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.5rem;position:relative}
+.pricing-card.featured{border:2px solid #1B4FD8}
+.pricing-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#1B4FD8;color:#fff;font-size:12px;padding:3px 14px;border-radius:20px;font-weight:500;white-space:nowrap}
+.price-amt{font-size:28px;font-weight:500;color:var(--color-text-primary)}
+.price-amt span{font-size:14px;font-weight:400;color:var(--color-text-secondary)}
+.feature-list{list-style:none;margin:1rem 0;display:flex;flex-direction:column;gap:6px}
+.feature-list li{font-size:13px;color:var(--color-text-secondary);display:flex;gap:6px;align-items:flex-start}
+.feature-list li::before{content:"✓";color:#059669;font-size:13px;flex-shrink:0;margin-top:1px}
+.feature-list li.no::before{content:"✗";color:#d97706}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:1rem 0}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:var(--border-radius-md);font-size:13px;cursor:pointer;border:0.5px solid transparent;transition:all 0.1s}
+.cal-day:hover:not(.empty):not(.past){background:var(--color-background-secondary);border-color:var(--color-border-tertiary)}
+.cal-day.selected{background:#1B4FD8;color:#fff}
+.cal-day.past{color:var(--color-text-secondary);opacity:0.4;cursor:default}
+.cal-day.empty{cursor:default}
+.cal-day.available{background:var(--color-background-secondary)}
+.cal-hdr{font-size:11px;font-weight:500;color:var(--color-text-secondary);display:flex;align-items:center;justify-content:center;padding-bottom:4px}
+.time-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px;margin:1rem 0}
+.time-slot{padding:6px 10px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:13px;cursor:pointer;text-align:center;transition:all 0.1s;background:var(--color-background-primary)}
+.time-slot:hover{border-color:#1B4FD8;color:#1B4FD8}
+.time-slot.selected{background:#1B4FD8;color:#fff;border-color:#1B4FD8}
+.email-example{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;font-size:13px;line-height:1.7;border-left:3px solid #1B4FD8}
+.email-example .label{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.5rem}
+.correct{background:#ECFDF5;border-color:#059669;color:#059669}
+.wrong{background:#FEF2F2;border-color:#EF4444;color:#EF4444}
+.tab-bar{display:flex;gap:4px;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:1.5rem;overflow-x:auto;padding-bottom:-1px}
+.tab-bar button{padding:8px 14px;border:none;background:none;cursor:pointer;font-size:13px;color:var(--color-text-secondary);border-bottom:2px solid transparent;white-space:nowrap;transition:all 0.1s}
+.tab-bar button.active{color:#1B4FD8;border-bottom-color:#1B4FD8}
+.service-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;display:flex;flex-direction:column;gap:8px}
+.service-card h3{font-size:15px;font-weight:500}
+.service-card p{font-size:13px;color:var(--color-text-secondary);line-height:1.5;flex:1}
+.notif{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:0.75rem 1rem;font-size:13px;color:var(--color-text-secondary);margin-top:1rem}
+.footer{background:var(--color-background-secondary);border-top:0.5px solid var(--color-border-tertiary);padding:1.5rem;text-align:center;font-size:13px;color:var(--color-text-secondary);margin-top:2rem}
+.wa-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #25D366;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+  z-index: 1000;
+  text-decoration: none;
+  border: 2px solid white;
+}
+.wa-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.4);
+}
+</style>
+
+<h2 class="sr-only">BizTalk – Business English training platform for Algerian professionals</h2>
+
+<nav>
+  <div class="logo">Biz<span>Talk</span></div>
+  <div class="nav-links" id="navLinks">
+    <button class="active" onclick="showPage('home',this)">Home</button>
+    <button onclick="showPage('test',this)">Placement Test</button>
+    <button onclick="showPage('courses',this)">Courses</button>
+    <button onclick="showPage('coaching',this)">Coaching</button>
+    <button onclick="showPage('services',this)">Services</button>
+    <button onclick="showPage('vocab',this)">Vocabulary</button>
+    <button onclick="showPage('pricing',this)">Pricing</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <h1>Business English for<br>Algerian Professionals</h1>
+    <p>Master professional communication, corporate writing, and Business English to unlock career opportunities in local and international companies.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-white" onclick="showPage('test',document.querySelectorAll('.nav-links button')[1])">Take Placement Test</button>
+      <button class="btn" style="background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.4)" onclick="showPage('courses',document.querySelectorAll('.nav-links button')[2])">Explore Courses</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Why Business English matters</h2>
+    <p class="section-sub">In today's competitive Algerian market, strong Business English skills help you communicate confidently with international partners, write professional emails, and advance your career.</p>
+    <div class="grid-3">
+      <div class="card"><div class="icon-box ib-blue">💼</div><h3>Corporate Communication</h3><p>Write clear professional emails, reports, and proposals that impress colleagues and clients.</p></div>
+      <div class="card"><div class="icon-box ib-teal">📈</div><h3>Career Advancement</h3><p>Stand out in interviews and meetings with polished Business English and professional vocabulary.</p></div>
+      <div class="card"><div class="icon-box ib-amber">🌍</div><h3>International Reach</h3><p>Communicate effectively with multinational companies operating in Algeria and across Africa.</p></div>
+    </div>
+  </div>
+
+  <hr class="divider" style="max-width:900px;margin:0 auto 0">
+  <div class="section">
+    <h2 class="section-title">What BizTalk offers</h2>
+    <p class="section-sub">A complete platform built for professionals in Algeria — from beginner to advanced.</p>
+    <div class="grid-2">
+      <div class="card" style="display:flex;gap:12px;align-items:flex-start">
+        <div class="icon-box ib-blue" style="flex-shrink:0">📚</div>
+        <div><h3>Structured courses</h3><p>Slide-based lessons covering emails, reports, meetings, and negotiations. Each lesson ends with a quiz.</p></div>
+      </div>
+      <div class="card" style="display:flex;gap:12px;align-items:flex-start">
+        <div class="icon-box ib-teal" style="flex-shrink:0">🎯</div>
+        <div><h3>1-on-1 coaching</h3><p>Book private sessions with a Business English coach via our calendar system.</p></div>
+      </div>
+      <div class="card" style="display:flex;gap:12px;align-items:flex-start">
+        <div class="icon-box ib-pink" style="flex-shrink:0">✍️</div>
+        <div><h3>Business writing services</h3><p>Get professional emails, reports, and documents written or translated by experts.</p></div>
+      </div>
+      <div class="card" style="display:flex;gap:12px;align-items:flex-start">
+        <div class="icon-box ib-amber" style="flex-shrink:0">📖</div>
+        <div><h3>Business vocabulary</h3><p>Master the most important Business English terms used in Algerian and international companies.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" style="max-width:900px;margin:0 auto 0">
+  <div class="section" style="text-align:center">
+    <h2 class="section-title">Not sure where to start?</h2>
+    <p class="section-sub">Take our free 10-question placement test and discover your Business English level in 5 minutes.</p>
+    <button class="btn btn-primary" onclick="showPage('test',document.querySelectorAll('.nav-links button')[1])">Start free placement test →</button>
+  </div>
+</div>
+
+<!-- PLACEMENT TEST -->
+<div class="page" id="page-test">
+  <div class="section" style="max-width:680px">
+    <h2 class="section-title">Business English placement test</h2>
+    <p class="section-sub">Answer 8 questions to discover your level: Beginner, Intermediate, or Advanced.</p>
+    <div id="testContent"></div>
+  </div>
+</div>
+
+<!-- COURSES -->
+<div class="page" id="page-courses">
+  <div class="section">
+    <h2 class="section-title">Courses</h2>
+    <p class="section-sub">Slide-based lessons with real Business English content, email templates, and quizzes.</p>
+    <div id="courseList"></div>
+    <div id="lessonView" style="display:none"></div>
+  </div>
+</div>
+
+<!-- COACHING -->
+<div class="page" id="page-coaching">
+  <div class="section" style="max-width:700px">
+    <h2 class="section-title">1-on-1 coaching sessions</h2>
+    <p class="section-sub">Book a private Business English coaching session. Sessions are 45 minutes via video call.</p>
+    <div id="calendarView"></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="page" id="page-services">
+  <div class="section">
+    <h2 class="section-title">Business writing services</h2>
+    <p class="section-sub">Professional writing and translation services for individuals and companies in Algeria.</p>
+    <div class="grid-3" style="margin-bottom:2rem">
+      <div class="service-card">
+        <div class="icon-box ib-blue">📧</div>
+        <h3>Professional email writing</h3>
+        <p>We write polished, professional emails for any business situation — proposals, follow-ups, complaints, introductions.</p>
+        <div style="font-size:13px;color:#1B4FD8;font-weight:500">From 1,500 DZD / email</div>
+        <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="openService('email')">Request now</button>
+      </div>
+      <div class="service-card">
+        <div class="icon-box ib-teal">📄</div>
+        <h3>Business report translation</h3>
+        <p>Translate your business reports from Arabic or French into professional Business English.</p>
+        <div style="font-size:13px;color:#1B4FD8;font-weight:500">From 3,000 DZD / report</div>
+        <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="openService('report')">Request now</button>
+      </div>
+      <div class="service-card">
+        <div class="icon-box ib-amber">💬</div>
+        <h3>Business message translation</h3>
+        <p>Translate short business messages, WhatsApp/email threads, and memos between Arabic, French, and English.</p>
+        <div style="font-size:13px;color:#1B4FD8;font-weight:500">From 800 DZD / message</div>
+        <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="openService('message')">Request now</button>
+      </div>
+    </div>
+    <div id="serviceForm" style="display:none"></div>
+  </div>
+</div>
+
+<!-- VOCABULARY -->
+<div class="page" id="page-vocab">
+  <div class="section">
+    <h2 class="section-title">Business English vocabulary</h2>
+    <p class="section-sub">Essential terms used in companies, meetings, and corporate correspondence.</p>
+    <div class="tab-bar" id="vocabTabs"></div>
+    <div class="vocab-grid" id="vocabGrid"></div>
+  </div>
+</div>
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/213656703816?text=Hello%20BizTalk%20Team%2C%20I%20am%20interested%20in%20your%20Business%20English%20services." 
+   class="wa-float" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   aria-label="Chat on WhatsApp">
+  <svg width="34" height="34" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.33 4.94L2.05 22l5.4-1.42c1.48.81 3.15 1.24 4.87 1.24 5.46 0 9.91-4.45 9.91-9.91 0-5.46-4.45-9.91-9.91-9.91z"/>
+    <path fill="#25D366" d="M12.04 4.2c-4.25 0-7.71 3.46-7.71 7.71 0 1.54.45 3.03 1.3 4.3l-.85 2.84 2.93-.77c1.22.73 2.64 1.12 4.11 1.12 4.25 0 7.71-3.46 7.71-7.71 0-4.25-3.46-7.71-7.71-7.71z"/>
+  </svg>
+</a>
+<!-- PRICING -->
+<div class="page" id="page-pricing">
+  <div class="section">
+    <h2 class="section-title">Pricing plans</h2>
+    <p class="section-sub">Choose the plan that fits your goals. All plans include access to our vocabulary section.</p>
+    <div class="grid-3" style="margin-bottom:2rem;align-items:start">
+      <div class="pricing-card">
+        <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:4px">Free</p>
+        <div class="price-amt">0 DZD <span>forever</span></div>
+        <ul class="feature-list" style="margin-top:1rem">
+          <li>2 free lessons</li>
+          <li>Vocabulary section</li>
+          <li>Placement test</li>
+          <li class="no">Full course access</li>
+          <li class="no">Coaching sessions</li>
+          <li class="no">Business services</li>
+        </ul>
+        <button class="btn btn-outline" style="width:100%;margin-top:1rem" onclick="showPage('test',document.querySelectorAll('.nav-links button')[1])">Get started free</button>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most popular</div>
+        <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:4px">Monthly subscription</p>
+        <div class="price-amt">2,900 DZD <span>/ month</span></div>
+        <ul class="feature-list" style="margin-top:1rem">
+          <li>All courses unlocked</li>
+          <li>Vocabulary section</li>
+          <li>Placement test</li>
+          <li>1 free coaching session/mo</li>
+          <li>Progress tracking</li>
+          <li class="no">Priority services</li>
+        </ul>
+		<button class="btn btn-primary" style="width:100%;margin-top:1rem"
+onclick="window.open('https://wa.me/213656703816?text=Hello%20BizTalk%20Team%2C%20I%20want%20to%20subscribe%20to%20BizTalk%20services.','_blank')">
+Subscribe now
+</button>
+      </div>
+      <div class="pricing-card">
+        <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:4px">Pay per course</p>
+        <div class="price-amt">900 DZD <span>/ course</span></div>
+        <ul class="feature-list" style="margin-top:1rem">
+          <li>One course full access</li>
+          <li>Vocabulary section</li>
+          <li>Placement test</li>
+          <li>Lifetime access to course</li>
+          <li class="no">Coaching sessions</li>
+          <li class="no">Business services</li>
+        </ul>
+        <button class="btn btn-outline" style="width:100%;margin-top:1rem" onclick="showPage('courses',document.querySelectorAll('.nav-links button')[2])">Browse courses</button>
+      </div>
+    </div>
+    <div class="card" style="background:var(--color-background-secondary)">
+      <p style="font-size:13px;color:var(--color-text-secondary)">💳 Payment accepted via CCP, Baridimob, and bank transfer. For corporate plans for your company, <strong style="color:var(--color-text-primary)">contact us</strong>.</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">© 2025 BizTalk — Business English for Algerian Professionals</div>
+
+<script>
+const testQuestions=[
+  {q:"Which phrase is most appropriate to open a formal business email?",opts:["Hey, what's up?","Dear Mr. Ahmed, I hope this email finds you well.","Yo, I'm writing to you about…","Hello friend,"],ans:1},
+  {q:"Your manager asks for a 'brief'. What does this mean?",opts:["A type of undergarment","A short summary document","A long detailed report","An informal conversation"],ans:1},
+  {q:"Choose the correct phrase: 'We need to _____ the deadline for this project.'",opts:["postpone","postphone","post-pone","postpound"],ans:0},
+  {q:"What does 'KPI' stand for in a business context?",opts:["Keep People Informed","Key Performance Indicator","Known Priority Issue","Key Project Investment"],ans:1},
+  {q:"Which is the most professional way to decline a meeting?",opts:["I can't come, I'm busy.","Unfortunately, I have a prior commitment at that time. Could we reschedule?","No thanks.","That doesn't work for me at all."],ans:1},
+  {q:"What does it mean to 'CC' someone in an email?",opts:["Cancel the message","Send a copy to a secondary recipient","Confirm the content","Create a calendar invite"],ans:1},
+  {q:"Which phrase correctly expresses agreement in a professional context?",opts:["Yeah, that sounds fine.","I concur with your assessment.","Whatever you say.","OK sure."],ans:1},
+  {q:"Your client says 'Please revert by EOD'. What do they mean?",opts:["Please return the product by evening","Please reply before end of day","Please reverse the decision","Please review the document"],ans:1}
+];
+
+let testAnswers={},testDone=false;
+
+function renderTest(){
+  const c=document.getElementById('testContent');
+  if(testDone){c.innerHTML=buildResult();return}
+  let html=`<div class="progress-bar"><div class="progress-fill" style="width:${(Object.keys(testAnswers).length/testQuestions.length)*100}%"></div></div>
+  <div class="step-indicator">${Object.keys(testAnswers).length} of ${testQuestions.length} answered</div>`;
+  testQuestions.forEach((q,i)=>{
+    html+=`<div class="quiz-q"><div class="qtext">${i+1}. ${q.q}</div><div class="quiz-opt">`;
+    q.opts.forEach((o,j)=>{
+      const checked=testAnswers[i]===j?'checked':'';
+      html+=`<label><input type="radio" name="tq${i}" value="${j}" ${checked} onchange="testAnswers[${i}]=${j};renderTest()"> ${o}</label>`;
+    });
+    html+=`</div></div>`;
+  });
+  const allDone=Object.keys(testAnswers).length===testQuestions.length;
+  html+=`<button class="btn btn-primary" ${allDone?'':'disabled'} style="opacity:${allDone?1:0.5}" onclick="submitTest()">See my level →</button>`;
+  if(!allDone) html+=`<div class="notif">Answer all questions to see your Business English level.</div>`;
+  c.innerHTML=html;
+}
+
+function submitTest(){
+  testDone=true;
+  const c=document.getElementById('testContent');
+  c.innerHTML=buildResult();
+}
+
+function buildResult(){
+  const score=Object.entries(testAnswers).filter(([i,a])=>testQuestions[i].ans===a).length;
+  const pct=score/testQuestions.length;
+  let level,color,desc;
+  if(pct<0.4){level='Beginner';color='#d97706';desc='You are starting your Business English journey. We recommend our Beginner courses on emails and professional greetings.';}
+  else if(pct<0.75){level='Intermediate';color='#1B4FD8';desc='You have a solid foundation in Business English. Focus on advanced email writing and corporate vocabulary to level up.';}
+  else{level='Advanced';color='#059669';desc='Excellent! You have strong Business English skills. Our advanced courses on negotiations and executive communication will take you further.';}
+  return `<div class="result-box" style="background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary)">
+    <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:8px">Your Business English level</div>
+    <div style="font-size:36px;font-weight:500;color:${color};margin-bottom:8px">${level}</div>
+    <div style="font-size:14px;color:var(--color-text-secondary);margin-bottom:1rem">${score} / ${testQuestions.length} correct</div>
+    <p style="font-size:14px;color:var(--color-text-primary);line-height:1.6;max-width:480px;margin:0 auto 1.5rem">${desc}</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="showPage('courses',document.querySelectorAll('.nav-links button')[2])">View recommended courses →</button>
+      <button class="btn btn-outline" onclick="testAnswers={};testDone=false;renderTest()">Retake test</button>
+    </div>
+  </div>`;
+}
+
+const courses=[
+  {id:0,title:"Professional email writing",level:"Beginner",free:true,slides:[
+    {title:"What is a professional email?",content:`<p style="line-height:1.7;margin-bottom:1rem">A professional email is a formal written communication used in business contexts. It must be <strong>clear, concise, and polite</strong>.</p><p style="line-height:1.7;margin-bottom:1rem">Every business email has 5 key parts:</p><ol style="padding-left:1.2rem;display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--color-text-secondary)"><li>Subject line</li><li>Salutation (greeting)</li><li>Body</li><li>Closing phrase</li><li>Signature</li></ol>`},
+    {title:"Email structure example",content:`<div class="email-example"><div class="label">Example — request for a meeting</div><br><strong>Subject:</strong> Request for a Meeting — Q3 Report Review<br><br>Dear Mr. Benali,<br><br>I hope this message finds you well. I am writing to request a brief meeting to discuss the Q3 financial report at your earliest convenience.<br><br>Please let me know your availability, and I will arrange the schedule accordingly.<br><br>Thank you for your time.<br><br>Best regards,<br>Karima Oussama<br>Finance Department</div>`},
+    {title:"Key vocabulary",content:`<div class="vocab-grid"><div class="vocab-item"><div class="vocab-term">At your earliest convenience</div><div class="vocab-def">As soon as possible, when you have time</div></div><div class="vocab-item"><div class="vocab-term">I am writing to…</div><div class="vocab-def">Standard opening phrase to state your purpose</div></div><div class="vocab-item"><div class="vocab-term">Best regards</div><div class="vocab-def">Professional email closing phrase</div></div><div class="vocab-item"><div class="vocab-term">Please do not hesitate to contact me</div><div class="vocab-def">Invite the recipient to ask questions</div></div></div>`},
+    {title:"Common mistakes to avoid",content:`<div style="display:flex;flex-direction:column;gap:8px"><div class="card" style="border-left:3px solid #EF4444;border-radius:4px"><strong style="font-size:13px;color:#EF4444">❌ Too informal:</strong><p style="font-size:13px;margin-top:4px;color:var(--color-text-secondary)">"Hey! Can we meet tmrw? Let me know ASAP."</p></div><div class="card" style="border-left:3px solid #059669;border-radius:4px"><strong style="font-size:13px;color:#059669">✓ Professional:</strong><p style="font-size:13px;margin-top:4px;color:var(--color-text-secondary)">"Dear Mr. Hamid, Could we schedule a meeting for tomorrow? I look forward to your confirmation."</p></div></div>`}
+  ],quiz:[
+    {q:"Which subject line is most professional?",opts:["hey about the meeting","RE: Meeting Request — Budget Review Q4","meeting???","talk later"],ans:1},
+    {q:"How should you close a formal business email?",opts:["Bye!","See ya","Best regards,","Cheers mate"],ans:2},
+    {q:"What does 'at your earliest convenience' mean?",opts:["Never","When you are very busy","As soon as possible for you","Only on weekdays"],ans:2}
+  ]},
+  {id:1,title:"Business meeting language",level:"Intermediate",free:false,slides:[
+    {title:"Opening a meeting",content:`<p style="line-height:1.7;margin-bottom:1rem">The chairperson (person leading the meeting) uses specific phrases to open, manage, and close meetings professionally.</p><div class="vocab-grid"><div class="vocab-item"><div class="vocab-term">Shall we get started?</div><div class="vocab-def">Polite way to begin the meeting</div></div><div class="vocab-item"><div class="vocab-term">Let's go through the agenda</div><div class="vocab-def">Review meeting points</div></div><div class="vocab-item"><div class="vocab-term">I'd like to hand over to…</div><div class="vocab-def">Introduce another speaker</div></div></div>`},
+    {title:"Expressing opinions professionally",content:`<div style="display:flex;flex-direction:column;gap:8px"><div class="vocab-item"><div class="vocab-term">In my view…</div><div class="vocab-def">Use to share your perspective</div><div class="vocab-ex">"In my view, we should delay the product launch."</div></div><div class="vocab-item"><div class="vocab-term">I'd like to point out that…</div><div class="vocab-def">Draw attention to something important</div><div class="vocab-ex">"I'd like to point out that the deadline is next Friday."</div></div><div class="vocab-item"><div class="vocab-term">If I may add…</div><div class="vocab-def">Politely interrupt to add a point</div><div class="vocab-ex">"If I may add, we also need to consider the budget."</div></div></div>`},
+    {title:"Closing a meeting",content:`<div class="email-example"><div class="label">Closing phrases</div><br>• "Let's wrap up here."<br>• "To summarize what we've agreed on…"<br>• "The next steps are… and [Name] will be responsible."<br>• "Thank you all for attending. The minutes will be circulated by end of day."</div>`}
+  ],quiz:[
+    {q:"What does 'minutes of the meeting' refer to?",opts:["How long the meeting lasted","The written record of what was discussed","A short meeting","The meeting agenda"],ans:1},
+    {q:"Which phrase is best for politely interrupting in a meeting?",opts:["Shut up, I want to speak","If I may add…","Wait, no—","EXCUSE ME"],ans:1},
+    {q:"What does 'Let's table this for now' mean in a business meeting?",opts:["Put it on the table physically","Postpone discussing this topic","Agree on this point","Delete it from the agenda"],ans:1}
+  ]},
+  {id:2,title:"Business report writing",level:"Advanced",free:false,slides:[
+    {title:"Structure of a business report",content:`<ol style="padding-left:1.2rem;display:flex;flex-direction:column;gap:10px;font-size:14px"><li><strong>Title page</strong> — Report name, author, date</li><li><strong>Executive summary</strong> — 3–5 sentence overview</li><li><strong>Introduction</strong> — Context and purpose</li><li><strong>Findings</strong> — Data and analysis</li><li><strong>Recommendations</strong> — What to do next</li><li><strong>Conclusion</strong> — Summary of key points</li></ol>`},
+    {title:"Executive summary example",content:`<div class="email-example"><div class="label">Example executive summary</div><br>This report examines the performance of the sales department for Q3 2024. Key findings indicate a 12% increase in revenue compared to Q2, driven primarily by the launch of the new product line in the southern region. However, operational costs rose by 8%, which requires immediate attention. It is recommended that management review staffing levels and logistics expenses in the coming quarter.</div>`},
+    {title:"Report vocabulary",content:`<div class="vocab-grid"><div class="vocab-item"><div class="vocab-term">To outline</div><div class="vocab-def">To describe briefly</div><div class="vocab-ex">"This report outlines our key challenges."</div></div><div class="vocab-item"><div class="vocab-term">It is evident that</div><div class="vocab-def">It is clear from the data</div></div><div class="vocab-item"><div class="vocab-term">As a result</div><div class="vocab-def">Consequence/outcome connector</div></div><div class="vocab-item"><div class="vocab-term">It is recommended that</div><div class="vocab-def">Formal way to suggest action</div></div></div>`}
+  ],quiz:[
+    {q:"Where does the executive summary appear in a business report?",opts:["At the end","After the conclusion","Near the beginning, before the main body","In the middle"],ans:2},
+    {q:"Which phrase is appropriate in a formal business report?",opts:["We think this is bad","The data clearly shows a decline in performance.","Honestly it wasn't great","Things went wrong"],ans:1},
+    {q:"What is the purpose of the 'Recommendations' section?",opts:["Summarize past events","List references","Suggest actions based on findings","Introduce the report topic"],ans:2}
+  ]}
+];
+
+let currentCourse=null,currentSlide=0,quizMode=false,quizAnswers={},quizDone=false;
+
+function renderCourseList(){
+  const cl=document.getElementById('courseList');
+  const lv=document.getElementById('lessonView');
+  cl.style.display='block';lv.style.display='none';
+  let html='<div class="grid-3">';
+  courses.forEach(c=>{
+    html+=`<div class="card" style="cursor:pointer" onclick="openCourse(${c.id})">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem">
+        <span class="badge badge-${c.level==='Beginner'?'green':c.level==='Intermediate'?'blue':'amber'}">${c.level}</span>
+        ${c.free?'<span class="tag-free">Free</span>':'<span class="tag-pro">Pro</span>'}
+      </div>
+      <h3 style="font-size:15px;font-weight:500;margin-bottom:6px">${c.title}</h3>
+      <p style="font-size:13px;color:var(--color-text-secondary)">${c.slides.length} slides + quiz</p>
+      <button class="btn btn-primary" style="margin-top:12px;width:100%;font-size:13px">${c.free?'Start lesson →':'Unlock lesson →'}</button>
+    </div>`;
+  });
+  html+='</div>';
+  cl.innerHTML=html;
+}
+
+function openCourse(id){
+  currentCourse=id;currentSlide=0;quizMode=false;quizAnswers={};quizDone=false;
+  document.getElementById('courseList').style.display='none';
+  document.getElementById('lessonView').style.display='block';
+  renderLesson();
+}
+
+function renderLesson(){
+  const c=courses[currentCourse];
+  const lv=document.getElementById('lessonView');
+  if(quizMode){renderQuiz();return}
+  const s=c.slides[currentSlide];
+  const total=c.slides.length;
+  lv.innerHTML=`<button onclick="renderCourseList()" style="background:none;border:none;cursor:pointer;color:var(--color-text-secondary);font-size:13px;margin-bottom:1rem;padding:0">← Back to courses</button>
+  <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:4px">${c.title}</div>
+  <div class="progress-bar"><div class="progress-fill" style="width:${((currentSlide+1)/total)*100}%"></div></div>
+  <div class="step-indicator" style="margin-top:4px">Slide ${currentSlide+1} of ${total}</div>
+  <div class="card" style="margin-top:1rem">
+    <h3 style="font-size:16px;font-weight:500;margin-bottom:1rem">${s.title}</h3>
+    <div class="slide-content">${s.content}</div>
+  </div>
+  <div class="slide-nav">
+    <button class="btn btn-outline" ${currentSlide===0?'disabled style="opacity:0.4"':''} onclick="currentSlide--;renderLesson()">← Previous</button>
+    ${currentSlide<total-1?`<button class="btn btn-primary" onclick="currentSlide++;renderLesson()">Next →</button>`:`<button class="btn btn-primary" onclick="quizMode=true;renderLesson()">Take quiz →</button>`}
+  </div>`;
+}
+
+function renderQuiz(){
+  const c=courses[currentCourse];
+  const lv=document.getElementById('lessonView');
+  if(quizDone){
+    const score=Object.entries(quizAnswers).filter(([i,a])=>c.quiz[i].ans===a).length;
+    lv.innerHTML=`<button onclick="renderCourseList()" style="background:none;border:none;cursor:pointer;color:var(--color-text-secondary);font-size:13px;margin-bottom:1rem;padding:0">← Back to courses</button>
+    <div class="result-box" style="background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary)">
+      <div style="font-size:14px;color:var(--color-text-secondary);margin-bottom:8px">Quiz result</div>
+      <div style="font-size:32px;font-weight:500;color:${score===c.quiz.length?'#059669':score>=c.quiz.length/2?'#1B4FD8':'#d97706'}">${score}/${c.quiz.length}</div>
+      <p style="font-size:14px;color:var(--color-text-secondary);margin:8px 0 1.5rem">${score===c.quiz.length?'Perfect score! Excellent work.':score>=c.quiz.length/2?'Good job! Review the slides to improve further.':'Keep practicing! Go back and review the lesson.'}</p>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-outline" onclick="currentSlide=0;quizMode=false;renderLesson()">Review lesson</button>
+        <button class="btn btn-primary" onclick="renderCourseList()">Back to courses</button>
+      </div>
+    </div>`;return;
+  }
+  let html=`<button onclick="quizMode=false;currentSlide=courses[currentCourse].slides.length-1;renderLesson()" style="background:none;border:none;cursor:pointer;color:var(--color-text-secondary);font-size:13px;margin-bottom:1rem;padding:0">← Back to slides</button>
+  <h3 style="font-size:16px;font-weight:500;margin-bottom:1rem">Lesson quiz — ${c.title}</h3>`;
+  c.quiz.forEach((q,i)=>{
+    html+=`<div class="quiz-q"><div class="qtext">${i+1}. ${q.q}</div><div class="quiz-opt">`;
+    q.opts.forEach((o,j)=>{
+      html+=`<label><input type="radio" name="lq${i}" value="${j}" ${quizAnswers[i]===j?'checked':''} onchange="quizAnswers[${i}]=${j};document.getElementById('lessonView').querySelectorAll('button[data-submit]')[0].disabled=Object.keys(quizAnswers).length<${c.quiz.length}"> ${o}</label>`;
+    });
+    html+=`</div></div>`;
+  });
+  const allDone=Object.keys(quizAnswers).length===c.quiz.length;
+  html+=`<button data-submit class="btn btn-primary" ${allDone?'':'disabled'} style="opacity:${allDone?1:0.5}" onclick="quizDone=true;renderQuiz()">Submit quiz →</button>`;
+  lv.innerHTML=html;
+}
+
+function renderCalendar() {
+  const cv = document.getElementById('calendarView');
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const times = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
+
+  let step = 1;
+  let selDay = null;
+  let selTime = null;
+
+  function render() {
+    let html = `
+      <div class="tab-bar" style="margin-bottom:1.5rem">
+        <button class="${step >= 1 ? 'active' : ''}">1. Choose date</button>
+        <button class="${step >= 2 ? 'active' : ''}">2. Choose time</button>
+        <button class="${step >= 3 ? 'active' : ''}">3. Confirm</button>
+      </div>
+    `;
+
+    if (step === 1) {
+      html += `<h3 style="font-size:15px;font-weight:500;margin-bottom:0.5rem">Select a date — May 2025</h3>`;
+      html += `<div class="cal-grid">`;
+      days.forEach(d => html += `<div class="cal-hdr">${d}</div>`);
+      // محاذاة الأيام (1 مايو 2025 كان خميس)
+      for (let i = 0; i < 3; i++) html += `<div class="cal-day empty"></div>`;
+      for (let d = 1; d <= 31; d++) {
+        const past = d < 8;
+        const avail = !past && (d % 7 !== 5 && d % 7 !== 6);
+        const selected = selDay === d;
+        html += `<div class="cal-day ${past ? 'past' : avail ? 'available' : ''} ${selected ? 'selected' : ''}" 
+          onclick="${avail && !past ? `window.calSetDay(${d})` : ''}">${d}</div>`;
+      }
+      html += `</div><div class="notif">Available dates are highlighted. Sessions are 45 minutes via video call.</div>`;
+    } 
+    else if (step === 2) {
+      html += `<div style="font-size:14px;margin-bottom:1rem">
+        Selected date: <strong>May ${selDay}, 2025</strong> 
+        <button onclick="window.calGoToStep(1)" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:13px;padding:0;margin-left:8px">Change</button>
+      </div>`;
+      html += `<h3 style="font-size:15px;font-weight:500;margin-bottom:0.75rem">Choose a time slot</h3>`;
+      html += `<div class="time-slots">`;
+      times.forEach(t => {
+        const selected = selTime === t;
+        html += `<div class="time-slot ${selected ? 'selected' : ''}" onclick="window.calSetTime('${t}')">${t}</div>`;
+      });
+      html += `</div>`;
+    } 
+    else if (step === 3) {
+      html += `<div class="card" style="max-width:420px">
+        <h3 style="font-size:15px;font-weight:500;margin-bottom:1rem">Booking summary</h3>
+        <table style="width:100%;font-size:14px"><tbody>
+          <tr><td style="color:var(--muted);padding:4px 0">Date</td><td style="text-align:right">May ${selDay}, 2025</td></tr>
+          <tr><td style="color:var(--muted);padding:4px 0">Time</td><td style="text-align:right">${selTime}</td></tr>
+          <tr><td style="color:var(--muted);padding:4px 0">Duration</td><td style="text-align:right">45 minutes</td></tr>
+          <tr><td style="color:var(--muted);padding:4px 0">Format</td><td style="text-align:right">Video call</td></tr>
+          <tr><td style="color:var(--muted);padding:4px 0">Price</td><td style="text-align:right;font-weight:500">3,500 DZD</td></tr>
+        </tbody></table>
+        <div style="margin-top:1rem;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="window.calConfirmBooking()">Confirm booking</button>
+          <button class="btn btn-outline" onclick="window.calReset()">Start over</button>
+        </div>
+      </div>`;
+    }
+
+    cv.innerHTML = html;
+  }
+
+  window.calSetDay = (day) => { selDay = day; step = 2; render(); };
+  window.calSetTime = (time) => { selTime = time; step = 3; render(); };
+  window.calGoToStep = (s) => { step = s; render(); };
+  window.calReset = () => { step = 1; selDay = selTime = null; render(); };
+  window.calConfirmBooking = () => {
+    const msg = `Hello BizTalk Team, I want to confirm a coaching session on May ${selDay}, 2025 at ${selTime}.`;
+    window.open(`https://wa.me/213656703816?text=${encodeURIComponent(msg)}`, '_blank');
+  };
+
+  render();
+}
+
+const vocabData={
+  "Meetings":[ {t:"Agenda",d:"A list of topics to be discussed in a meeting",e:"Please review the agenda before the meeting."},
+    {t:"Minutes",d:"The written record of a meeting",e:"Can you circulate the minutes to everyone?"},
+    {t:"Action item",d:"A task assigned during a meeting",e:"The action item is to prepare the report by Friday."},
+    {t:"Chair/Chairperson",d:"The person who leads the meeting",e:"The chairperson opened the session at 9 AM."},
+    {t:"Quorum",d:"Minimum number of people needed for a valid meeting",e:"We can't proceed — we don't have a quorum."}],
+  "Emails":[{t:"Re:",d:"In reply to (subject line prefix)",e:"Re: Contract renewal — follow-up"},
+    {t:"CC",d:"Carbon copy — send a copy to another person",e:"Please CC the finance team on this email."},
+    {t:"FYI",d:"For your information",e:"FYI, the meeting has been rescheduled."},
+    {t:"EOM",d:"End of message — nothing follows",e:"Meeting at 3PM confirmed. EOM"},
+    {t:"Per my last email",d:"Referring back to a previous message",e:"Per my last email, the deadline is Thursday."}],
+  "Finance":[{t:"Invoice",d:"A document requesting payment for goods or services",e:"Please send the invoice to our accounts department."},
+    {t:"ROI",d:"Return on Investment — profit relative to cost",e:"The campaign showed a strong ROI of 35%."},
+    {t:"Cash flow",d:"The movement of money in and out of a business",e:"We need to monitor our cash flow carefully."},
+    {t:"Budget",d:"A financial plan for a specific period",e:"The marketing budget has been approved."},
+    {t:"Overhead",d:"Regular operating costs not tied to production",e:"We need to reduce our overhead costs."}],
+  "HR & Career":[{t:"Onboarding",d:"The process of integrating a new employee",e:"Your onboarding starts on Monday."},
+    {t:"Performance review",d:"A formal evaluation of an employee's work",e:"Annual performance reviews are in December."},
+    {t:"KPI",d:"Key Performance Indicator — measurable goal",e:"Your KPI for this quarter is 95% client satisfaction."},
+    {t:"Probation period",d:"Trial period at the start of employment",e:"The probation period is 3 months."},
+    {t:"Resignation",d:"Formally leaving a job",e:"She submitted her resignation letter yesterday."}]
+};
+
+let activeVocabTab=Object.keys(vocabData)[0];
+function renderVocab(){
+  const cats=Object.keys(vocabData);
+  let tabs='';
+  cats.forEach(c=>tabs+=`<button class="${c===activeVocabTab?'active':''}" onclick="activeVocabTab='${c}';renderVocab()">${c}</button>`);
+  document.getElementById('vocabTabs').innerHTML=tabs;
+  let html='';
+  vocabData[activeVocabTab].forEach(v=>{
+    html+=`<div class="vocab-item"><div class="vocab-term">${v.t}</div><div class="vocab-def">${v.d}</div><div class="vocab-ex">${v.e}</div></div>`;
+  });
+  document.getElementById('vocabGrid').innerHTML=html;
+}
+
+function openService(type){
+  const labels={email:"Professional email writing",report:"Business report translation",message:"Business message translation"};
+  const sf=document.getElementById('serviceForm');
+  sf.style.display='block';
+  sf.innerHTML=`<hr class="divider"><h3 style="font-size:16px;font-weight:500;margin-bottom:1rem">Request: ${labels[type]}</h3>
+  <div style="display:flex;flex-direction:column;gap:12px;max-width:540px">
+    <div><label style="font-size:13px;color:var(--color-text-secondary);display:block;margin-bottom:4px">Your full name</label><input type="text" placeholder="e.g. Amina Bouzid" style="width:100%"></div>
+    <div><label style="font-size:13px;color:var(--color-text-secondary);display:block;margin-bottom:4px">WhatsApp number</label><input type="text" placeholder="+213 6XX XXX XXX" style="width:100%"></div>
+    <div><label style="font-size:13px;color:var(--color-text-secondary);display:block;margin-bottom:4px">Describe what you need</label><textarea style="width:100%;height:90px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);padding:8px 10px;font-size:14px;font-family:inherit;background:var(--color-background-primary);color:var(--color-text-primary);resize:vertical" placeholder="Explain your request in detail…"></textarea></div>
+    <div><label style="font-size:13px;color:var(--color-text-secondary);display:block;margin-bottom:4px">Language direction</label><select style="width:100%"><option>Arabic → English</option><option>French → English</option><option>English → Arabic</option><option>English → French</option><option>Other</option></select></div>
+    <button class="btn btn-primary" style="width:fit-content" onclick="alert('Request submitted! Our team will contact you within 24 hours via WhatsApp.')">Submit request</button>
+  </div>`;
+  sf.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function showPage(name,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  if(btn) btn.classList.add('active');
+  if(name==='test') renderTest();
+  if(name==='courses') renderCourseList();
+  if(name==='coaching') renderCalendar();
+  if(name==='vocab') renderVocab();
+  window.scrollTo(0,0);
+}
+</script>

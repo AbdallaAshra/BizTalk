@@ -1,554 +1,1953 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BizTalk — Business English for Algerian Professionals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--blue:#1B4FD8;--blue-light:#EEF2FF;--blue-dark:#1338A8;--text:#1a1a2e;--muted:#6b7280;--border:#e5e7eb;--card:#fff;--bg:#f8fafc;--accent:#0ea5e9;--green:#059669;--amber:#d97706}
-body{font-family:var(--font-sans,system-ui,sans-serif);color:var(--color-text-primary);background:transparent;font-size:15px}
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
-nav{background:var(--color-background-primary);border-bottom:0.5px solid var(--color-border-tertiary);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
-.logo{font-size:20px;font-weight:500;color:#1B4FD8;letter-spacing:-0.5px}
-.logo span{color:var(--color-text-primary)}
-.nav-links{display:flex;gap:4px;flex-wrap:wrap}
-.nav-links button{background:none;border:none;padding:6px 10px;border-radius:var(--border-radius-md);cursor:pointer;font-size:13px;color:var(--color-text-secondary);transition:background 0.15s,color 0.15s}
-.nav-links button:hover,.nav-links button.active{background:var(--color-background-secondary);color:var(--color-text-primary)}
-.page{display:none;padding-bottom:3rem}
-.page.active{display:block}
-.hero{background:linear-gradient(135deg,#1B4FD8 0%,#0ea5e9 100%);color:#fff;padding:4rem 2rem;text-align:center}
-.hero h1{font-size:clamp(24px,5vw,42px);font-weight:500;margin-bottom:1rem;line-height:1.2}
-.hero p{font-size:clamp(14px,2vw,17px);opacity:0.9;max-width:580px;margin:0 auto 2rem;line-height:1.6}
-.btn{display:inline-block;padding:10px 22px;border-radius:var(--border-radius-lg);cursor:pointer;font-size:14px;font-weight:500;border:none;transition:transform 0.1s,opacity 0.1s}
-.btn:active{transform:scale(0.97)}
-.btn-white{background:#fff;color:#1B4FD8}
-.btn-white:hover{opacity:0.9}
-.btn-primary{background:#1B4FD8;color:#fff}
-.btn-primary:hover{background:#1338A8}
-.btn-outline{background:none;border:1.5px solid var(--color-border-secondary);color:var(--color-text-primary)}
-.btn-outline:hover{background:var(--color-background-secondary)}
-.section{padding:2.5rem 1.5rem;max-width:900px;margin:0 auto}
-.section-title{font-size:22px;font-weight:500;margin-bottom:0.4rem}
-.section-sub{color:var(--color-text-secondary);font-size:14px;margin-bottom:2rem;line-height:1.6}
-.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem}
-.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
-.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
-.icon-box{width:40px;height:40px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:0.75rem}
-.ib-blue{background:#EEF2FF}
-.ib-teal{background:#ECFDF5}
-.ib-amber{background:#FFFBEB}
-.ib-pink{background:#FDF2F8}
-.card h3{font-size:15px;font-weight:500;margin-bottom:0.4rem}
-.card p{font-size:13px;color:var(--color-text-secondary);line-height:1.5}
-.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500}
-.badge-blue{background:#EEF2FF;color:#1B4FD8}
-.badge-green{background:#ECFDF5;color:#059669}
-.badge-amber{background:#FFFBEB;color:#d97706}
-.tag-free{background:#ECFDF5;color:#059669;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500}
-.tag-pro{background:#EEF2FF;color:#1B4FD8;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500}
-hr.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:2rem 0}
-.quiz-q{margin-bottom:1.5rem}
-.quiz-q .qtext{font-size:15px;font-weight:500;margin-bottom:0.75rem;line-height:1.4}
-.quiz-opt{display:flex;flex-direction:column;gap:6px}
-.quiz-opt label{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);cursor:pointer;font-size:14px;transition:background 0.1s}
-.quiz-opt label:hover{background:var(--color-background-secondary)}
-.quiz-opt input[type=radio]{accent-color:#1B4FD8}
-.result-box{border-radius:var(--border-radius-lg);padding:1.5rem;text-align:center;margin-top:1.5rem}
-.progress-bar{height:6px;background:var(--color-border-tertiary);border-radius:3px;margin-bottom:0.5rem;overflow:hidden}
-.progress-fill{height:100%;background:#1B4FD8;border-radius:3px;transition:width 0.3s}
-.step-indicator{font-size:13px;color:var(--color-text-secondary);margin-bottom:1.5rem}
-.slide-nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem;gap:1rem}
-.slide-content{min-height:200px}
-.vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.75rem}
-.vocab-item{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:0.75rem 1rem}
-.vocab-term{font-size:14px;font-weight:500;color:#1B4FD8;margin-bottom:2px}
-.vocab-def{font-size:13px;color:var(--color-text-secondary);line-height:1.4}
-.vocab-ex{font-size:12px;color:var(--color-text-secondary);font-style:italic;margin-top:4px;line-height:1.3}
-.pricing-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.5rem;position:relative}
-.pricing-card.featured{border:2px solid #1B4FD8}
-.pricing-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#1B4FD8;color:#fff;font-size:12px;padding:3px 14px;border-radius:20px;font-weight:500;white-space:nowrap}
-.price-amt{font-size:28px;font-weight:500;color:var(--color-text-primary)}
-.price-amt span{font-size:14px;font-weight:400;color:var(--color-text-secondary)}
-.feature-list{list-style:none;margin:1rem 0;display:flex;flex-direction:column;gap:6px}
-.feature-list li{font-size:13px;color:var(--color-text-secondary);display:flex;gap:6px;align-items:flex-start}
-.feature-list li::before{content:"✓";color:#059669;font-size:13px;flex-shrink:0;margin-top:1px}
-.feature-list li.no::before{content:"✗";color:#d97706}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:1rem 0}
-.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:var(--border-radius-md);font-size:13px;cursor:pointer;border:0.5px solid transparent;transition:all 0.1s}
-.cal-day:hover:not(.empty):not(.past){background:var(--color-background-secondary);border-color:var(--color-border-tertiary)}
-.cal-day.selected{background:#1B4FD8;color:#fff}
-.cal-day.past{color:var(--color-text-secondary);opacity:0.4;cursor:default}
-.cal-day.empty{cursor:default}
-.cal-day.available{background:var(--color-background-secondary)}
-.cal-hdr{font-size:11px;font-weight:500;color:var(--color-text-secondary);display:flex;align-items:center;justify-content:center;padding-bottom:4px}
-.time-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px;margin:1rem 0}
-.time-slot{padding:6px 10px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:13px;cursor:pointer;text-align:center;transition:all 0.1s;background:var(--color-background-primary)}
-.time-slot:hover{border-color:#1B4FD8;color:#1B4FD8}
-.time-slot.selected{background:#1B4FD8;color:#fff;border-color:#1B4FD8}
-.email-example{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;font-size:13px;line-height:1.7;border-left:3px solid #1B4FD8}
-.email-example .label{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.5rem}
-.correct{background:#ECFDF5;border-color:#059669;color:#059669}
-.wrong{background:#FEF2F2;border-color:#EF4444;color:#EF4444}
-.tab-bar{display:flex;gap:4px;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:1.5rem;overflow-x:auto;padding-bottom:-1px}
-.tab-bar button{padding:8px 14px;border:none;background:none;cursor:pointer;font-size:13px;color:var(--color-text-secondary);border-bottom:2px solid transparent;white-space:nowrap;transition:all 0.1s}
-.tab-bar button.active{color:#1B4FD8;border-bottom-color:#1B4FD8}
-.service-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;display:flex;flex-direction:column;gap:8px}
-.service-card h3{font-size:15px;font-weight:500}
-.service-card p{font-size:13px;color:var(--color-text-secondary);line-height:1.5;flex:1}
-.notif{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:0.75rem 1rem;font-size:13px;color:var(--color-text-secondary);margin-top:1rem}
-.footer{background:var(--color-background-secondary);border-top:0.5px solid var(--color-border-tertiary);padding:1.5rem;text-align:center;font-size:13px;color:var(--color-text-secondary);margin-top:2rem}
-.wa-float {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: #25D366;
-  color: white;
-  width: 60px;
-  height: 60px;
-  border-radius: 60px;
+/* ===================== RESET & BASE ===================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #1A3FAA;
+  --primary-dark: #122D87;
+  --primary-light: #EEF3FF;
+  --accent: #F59E0B;
+  --accent-light: #FEF3C7;
+  --teal: #0D9488;
+  --teal-light: #CCFBF1;
+  --rose: #E11D48;
+  --rose-light: #FFE4E6;
+  --green: #059669;
+  --green-light: #D1FAE5;
+  --text: #0F172A;
+  --text-2: #475569;
+  --text-3: #94A3B8;
+  --border: #E2E8F0;
+  --border-2: #CBD5E1;
+  --bg: #F8FAFF;
+  --bg-2: #F1F5FE;
+  --white: #FFFFFF;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(26,63,170,0.08);
+  --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.08), 0 12px 32px rgba(26,63,170,0.15);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-lg: 20px;
+  --font: 'Sora', system-ui, sans-serif;
+  --font-ar: 'IBM Plex Sans Arabic', 'Sora', system-ui, sans-serif;
+  --nav-h: 68px;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--white);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+[dir="rtl"] body, [dir="rtl"] * {
+  font-family: var(--font-ar);
+}
+
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+/* ===================== NAVBAR ===================== */
+nav {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(226,232,240,0.8);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-h);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  gap: 1rem;
+  transition: box-shadow 0.3s;
+}
+
+nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
+
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.logo-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--primary) 0%, #3B6EF8 100%);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 16px;
+  box-shadow: 0 2px 8px rgba(26,63,170,0.3);
+}
+
+.logo-text { color: var(--text); }
+.logo-text span { color: var(--primary); }
+
+.nav-links {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-links::-webkit-scrollbar { display: none; }
+
+.nav-links button {
+  background: none;
+  border: none;
+  padding: 7px 13px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-2);
+  transition: all 0.18s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.nav-links button:hover { background: var(--bg-2); color: var(--primary); }
+.nav-links button.active { background: var(--primary-light); color: var(--primary); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.lang-switcher {
+  display: flex;
+  background: var(--bg-2);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+  border: 1px solid var(--border);
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-2);
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.lang-btn.active {
+  background: var(--white);
+  color: var(--primary);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.nav-cta {
+  background: var(--primary);
+  color: white !important;
+  border: none;
+  padding: 9px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+
+.nav-cta:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,63,170,0.3); }
+
+/* ===================== PAGES ===================== */
+.page { display: none; padding-bottom: 4rem; animation: pageFade 0.35s ease; }
+.page.active { display: block; }
+
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===================== HERO ===================== */
+.hero {
+  background: linear-gradient(135deg, #0F2475 0%, #1A3FAA 45%, #2563EB 80%, #0EA5E9 100%);
+  min-height: 600px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
-  transition: transform 0.2s, box-shadow 0.2s;
-  z-index: 1000;
+  padding: 5rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.25;
+}
+
+.hero-orb-1 { width: 400px; height: 400px; background: #60A5FA; top: -100px; right: -100px; }
+.hero-orb-2 { width: 300px; height: 300px; background: #A78BFA; bottom: -80px; left: -60px; }
+.hero-orb-3 { width: 200px; height: 200px; background: #34D399; top: 50%; right: 20%; }
+
+.hero-inner {
+  max-width: 1100px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content { color: white; }
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(8px);
+  border-radius: 50px;
+  padding: 6px 16px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.95);
+  margin-bottom: 1.5rem;
+  animation: slideDown 0.6s ease both;
+}
+
+.hero-badge-dot {
+  width: 8px; height: 8px;
+  background: #4ADE80;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+.hero h1 {
+  font-size: clamp(28px, 4.5vw, 50px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.5px;
+  animation: slideDown 0.65s 0.1s ease both;
+}
+
+.hero h1 .highlight {
+  color: #FBD34C;
+  position: relative;
+}
+
+.hero p {
+  font-size: clamp(14px, 1.8vw, 17px);
+  opacity: 0.88;
+  line-height: 1.75;
+  margin-bottom: 2.25rem;
+  max-width: 480px;
+  animation: slideDown 0.65s 0.2s ease both;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  animation: slideDown 0.65s 0.3s ease both;
+}
+
+.btn-hero-primary {
+  background: white;
+  color: var(--primary);
+  border: none;
+  padding: 13px 28px;
+  border-radius: 10px;
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+.btn-hero-secondary {
+  background: rgba(255,255,255,0.12);
+  color: white;
+  border: 1.5px solid rgba(255,255,255,0.35);
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+  backdrop-filter: blur(4px);
+}
+
+.btn-hero-secondary:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.6); }
+
+.hero-stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  animation: slideDown 0.65s 0.4s ease both;
+}
+
+.hero-stat-num {
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+}
+
+.hero-stat-label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 1px;
+}
+
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: slideUp 0.7s 0.2s ease both;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-card-stack {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+}
+
+.hero-card-main {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 20px;
+  padding: 2rem;
+  color: white;
+}
+
+.hero-card-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.65);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.hero-lesson-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.hero-lesson-bar {
+  height: 5px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.hero-lesson-fill {
+  width: 65%;
+  height: 100%;
+  background: linear-gradient(90deg, #4ADE80, #22D3EE);
+  border-radius: 5px;
+}
+
+.hero-vocab-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hero-vocab-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.hero-vocab-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.hero-card-float {
+  position: absolute;
+  background: white;
+  border-radius: 14px;
+  padding: 12px 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  font-size: 13px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.hero-card-float-1 {
+  bottom: -20px;
+  left: -30px;
+  animation: float1 4s ease-in-out infinite;
+}
+
+.hero-card-float-2 {
+  top: -16px;
+  right: -20px;
+  animation: float2 4.5s ease-in-out infinite;
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.float-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+
+/* ===================== SECTION LAYOUT ===================== */
+.section { padding: 3rem 2rem; max-width: 1080px; margin: 0 auto; }
+.section-sm { padding: 2rem 2rem; max-width: 1080px; margin: 0 auto; }
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+  background: var(--primary-light);
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+
+.section-title {
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.6rem;
+  line-height: 1.25;
+}
+
+.section-sub {
+  color: var(--text-2);
+  font-size: 15.5px;
+  max-width: 560px;
+  line-height: 1.75;
+  margin-bottom: 2.5rem;
+}
+
+/* Section Backgrounds */
+.section-bg-subtle {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.section-bg-blue {
+  background: linear-gradient(135deg, #EEF3FF 0%, #F0F7FF 100%);
+  border-top: 1px solid #D9E8FF;
+  border-bottom: 1px solid #D9E8FF;
+}
+
+.section-bg-dark {
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  color: white;
+}
+
+/* ===================== CARDS ===================== */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--card-shadow-hover);
+  border-color: rgba(26,63,170,0.15);
+}
+
+.card h3 {
+  font-size: 15.5px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.card p {
+  font-size: 13.5px;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.25rem; }
+
+.icon-box {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+.ib-blue { background: var(--primary-light); }
+.ib-teal { background: var(--teal-light); }
+.ib-amber { background: var(--accent-light); }
+.ib-pink { background: var(--rose-light); }
+.ib-green { background: var(--green-light); }
+
+/* ===================== BUTTONS ===================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 22px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  font-family: inherit;
+  transition: all 0.18s;
   text-decoration: none;
-  border: 2px solid white;
 }
-.wa-float:hover {
-  transform: scale(1.08);
-  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.4);
+
+.btn:active { transform: scale(0.97); }
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 2px 8px rgba(26,63,170,0.25);
 }
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 4px 16px rgba(26,63,170,0.35);
+  transform: translateY(-1px);
+}
+
+.btn-white { background: white; color: var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.btn-white:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.15); transform: translateY(-1px); }
+
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--border-2);
+  color: var(--text);
+}
+
+.btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+
+.btn-ghost {
+  background: transparent;
+  border: none;
+  color: var(--text-2);
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.btn-ghost:hover { color: var(--primary); background: var(--primary-light); }
+
+.btn-sm { padding: 7px 16px; font-size: 13px; }
+
+/* ===================== BADGES ===================== */
+.badge {
+  display: inline-block;
+  padding: 3px 11px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-blue { background: var(--primary-light); color: var(--primary); }
+.badge-green { background: var(--green-light); color: var(--green); }
+.badge-amber { background: var(--accent-light); color: #92400E; }
+.badge-teal { background: var(--teal-light); color: var(--teal); }
+
+.tag-free { background: var(--green-light); color: var(--green); font-size: 11.5px; padding: 3px 10px; border-radius: 50px; font-weight: 600; }
+.tag-pro { background: var(--primary-light); color: var(--primary); font-size: 11.5px; padding: 3px 10px; border-radius: 50px; font-weight: 600; }
+
+/* ===================== DIVIDER ===================== */
+hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+/* ===================== PROGRESS ===================== */
+.progress-bar { height: 7px; background: var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 0.5rem; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #3B6EF8); border-radius: 10px; transition: width 0.4s ease; }
+.step-indicator { font-size: 13px; color: var(--text-2); margin-bottom: 1.5rem; }
+
+/* ===================== QUIZ ===================== */
+.quiz-q { margin-bottom: 2rem; }
+.quiz-q .qtext { font-size: 15px; font-weight: 600; margin-bottom: 1rem; line-height: 1.5; }
+.quiz-opt { display: flex; flex-direction: column; gap: 8px; }
+
+.quiz-opt label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.15s;
+  color: var(--text);
+  background: white;
+}
+
+.quiz-opt label:hover { border-color: var(--primary); background: var(--primary-light); }
+.quiz-opt input[type=radio] { accent-color: var(--primary); width: 16px; height: 16px; }
+
+.result-box {
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+  margin-top: 1.5rem;
+  background: linear-gradient(135deg, #EEF3FF, #F0F7FF);
+  border: 1px solid #D9E8FF;
+}
+
+/* ===================== VOCAB ===================== */
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; }
+
+.vocab-item {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  transition: all 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.vocab-item:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(26,63,170,0.1); }
+.vocab-term { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+.vocab-def { font-size: 13px; color: var(--text-2); line-height: 1.5; }
+.vocab-ex { font-size: 12px; color: var(--text-3); font-style: italic; margin-top: 6px; line-height: 1.4; }
+
+/* ===================== TAB BAR ===================== */
+.tab-bar {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.75rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 0;
+}
+
+.tab-bar::-webkit-scrollbar { display: none; }
+
+.tab-bar button {
+  padding: 9px 18px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-2);
+  border-bottom: 2.5px solid transparent;
+  white-space: nowrap;
+  transition: all 0.15s;
+  font-family: inherit;
+  margin-bottom: -1px;
+}
+
+.tab-bar button.active { color: var(--primary); border-bottom-color: var(--primary); }
+.tab-bar button:hover:not(.active) { color: var(--text); background: var(--bg); }
+
+/* ===================== PRICING ===================== */
+.pricing-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  position: relative;
+  box-shadow: var(--card-shadow);
+  transition: all 0.22s;
+}
+
+.pricing-card:hover { transform: translateY(-4px); box-shadow: var(--card-shadow-hover); }
+
+.pricing-card.featured {
+  border: 2px solid var(--primary);
+  background: linear-gradient(135deg, #F0F5FF 0%, #EEF3FF 100%);
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--primary), #3B6EF8);
+  color: white;
+  font-size: 11.5px;
+  padding: 4px 16px;
+  border-radius: 50px;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(26,63,170,0.3);
+}
+
+.price-plan-label { font-size: 13px; color: var(--text-2); font-weight: 600; margin-bottom: 4px; }
+.price-amt { font-size: 32px; font-weight: 700; color: var(--text); letter-spacing: -1px; }
+.price-amt span { font-size: 15px; font-weight: 400; color: var(--text-2); }
+
+.feature-list { list-style: none; margin: 1.25rem 0; display: flex; flex-direction: column; gap: 9px; }
+
+.feature-list li {
+  font-size: 13.5px;
+  color: var(--text-2);
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+
+.feature-list li::before { content: "✓"; color: var(--green); font-size: 13px; flex-shrink: 0; margin-top: 1px; font-weight: 700; }
+.feature-list li.no::before { content: "✗"; color: var(--text-3); }
+.feature-list li.no { color: var(--text-3); }
+
+/* ===================== CALENDAR ===================== */
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin: 1rem 0; }
+
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: all 0.15s;
+  color: var(--text);
+}
+
+.cal-day:hover:not(.empty):not(.past) { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
+.cal-day.selected { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 2px 8px rgba(26,63,170,0.3); }
+.cal-day.past { color: var(--text-3); opacity: 0.5; cursor: default; }
+.cal-day.empty { cursor: default; }
+.cal-day.available { background: var(--bg); }
+.cal-hdr { font-size: 11.5px; font-weight: 600; color: var(--text-2); display: flex; align-items: center; justify-content: center; padding-bottom: 8px; }
+
+.time-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; margin: 1rem 0; }
+
+.time-slot {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+  background: white;
+  color: var(--text);
+}
+
+.time-slot:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+.time-slot.selected { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 2px 8px rgba(26,63,170,0.25); }
+
+/* ===================== SERVICES ===================== */
+.service-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.22s;
+}
+
+.service-card:hover { transform: translateY(-3px); box-shadow: var(--card-shadow-hover); border-color: rgba(26,63,170,0.15); }
+.service-card h3 { font-size: 15.5px; font-weight: 700; }
+.service-card p { font-size: 13.5px; color: var(--text-2); line-height: 1.65; flex: 1; }
+.service-price { font-size: 14px; color: var(--primary); font-weight: 700; }
+
+/* ===================== EMAIL EXAMPLE ===================== */
+.email-example {
+  background: var(--bg-2);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  font-size: 13.5px;
+  line-height: 1.8;
+  border-left: 4px solid var(--primary);
+  color: var(--text);
+}
+
+.email-example .label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+}
+
+.correct { background: #ECFDF5; border-color: #059669; color: #065F46; }
+.wrong { background: #FEF2F2; border-color: #EF4444; color: #991B1B; }
+
+/* ===================== NOTIF ===================== */
+.notif {
+  background: var(--primary-light);
+  border: 1px solid rgba(26,63,170,0.15);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13.5px;
+  color: var(--primary);
+  margin-top: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* ===================== SLIDE NAV ===================== */
+.slide-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; gap: 1rem; }
+.slide-content { min-height: 200px; }
+
+/* ===================== FOOTER ===================== */
+.footer {
+  background: #0F172A;
+  color: rgba(255,255,255,0.5);
+  padding: 2rem;
+  text-align: center;
+  font-size: 13px;
+  margin-top: 3rem;
+}
+
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-logo { color: white; font-size: 18px; font-weight: 700; }
+.footer-logo span { color: #60A5FA; }
+
+/* ===================== WHATSAPP FLOAT ===================== */
+.wa-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: #25D366;
+  color: white;
+  width: 60px; height: 60px;
+  border-radius: 60px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  z-index: 999;
+  text-decoration: none;
+  border: 3px solid white;
+}
+
+.wa-float:hover { transform: scale(1.1); box-shadow: 0 10px 32px rgba(37,211,102,0.5); }
+
+[dir="rtl"] .wa-float { right: auto; left: 28px; }
+
+/* ===================== FORM STYLES ===================== */
+input[type=text], input[type=email], textarea, select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 9px;
+  border: 1.5px solid var(--border);
+  font-size: 14px;
+  font-family: inherit;
+  background: white;
+  color: var(--text);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+
+input[type=text]:focus, input[type=email]:focus, textarea:focus, select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26,63,170,0.12);
+}
+
+label.form-label { font-size: 13px; font-weight: 600; color: var(--text-2); display: block; margin-bottom: 5px; }
+textarea { height: 96px; resize: vertical; }
+
+/* ===================== COURSE CARD ===================== */
+.course-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: all 0.22s;
+  cursor: pointer;
+}
+
+.course-card:hover { transform: translateY(-4px); box-shadow: var(--card-shadow-hover); }
+
+.course-card-top {
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+
+.course-card-top-0 { background: linear-gradient(135deg, #EEF3FF, #DBEAFE); }
+.course-card-top-1 { background: linear-gradient(135deg, #CCFBF1, #D1FAE5); }
+.course-card-top-2 { background: linear-gradient(135deg, #FEF3C7, #FFE4E6); }
+
+.course-card-body { padding: 1.25rem; }
+
+/* ===================== FEATURES STRIP ===================== */
+.features-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: 1.25rem 2rem;
+  background: white;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex-wrap: wrap;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-2);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.feature-item i { color: var(--primary); font-size: 14px; }
+
+/* ===================== RTL SUPPORT ===================== */
+[dir="rtl"] nav { padding: 0 2rem; }
+[dir="rtl"] .hero-inner { direction: rtl; }
+[dir="rtl"] .email-example { border-left: none; border-right: 4px solid var(--primary); }
+[dir="rtl"] .hero-card-float-1 { left: auto; right: -30px; }
+[dir="rtl"] .hero-card-float-2 { right: auto; left: -20px; }
+[dir="rtl"] .notif { }
+
+/* ===================== TESTIMONIAL ===================== */
+.testimonial-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+}
+
+.testimonial-text { font-size: 14px; line-height: 1.75; color: var(--text-2); margin-bottom: 1rem; font-style: italic; }
+.testimonial-author { display: flex; align-items: center; gap: 10px; }
+.testimonial-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.testimonial-name { font-size: 14px; font-weight: 600; }
+.testimonial-role { font-size: 12px; color: var(--text-2); }
+
+/* ===================== BACK BUTTON ===================== */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-2);
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.back-btn:hover { color: var(--primary); background: var(--primary-light); }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
+  :root { --nav-h: 60px; }
+  
+  nav { padding: 0 1rem; }
+  .nav-links { display: none; }
+  .nav-right { gap: 8px; }
+  
+  .hero { min-height: auto; padding: 3rem 1.25rem; }
+  .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
+  .hero-btns { justify-content: center; }
+  .hero p { margin: 0 auto 2rem; }
+  .hero-stats { justify-content: center; }
+  .hero-visual { display: none; }
+  
+  .section, .section-sm { padding: 2rem 1.25rem; }
+  .grid-3, .grid-2, .grid-4 { grid-template-columns: 1fr; }
+  
+  .features-strip { gap: 1.5rem; }
+  .hero-stat-num { font-size: 18px; }
+}
+
+/* Mobile nav toggle */
+.nav-mobile-menu {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-2);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 6px;
+}
+
+@media (max-width: 768px) {
+  .nav-mobile-menu { display: flex; }
+}
+
+.mobile-nav-panel {
+  display: none;
+  position: fixed;
+  top: var(--nav-h);
+  left: 0; right: 0;
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 1rem;
+  z-index: 999;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-nav-panel.open { display: flex; }
+
+.mobile-nav-panel button {
+  background: none;
+  border: none;
+  padding: 11px 16px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text-2);
+  text-align: left;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.mobile-nav-panel button:hover, .mobile-nav-panel button.active {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+[dir="rtl"] .mobile-nav-panel button { text-align: right; }
+
+/* ===================== TOOLTIP HELPER ===================== */
+.payment-info {
+  background: linear-gradient(135deg, #F0F5FF, #EEF3FF);
+  border: 1px solid #C7D8FF;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  font-size: 13.5px;
+  color: var(--text-2);
+  margin-top: 1rem;
+}
+
+/* ===================== COACH CARD ===================== */
+.coach-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 2rem;
+}
+
+.coach-avatar {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), #3B6EF8);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+  color: white;
+}
+
+.coach-name { font-size: 16px; font-weight: 700; margin-bottom: 3px; }
+.coach-role { font-size: 13px; color: var(--text-2); margin-bottom: 8px; }
+.coach-stars { color: var(--accent); font-size: 14px; }
+
+/* ===================== PAGE HEADER ===================== */
+.page-header {
+  background: linear-gradient(135deg, #EEF3FF 0%, #F0F7FF 100%);
+  border-bottom: 1px solid #D9E8FF;
+  padding: 3rem 2rem;
+}
+
+.page-header-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.page-header h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+.page-header p { font-size: 15px; color: var(--text-2); max-width: 520px; }
 </style>
+</head>
+<body>
 
-<h2 class="sr-only">BizTalk – Business English training platform for Algerian professionals</h2>
+<!-- ===================== NAVBAR ===================== -->
+<nav id="mainNav">
+  <div class="logo" onclick="showPage('home', document.querySelector('.nav-links button'))">
+    <div class="logo-icon"><i class="fas fa-briefcase"></i></div>
+    <div class="logo-text">Biz<span>Talk</span></div>
+  </div>
 
-<nav>
-  <div class="logo">Biz<span>Talk</span></div>
   <div class="nav-links" id="navLinks">
-    <button class="active" onclick="showPage('home',this)">Home</button>
-    <button onclick="showPage('test',this)">Placement Test</button>
-    <button onclick="showPage('courses',this)">Courses</button>
-    <button onclick="showPage('coaching',this)">Coaching</button>
-    <button onclick="showPage('services',this)">Services</button>
-    <button onclick="showPage('vocab',this)">Vocabulary</button>
-    <button onclick="showPage('pricing',this)">Pricing</button>
+    <button class="active" onclick="showPage('home',this)" data-en="Home" data-ar="الرئيسية">Home</button>
+    <button onclick="showPage('test',this)" data-en="Placement Test" data-ar="اختبار المستوى">Placement Test</button>
+    <button onclick="showPage('courses',this)" data-en="Courses" data-ar="الدورات">Courses</button>
+    <button onclick="showPage('coaching',this)" data-en="Coaching" data-ar="التدريب">Coaching</button>
+    <button onclick="showPage('services',this)" data-en="Services" data-ar="الخدمات">Services</button>
+    <button onclick="showPage('vocab',this)" data-en="Vocabulary" data-ar="المفردات">Vocabulary</button>
+    <button onclick="showPage('pricing',this)" data-en="Pricing" data-ar="الأسعار">Pricing</button>
+  </div>
+
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btnAR" onclick="setLang('ar')">AR</button>
+    </div>
+    <button class="nav-cta" onclick="showPage('test', document.querySelectorAll('#navLinks button')[1])" 
+      data-en="Start Free Test" data-ar="ابدأ الاختبار">Start Free Test</button>
+    <button class="nav-mobile-menu" id="mobileMenuToggle" onclick="toggleMobileMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
   </div>
 </nav>
 
-<!-- HOME -->
-<div class="page active" id="page-home">
-  <div class="hero">
-    <h1>Business English for<br>Algerian Professionals</h1>
-    <p>Master professional communication, corporate writing, and Business English to unlock career opportunities in local and international companies.</p>
-    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn-white" onclick="showPage('test',document.querySelectorAll('.nav-links button')[1])">Take Placement Test</button>
-      <button class="btn" style="background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.4)" onclick="showPage('courses',document.querySelectorAll('.nav-links button')[2])">Explore Courses</button>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2 class="section-title">Why Business English matters</h2>
-    <p class="section-sub">In today's competitive Algerian market, strong Business English skills help you communicate confidently with international partners, write professional emails, and advance your career.</p>
-    <div class="grid-3">
-      <div class="card"><div class="icon-box ib-blue">💼</div><h3>Corporate Communication</h3><p>Write clear professional emails, reports, and proposals that impress colleagues and clients.</p></div>
-      <div class="card"><div class="icon-box ib-teal">📈</div><h3>Career Advancement</h3><p>Stand out in interviews and meetings with polished Business English and professional vocabulary.</p></div>
-      <div class="card"><div class="icon-box ib-amber">🌍</div><h3>International Reach</h3><p>Communicate effectively with multinational companies operating in Algeria and across Africa.</p></div>
-    </div>
-  </div>
-
-  <hr class="divider" style="max-width:900px;margin:0 auto 0">
-  <div class="section">
-    <h2 class="section-title">What BizTalk offers</h2>
-    <p class="section-sub">A complete platform built for professionals in Algeria — from beginner to advanced.</p>
-    <div class="grid-2">
-      <div class="card" style="display:flex;gap:12px;align-items:flex-start">
-        <div class="icon-box ib-blue" style="flex-shrink:0">📚</div>
-        <div><h3>Structured courses</h3><p>Slide-based lessons covering emails, reports, meetings, and negotiations. Each lesson ends with a quiz.</p></div>
-      </div>
-      <div class="card" style="display:flex;gap:12px;align-items:flex-start">
-        <div class="icon-box ib-teal" style="flex-shrink:0">🎯</div>
-        <div><h3>1-on-1 coaching</h3><p>Book private sessions with a Business English coach via our calendar system.</p></div>
-      </div>
-      <div class="card" style="display:flex;gap:12px;align-items:flex-start">
-        <div class="icon-box ib-pink" style="flex-shrink:0">✍️</div>
-        <div><h3>Business writing services</h3><p>Get professional emails, reports, and documents written or translated by experts.</p></div>
-      </div>
-      <div class="card" style="display:flex;gap:12px;align-items:flex-start">
-        <div class="icon-box ib-amber" style="flex-shrink:0">📖</div>
-        <div><h3>Business vocabulary</h3><p>Master the most important Business English terms used in Algerian and international companies.</p></div>
-      </div>
-    </div>
-  </div>
-
-  <hr class="divider" style="max-width:900px;margin:0 auto 0">
-  <div class="section" style="text-align:center">
-    <h2 class="section-title">Not sure where to start?</h2>
-    <p class="section-sub">Take our free 10-question placement test and discover your Business English level in 5 minutes.</p>
-    <button class="btn btn-primary" onclick="showPage('test',document.querySelectorAll('.nav-links button')[1])">Start free placement test →</button>
-  </div>
+<!-- Mobile Nav Panel -->
+<div class="mobile-nav-panel" id="mobileNav">
+  <button class="active" onclick="showPage('home',this);closeMobileMenu()" data-en="Home" data-ar="الرئيسية">Home</button>
+  <button onclick="showPage('test',this);closeMobileMenu()" data-en="Placement Test" data-ar="اختبار المستوى">Placement Test</button>
+  <button onclick="showPage('courses',this);closeMobileMenu()" data-en="Courses" data-ar="الدورات">Courses</button>
+  <button onclick="showPage('coaching',this);closeMobileMenu()" data-en="Coaching" data-ar="التدريب">Coaching</button>
+  <button onclick="showPage('services',this);closeMobileMenu()" data-en="Services" data-ar="الخدمات">Services</button>
+  <button onclick="showPage('vocab',this);closeMobileMenu()" data-en="Vocabulary" data-ar="المفردات">Vocabulary</button>
+  <button onclick="showPage('pricing',this);closeMobileMenu()" data-en="Pricing" data-ar="الأسعار">Pricing</button>
 </div>
 
-<!-- PLACEMENT TEST -->
+<!-- ===================== HOME PAGE ===================== -->
+<div class="page active" id="page-home">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          <span data-en="Built for Algerian professionals" data-ar="مصمم للمهنيين الجزائريين">Built for Algerian professionals</span>
+        </div>
+        <h1>
+          <span data-en="Business English for" data-ar="الإنجليزية التجارية">Business English for</span><br>
+          <span class="highlight" data-en="Algerian Professionals" data-ar="للمهنيين الجزائريين">Algerian Professionals</span>
+        </h1>
+        <p data-en="Master professional communication, corporate writing, and Business English to unlock career opportunities in local and international companies."
+           data-ar="أتقن التواصل المهني والكتابة التجارية واللغة الإنجليزية للأعمال لفتح فرص وظيفية في الشركات المحلية والدولية.">
+          Master professional communication, corporate writing, and Business English to unlock career opportunities in local and international companies.
+        </p>
+        <div class="hero-btns">
+          <button class="btn-hero-primary" onclick="showPage('test', document.querySelectorAll('#navLinks button')[1])">
+            <i class="fas fa-bolt"></i>
+            <span data-en="Take Placement Test" data-ar="ابدأ اختبار المستوى">Take Placement Test</span>
+          </button>
+          <button class="btn-hero-secondary" onclick="showPage('courses', document.querySelectorAll('#navLinks button')[2])">
+            <span data-en="Explore Courses" data-ar="استكشف الدورات">Explore Courses</span>
+          </button>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">3 +</div>
+            <div class="hero-stat-label" data-en="Courses" data-ar="دورات">Courses</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,0.2)"></div>
+          <div>
+            <div class="hero-stat-num">4</div>
+            <div class="hero-stat-label" data-en="Vocab Categories" data-ar="فئات مفردات">Vocab Categories</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,0.2)"></div>
+          <div>
+            <div class="hero-stat-num">100%</div>
+            <div class="hero-stat-label" data-en="Free to start" data-ar="مجاني للبدء">Free to start</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card-stack">
+          <div class="hero-card-main">
+            <div class="hero-card-label" data-en="Current Lesson" data-ar="الدرس الحالي">Current Lesson</div>
+            <div class="hero-lesson-title" data-en="Professional Email Writing" data-ar="كتابة البريد الإلكتروني المهني">Professional Email Writing</div>
+            <div class="hero-lesson-bar"><div class="hero-lesson-fill"></div></div>
+            <div class="hero-vocab-list">
+              <div class="hero-vocab-item">
+                <div class="hero-vocab-dot" style="background:#4ADE80"></div>
+                <span>"Best regards"</span>
+              </div>
+              <div class="hero-vocab-item">
+                <div class="hero-vocab-dot" style="background:#60A5FA"></div>
+                <span>"At your earliest convenience"</span>
+              </div>
+              <div class="hero-vocab-item">
+                <div class="hero-vocab-dot" style="background:#F472B6"></div>
+                <span>"I am writing to…"</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-card-float hero-card-float-1">
+            <div class="float-icon" style="background:#D1FAE5">✓</div>
+            <div>
+              <div style="font-weight:700;font-size:13px">Quiz passed!</div>
+              <div style="font-size:11px;color:#666">3/3 correct</div>
+            </div>
+          </div>
+
+          <div class="hero-card-float hero-card-float-2">
+            <div class="float-icon" style="background:#FEF3C7">📅</div>
+            <div>
+              <div style="font-weight:700;font-size:13px" data-en="Session booked" data-ar="تم حجز الجلسة">Session booked</div>
+              <div style="font-size:11px;color:#666">May 14 · 10:00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trust Strip -->
+  <div class="features-strip">
+    <div class="feature-item"><i class="fas fa-check-circle"></i><span data-en="Free placement test" data-ar="اختبار مستوى مجاني">Free placement test</span></div>
+    <div class="feature-item"><i class="fas fa-video"></i><span data-en="1-on-1 video coaching" data-ar="تدريب فردي بالفيديو">1-on-1 video coaching</span></div>
+    <div class="feature-item"><i class="fas fa-language"></i><span data-en="Arabic & French support" data-ar="دعم العربية والفرنسية">Arabic & French support</span></div>
+    <div class="feature-item"><i class="fas fa-mobile-alt"></i><span data-en="Works on all devices" data-ar="يعمل على جميع الأجهزة">Works on all devices</span></div>
+    <div class="feature-item"><i class="fab fa-whatsapp" style="color:#25D366"></i><span data-en="WhatsApp support" data-ar="دعم واتساب">WhatsApp support</span></div>
+  </div>
+
+  <!-- Why Section -->
+  <div class="section">
+    <div class="section-eyebrow"><i class="fas fa-star"></i> <span data-en="Why BizTalk" data-ar="لماذا بيزتوك">Why BizTalk</span></div>
+    <h2 class="section-title" data-en="Why Business English matters" data-ar="لماذا تهم لغة الأعمال الإنجليزية">Why Business English matters</h2>
+    <p class="section-sub" data-en="In today's competitive Algerian market, strong Business English skills help you communicate confidently with international partners, write professional emails, and advance your career."
+       data-ar="في سوق العمل الجزائري التنافسي اليوم، تساعدك مهارات الإنجليزية التجارية القوية على التواصل بثقة مع الشركاء الدوليين وكتابة رسائل بريد إلكتروني احترافية والتقدم في مسيرتك المهنية.">
+      In today's competitive Algerian market, strong Business English skills help you communicate confidently with international partners, write professional emails, and advance your career.
+    </p>
+    <div class="grid-3">
+      <div class="card">
+        <div class="icon-box ib-blue"><i class="fas fa-briefcase" style="color:var(--primary)"></i></div>
+        <h3 data-en="Corporate Communication" data-ar="التواصل المؤسسي">Corporate Communication</h3>
+        <p data-en="Write clear professional emails, reports, and proposals that impress colleagues and clients."
+           data-ar="اكتب رسائل بريد إلكتروني وتقارير ومقترحات مهنية واضحة تبهر الزملاء والعملاء.">Write clear professional emails, reports, and proposals that impress colleagues and clients.</p>
+      </div>
+      <div class="card">
+        <div class="icon-box ib-teal"><i class="fas fa-chart-line" style="color:var(--teal)"></i></div>
+        <h3 data-en="Career Advancement" data-ar="التطور الوظيفي">Career Advancement</h3>
+        <p data-en="Stand out in interviews and meetings with polished Business English and professional vocabulary."
+           data-ar="تميز في المقابلات والاجتماعات بإنجليزية تجارية مصقولة ومفردات مهنية.">Stand out in interviews and meetings with polished Business English and professional vocabulary.</p>
+      </div>
+      <div class="card">
+        <div class="icon-box ib-amber"><i class="fas fa-globe" style="color:#D97706"></i></div>
+        <h3 data-en="International Reach" data-ar="الوصول الدولي">International Reach</h3>
+        <p data-en="Communicate effectively with multinational companies operating in Algeria and across Africa."
+           data-ar="تواصل بفعالية مع الشركات متعددة الجنسيات العاملة في الجزائر وعبر أفريقيا.">Communicate effectively with multinational companies operating in Algeria and across Africa.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- What we offer -->
+  <div class="section-bg-subtle">
+    <div class="section">
+      <div class="section-eyebrow"><i class="fas fa-th"></i> <span data-en="Platform" data-ar="المنصة">Platform</span></div>
+      <h2 class="section-title" data-en="What BizTalk offers" data-ar="ما تقدمه بيزتوك">What BizTalk offers</h2>
+      <p class="section-sub" data-en="A complete platform built for professionals in Algeria — from beginner to advanced."
+         data-ar="منصة متكاملة مصممة للمهنيين في الجزائر — من المبتدئ إلى المتقدم.">A complete platform built for professionals in Algeria — from beginner to advanced.</p>
+      <div class="grid-2">
+        <div class="card" style="display:flex;gap:14px;align-items:flex-start">
+          <div class="icon-box ib-blue" style="margin-bottom:0"><i class="fas fa-book-open" style="color:var(--primary)"></i></div>
+          <div>
+            <h3 data-en="Structured courses" data-ar="دورات منظمة">Structured courses</h3>
+            <p data-en="Slide-based lessons covering emails, reports, meetings, and negotiations. Each lesson ends with a quiz."
+               data-ar="دروس مبنية على الشرائح تغطي رسائل البريد والتقارير والاجتماعات والمفاوضات. كل درس ينتهي باختبار.">Slide-based lessons covering emails, reports, meetings, and negotiations. Each lesson ends with a quiz.</p>
+          </div>
+        </div>
+        <div class="card" style="display:flex;gap:14px;align-items:flex-start">
+          <div class="icon-box ib-teal" style="margin-bottom:0"><i class="fas fa-user-tie" style="color:var(--teal)"></i></div>
+          <div>
+            <h3 data-en="1-on-1 coaching" data-ar="تدريب فردي">1-on-1 coaching</h3>
+            <p data-en="Book private sessions with a Business English coach via our calendar system."
+               data-ar="احجز جلسات خاصة مع مدرب الإنجليزية التجارية من خلال نظام التقويم لدينا.">Book private sessions with a Business English coach via our calendar system.</p>
+          </div>
+        </div>
+        <div class="card" style="display:flex;gap:14px;align-items:flex-start">
+          <div class="icon-box ib-pink" style="margin-bottom:0"><i class="fas fa-pen-nib" style="color:#E11D48"></i></div>
+          <div>
+            <h3 data-en="Business writing services" data-ar="خدمات الكتابة التجارية">Business writing services</h3>
+            <p data-en="Get professional emails, reports, and documents written or translated by experts."
+               data-ar="احصل على رسائل بريد إلكتروني وتقارير ووثائق مهنية مكتوبة أو مترجمة من قبل خبراء.">Get professional emails, reports, and documents written or translated by experts.</p>
+          </div>
+        </div>
+        <div class="card" style="display:flex;gap:14px;align-items:flex-start">
+          <div class="icon-box ib-amber" style="margin-bottom:0"><i class="fas fa-spell-check" style="color:#D97706"></i></div>
+          <div>
+            <h3 data-en="Business vocabulary" data-ar="المفردات التجارية">Business vocabulary</h3>
+            <p data-en="Master the most important Business English terms used in Algerian and international companies."
+               data-ar="أتقن أهم مصطلحات الإنجليزية التجارية المستخدمة في الشركات الجزائرية والدولية.">Master the most important Business English terms used in Algerian and international companies.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="section">
+    <div class="section-eyebrow"><i class="fas fa-quote-left"></i> <span data-en="Testimonials" data-ar="آراء المستخدمين">Testimonials</span></div>
+    <h2 class="section-title" data-en="What learners say" data-ar="ما يقوله المتعلمون">What learners say</h2>
+    <div class="grid-3">
+      <div class="testimonial-card">
+        <div style="color:var(--accent);font-size:13px;margin-bottom:0.75rem">★★★★★</div>
+        <div class="testimonial-text">"BizTalk helped me write professional emails to our French partners. My manager was impressed by the quality of my communication."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">👩</div>
+          <div><div class="testimonial-name">Amina B.</div><div class="testimonial-role">Finance Manager, Algiers</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div style="color:var(--accent);font-size:13px;margin-bottom:0.75rem">★★★★★</div>
+        <div class="testimonial-text">"The placement test immediately showed me what I needed to work on. The coaching sessions were excellent and very practical."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">👨</div>
+          <div><div class="testimonial-name">Karim M.</div><div class="testimonial-role">IT Consultant, Oran</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div style="color:var(--accent);font-size:13px;margin-bottom:0.75rem">★★★★☆</div>
+        <div class="testimonial-text">"The vocabulary section is fantastic. I now use Business English terms correctly in meetings and presentations with confidence."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">👩‍💼</div>
+          <div><div class="testimonial-name">Lynda K.</div><div class="testimonial-role">HR Officer, Constantine</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="section-bg-blue">
+    <div class="section" style="text-align:center">
+      <div style="font-size:40px;margin-bottom:1rem">🎯</div>
+      <h2 class="section-title" style="margin:0 auto 0.75rem" data-en="Not sure where to start?" data-ar="لا تعرف من أين تبدأ؟">Not sure where to start?</h2>
+      <p class="section-sub" style="margin:0 auto 2rem" data-en="Take our free 10-question placement test and discover your Business English level in 5 minutes."
+         data-ar="خذ اختبار التحديد المجاني المكون من 10 أسئلة واكتشف مستواك في الإنجليزية التجارية في 5 دقائق.">Take our free 10-question placement test and discover your Business English level in 5 minutes.</p>
+      <button class="btn btn-primary" style="font-size:15px;padding:14px 32px"
+              onclick="showPage('test', document.querySelectorAll('#navLinks button')[1])">
+        <i class="fas fa-bolt"></i>
+        <span data-en="Start free placement test" data-ar="ابدأ اختبار المستوى المجاني">Start free placement test</span>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===================== PLACEMENT TEST PAGE ===================== -->
 <div class="page" id="page-test">
-  <div class="section" style="max-width:680px">
-    <h2 class="section-title">Business English placement test</h2>
-    <p class="section-sub">Answer 8 questions to discover your level: Beginner, Intermediate, or Advanced.</p>
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="section-eyebrow"><i class="fas fa-clipboard-check"></i> <span data-en="Free Test" data-ar="اختبار مجاني">Free Test</span></div>
+      <h2 data-en="Business English Placement Test" data-ar="اختبار تحديد مستوى الإنجليزية التجارية">Business English Placement Test</h2>
+      <p data-en="Answer 8 questions to discover your level: Beginner, Intermediate, or Advanced."
+         data-ar="أجب على 8 أسئلة لاكتشاف مستواك: مبتدئ، متوسط، أو متقدم.">Answer 8 questions to discover your level: Beginner, Intermediate, or Advanced.</p>
+    </div>
+  </div>
+  <div class="section" style="max-width:700px">
     <div id="testContent"></div>
   </div>
 </div>
 
-<!-- COURSES -->
+<!-- ===================== COURSES PAGE ===================== -->
 <div class="page" id="page-courses">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="section-eyebrow"><i class="fas fa-graduation-cap"></i> <span data-en="Learn" data-ar="تعلم">Learn</span></div>
+      <h2 data-en="Courses" data-ar="الدورات">Courses</h2>
+      <p data-en="Slide-based lessons with real Business English content, email templates, and quizzes."
+         data-ar="دروس مبنية على الشرائح بمحتوى حقيقي للإنجليزية التجارية وقوالب بريد إلكتروني واختبارات.">Slide-based lessons with real Business English content, email templates, and quizzes.</p>
+    </div>
+  </div>
   <div class="section">
-    <h2 class="section-title">Courses</h2>
-    <p class="section-sub">Slide-based lessons with real Business English content, email templates, and quizzes.</p>
     <div id="courseList"></div>
     <div id="lessonView" style="display:none"></div>
   </div>
 </div>
 
-<!-- COACHING -->
+<!-- ===================== COACHING PAGE ===================== -->
 <div class="page" id="page-coaching">
-  <div class="section" style="max-width:700px">
-    <h2 class="section-title">1-on-1 coaching sessions</h2>
-    <p class="section-sub">Book a private Business English coaching session. Sessions are 45 minutes via video call.</p>
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="section-eyebrow"><i class="fas fa-video"></i> <span data-en="Book a Session" data-ar="احجز جلسة">Book a Session</span></div>
+      <h2 data-en="1-on-1 Coaching Sessions" data-ar="جلسات التدريب الفردي">1-on-1 Coaching Sessions</h2>
+      <p data-en="Book a private Business English coaching session. Sessions are 45 minutes via video call."
+         data-ar="احجز جلسة تدريب خاصة في الإنجليزية التجارية. الجلسات مدتها 45 دقيقة عبر مكالمة فيديو.">Book a private Business English coaching session. Sessions are 45 minutes via video call.</p>
+    </div>
+  </div>
+  <div class="section" style="max-width:720px">
+
+    <div class="coach-card">
+      <div class="coach-avatar"><i class="fas fa-user-graduate"></i></div>
+      <div>
+        <div class="coach-name">BizTalk Coach</div>
+        <div class="coach-role" data-en="Certified Business English Trainer | 5+ years experience" data-ar="مدرب معتمد للإنجليزية التجارية | أكثر من 5 سنوات خبرة">Certified Business English Trainer | 5+ years experience</div>
+        <div class="coach-stars">★★★★★ <span style="font-size:12px;color:var(--text-2);margin-left:4px">4.9/5</span></div>
+      </div>
+    </div>
+
     <div id="calendarView"></div>
   </div>
 </div>
 
-<!-- SERVICES -->
+<!-- ===================== SERVICES PAGE ===================== -->
 <div class="page" id="page-services">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="section-eyebrow"><i class="fas fa-pen"></i> <span data-en="Writing Services" data-ar="خدمات الكتابة">Writing Services</span></div>
+      <h2 data-en="Business Writing Services" data-ar="خدمات الكتابة التجارية">Business Writing Services</h2>
+      <p data-en="Professional writing and translation services for individuals and companies in Algeria."
+         data-ar="خدمات الكتابة والترجمة الاحترافية للأفراد والشركات في الجزائر.">Professional writing and translation services for individuals and companies in Algeria.</p>
+    </div>
+  </div>
   <div class="section">
-    <h2 class="section-title">Business writing services</h2>
-    <p class="section-sub">Professional writing and translation services for individuals and companies in Algeria.</p>
-    <div class="grid-3" style="margin-bottom:2rem">
+    <div class="grid-3" style="margin-bottom:2.5rem">
       <div class="service-card">
-        <div class="icon-box ib-blue">📧</div>
-        <h3>Professional email writing</h3>
-        <p>We write polished, professional emails for any business situation — proposals, follow-ups, complaints, introductions.</p>
-        <div style="font-size:13px;color:#1B4FD8;font-weight:500">From 1,500 DZD / email</div>
-        <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="openService('email')">Request now</button>
+        <div class="icon-box ib-blue"><i class="fas fa-envelope" style="color:var(--primary)"></i></div>
+        <h3 data-en="Professional email writing" data-ar="كتابة البريد الإلكتروني المهني">Professional email writing</h3>
+        <p data-en="We write polished, professional emails for any business situation — proposals, follow-ups, complaints, introductions."
+           data-ar="نكتب رسائل بريد إلكتروني مهنية متقنة لأي موقف تجاري — مقترحات، متابعات، شكاوى، مقدمات.">We write polished, professional emails for any business situation — proposals, follow-ups, complaints, introductions.</p>
+        <div class="service-price" data-en="From 1,500 DZD / email" data-ar="ابتداءً من 1,500 دينار / بريد">From 1,500 DZD / email</div>
+        <button class="btn btn-primary btn-sm" onclick="openService('email')" style="margin-top:4px;width:100%" 
+          data-en="Request now" data-ar="اطلب الآن">Request now</button>
       </div>
       <div class="service-card">
-        <div class="icon-box ib-teal">📄</div>
-        <h3>Business report translation</h3>
-        <p>Translate your business reports from Arabic or French into professional Business English.</p>
-        <div style="font-size:13px;color:#1B4FD8;font-weight:500">From 3,000 DZD / report</div>
-        <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="openService('report')">Request now</button>
+        <div class="icon-box ib-teal"><i class="fas fa-file-alt" style="color:var(--teal)"></i></div>
+        <h3 data-en="Business report translation" data-ar="ترجمة تقارير الأعمال">Business report translation</h3>
+        <p data-en="Translate your business reports from Arabic or French into professional Business English."
+           data-ar="ترجمة تقارير أعمالك من العربية أو الفرنسية إلى الإنجليزية التجارية الاحترافية.">Translate your business reports from Arabic or French into professional Business English.</p>
+        <div class="service-price" data-en="From 3,000 DZD / report" data-ar="ابتداءً من 3,000 دينار / تقرير">From 3,000 DZD / report</div>
+        <button class="btn btn-primary btn-sm" onclick="openService('report')" style="margin-top:4px;width:100%"
+          data-en="Request now" data-ar="اطلب الآن">Request now</button>
       </div>
       <div class="service-card">
-        <div class="icon-box ib-amber">💬</div>
-        <h3>Business message translation</h3>
-        <p>Translate short business messages, WhatsApp/email threads, and memos between Arabic, French, and English.</p>
-        <div style="font-size:13px;color:#1B4FD8;font-weight:500">From 800 DZD / message</div>
-        <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="openService('message')">Request now</button>
+        <div class="icon-box ib-amber"><i class="fas fa-comment-dots" style="color:#D97706"></i></div>
+        <h3 data-en="Business message translation" data-ar="ترجمة الرسائل التجارية">Business message translation</h3>
+        <p data-en="Translate short business messages, WhatsApp/email threads, and memos between Arabic, French, and English."
+           data-ar="ترجمة الرسائل التجارية القصيرة وخيوط البريد الإلكتروني/واتساب والمذكرات بين العربية والفرنسية والإنجليزية.">Translate short business messages, WhatsApp/email threads, and memos between Arabic, French, and English.</p>
+        <div class="service-price" data-en="From 800 DZD / message" data-ar="ابتداءً من 800 دينار / رسالة">From 800 DZD / message</div>
+        <button class="btn btn-primary btn-sm" onclick="openService('message')" style="margin-top:4px;width:100%"
+          data-en="Request now" data-ar="اطلب الآن">Request now</button>
       </div>
     </div>
     <div id="serviceForm" style="display:none"></div>
   </div>
 </div>
 
-<!-- VOCABULARY -->
+<!-- ===================== VOCABULARY PAGE ===================== -->
 <div class="page" id="page-vocab">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="section-eyebrow"><i class="fas fa-book"></i> <span data-en="Vocabulary" data-ar="المفردات">Vocabulary</span></div>
+      <h2 data-en="Business English Vocabulary" data-ar="مفردات الإنجليزية التجارية">Business English Vocabulary</h2>
+      <p data-en="Essential terms used in companies, meetings, and corporate correspondence."
+         data-ar="المصطلحات الأساسية المستخدمة في الشركات والاجتماعات والمراسلات المؤسسية.">Essential terms used in companies, meetings, and corporate correspondence.</p>
+    </div>
+  </div>
   <div class="section">
-    <h2 class="section-title">Business English vocabulary</h2>
-    <p class="section-sub">Essential terms used in companies, meetings, and corporate correspondence.</p>
     <div class="tab-bar" id="vocabTabs"></div>
     <div class="vocab-grid" id="vocabGrid"></div>
   </div>
 </div>
-<!-- Floating WhatsApp Button -->
-<a href="https://wa.me/213656703816?text=Hello%20BizTalk%20Team%2C%20I%20am%20interested%20in%20your%20Business%20English%20services." 
-   class="wa-float" 
-   target="_blank" 
-   rel="noopener noreferrer"
-   aria-label="Chat on WhatsApp">
-  <svg width="34" height="34" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.33 4.94L2.05 22l5.4-1.42c1.48.81 3.15 1.24 4.87 1.24 5.46 0 9.91-4.45 9.91-9.91 0-5.46-4.45-9.91-9.91-9.91z"/>
-    <path fill="#25D366" d="M12.04 4.2c-4.25 0-7.71 3.46-7.71 7.71 0 1.54.45 3.03 1.3 4.3l-.85 2.84 2.93-.77c1.22.73 2.64 1.12 4.11 1.12 4.25 0 7.71-3.46 7.71-7.71 0-4.25-3.46-7.71-7.71-7.71z"/>
-  </svg>
-</a>
-<!-- PRICING -->
+
+<!-- ===================== PRICING PAGE ===================== -->
 <div class="page" id="page-pricing">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="section-eyebrow"><i class="fas fa-tags"></i> <span data-en="Pricing" data-ar="الأسعار">Pricing</span></div>
+      <h2 data-en="Pricing Plans" data-ar="خطط الأسعار">Pricing Plans</h2>
+      <p data-en="Choose the plan that fits your goals. All plans include access to our vocabulary section."
+         data-ar="اختر الخطة التي تناسب أهدافك. تتضمن جميع الخطط الوصول إلى قسم المفردات.">Choose the plan that fits your goals. All plans include access to our vocabulary section.</p>
+    </div>
+  </div>
   <div class="section">
-    <h2 class="section-title">Pricing plans</h2>
-    <p class="section-sub">Choose the plan that fits your goals. All plans include access to our vocabulary section.</p>
-    <div class="grid-3" style="margin-bottom:2rem;align-items:start">
+    <div class="grid-3" style="margin-bottom:2.5rem;align-items:start">
       <div class="pricing-card">
-        <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:4px">Free</p>
-        <div class="price-amt">0 DZD <span>forever</span></div>
-        <ul class="feature-list" style="margin-top:1rem">
-          <li>2 free lessons</li>
-          <li>Vocabulary section</li>
-          <li>Placement test</li>
-          <li class="no">Full course access</li>
-          <li class="no">Coaching sessions</li>
-          <li class="no">Business services</li>
+        <div class="price-plan-label" data-en="Free" data-ar="مجاني">Free</div>
+        <div class="price-amt">0 DZD <span data-en="forever" data-ar="للأبد">forever</span></div>
+        <ul class="feature-list">
+          <li data-en="2 free lessons" data-ar="درسان مجانيان">2 free lessons</li>
+          <li data-en="Vocabulary section" data-ar="قسم المفردات">Vocabulary section</li>
+          <li data-en="Placement test" data-ar="اختبار المستوى">Placement test</li>
+          <li class="no" data-en="Full course access" data-ar="الوصول الكامل للدورات">Full course access</li>
+          <li class="no" data-en="Coaching sessions" data-ar="جلسات التدريب">Coaching sessions</li>
+          <li class="no" data-en="Business services" data-ar="الخدمات التجارية">Business services</li>
         </ul>
-        <button class="btn btn-outline" style="width:100%;margin-top:1rem" onclick="showPage('test',document.querySelectorAll('.nav-links button')[1])">Get started free</button>
+        <button class="btn btn-outline" style="width:100%;margin-top:1rem" 
+          onclick="showPage('test', document.querySelectorAll('#navLinks button')[1])"
+          data-en="Get started free" data-ar="ابدأ مجانًا">Get started free</button>
       </div>
+
       <div class="pricing-card featured">
-        <div class="pricing-badge">Most popular</div>
-        <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:4px">Monthly subscription</p>
-        <div class="price-amt">2,900 DZD <span>/ month</span></div>
-        <ul class="feature-list" style="margin-top:1rem">
-          <li>All courses unlocked</li>
-          <li>Vocabulary section</li>
-          <li>Placement test</li>
-          <li>1 free coaching session/mo</li>
-          <li>Progress tracking</li>
-          <li class="no">Priority services</li>
+        <div class="pricing-badge" data-en="Most popular" data-ar="الأكثر شعبية">Most popular</div>
+        <div class="price-plan-label" data-en="Monthly subscription" data-ar="اشتراك شهري">Monthly subscription</div>
+        <div class="price-amt">2,900 DZD <span data-en="/ month" data-ar="/ شهر">/ month</span></div>
+        <ul class="feature-list">
+          <li data-en="All courses unlocked" data-ar="جميع الدورات متاحة">All courses unlocked</li>
+          <li data-en="Vocabulary section" data-ar="قسم المفردات">Vocabulary section</li>
+          <li data-en="Placement test" data-ar="اختبار المستوى">Placement test</li>
+          <li data-en="1 free coaching session/mo" data-ar="جلسة تدريب مجانية/شهر">1 free coaching session/mo</li>
+          <li data-en="Progress tracking" data-ar="تتبع التقدم">Progress tracking</li>
+          <li class="no" data-en="Priority services" data-ar="الخدمات ذات الأولوية">Priority services</li>
         </ul>
-		<button class="btn btn-primary" style="width:100%;margin-top:1rem"
-onclick="window.open('https://wa.me/213656703816?text=Hello%20BizTalk%20Team%2C%20I%20want%20to%20subscribe%20to%20BizTalk%20services.','_blank')">
-Subscribe now
-</button>
+        <button class="btn btn-primary" style="width:100%;margin-top:1rem"
+          onclick="window.open('https://wa.me/213656703816?text=Hello%20BizTalk%20Team%2C%20I%20want%20to%20subscribe%20to%20BizTalk%20services.','_blank')"
+          data-en="Subscribe now" data-ar="اشترك الآن">Subscribe now</button>
       </div>
+
       <div class="pricing-card">
-        <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:4px">Pay per course</p>
-        <div class="price-amt">900 DZD <span>/ course</span></div>
-        <ul class="feature-list" style="margin-top:1rem">
-          <li>One course full access</li>
-          <li>Vocabulary section</li>
-          <li>Placement test</li>
-          <li>Lifetime access to course</li>
-          <li class="no">Coaching sessions</li>
-          <li class="no">Business services</li>
+        <div class="price-plan-label" data-en="Pay per course" data-ar="الدفع لكل دورة">Pay per course</div>
+        <div class="price-amt">900 DZD <span data-en="/ course" data-ar="/ دورة">/ course</span></div>
+        <ul class="feature-list">
+          <li data-en="One course full access" data-ar="وصول كامل لدورة واحدة">One course full access</li>
+          <li data-en="Vocabulary section" data-ar="قسم المفردات">Vocabulary section</li>
+          <li data-en="Placement test" data-ar="اختبار المستوى">Placement test</li>
+          <li data-en="Lifetime access to course" data-ar="وصول مدى الحياة للدورة">Lifetime access to course</li>
+          <li class="no" data-en="Coaching sessions" data-ar="جلسات التدريب">Coaching sessions</li>
+          <li class="no" data-en="Business services" data-ar="الخدمات التجارية">Business services</li>
         </ul>
-        <button class="btn btn-outline" style="width:100%;margin-top:1rem" onclick="showPage('courses',document.querySelectorAll('.nav-links button')[2])">Browse courses</button>
+        <button class="btn btn-outline" style="width:100%;margin-top:1rem" 
+          onclick="showPage('courses', document.querySelectorAll('#navLinks button')[2])"
+          data-en="Browse courses" data-ar="تصفح الدورات">Browse courses</button>
       </div>
     </div>
-    <div class="card" style="background:var(--color-background-secondary)">
-      <p style="font-size:13px;color:var(--color-text-secondary)">💳 Payment accepted via CCP, Baridimob, and bank transfer. For corporate plans for your company, <strong style="color:var(--color-text-primary)">contact us</strong>.</p>
+
+    <div class="payment-info">
+      <i class="fas fa-credit-card" style="color:var(--primary);margin-right:8px"></i>
+      <span data-en="💳 Payment accepted via CCP, Baridimob, and bank transfer. For corporate plans for your company, contact us on WhatsApp."
+            data-ar="💳 يُقبل الدفع عبر CCP وبريديموب والتحويل البنكي. للخطط المؤسسية لشركتك، تواصل معنا عبر واتساب.">
+        💳 Payment accepted via CCP, Baridimob, and bank transfer. For corporate plans for your company, contact us on WhatsApp.
+      </span>
     </div>
   </div>
 </div>
 
-<div class="footer">© 2025 BizTalk — Business English for Algerian Professionals</div>
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/213656703816?text=Hello%20BizTalk%20Team%2C%20I%20am%20interested%20in%20your%20Business%20English%20services."
+   class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.33 4.94L2.05 22l5.4-1.42c1.48.81 3.15 1.24 4.87 1.24 5.46 0 9.91-4.45 9.91-9.91C22.23 6.45 17.5 2 12.04 2z"/>
+  </svg>
+</a>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Biz<span>Talk</span></div>
+    <div data-en="© 2025 BizTalk — Business English for Algerian Professionals"
+         data-ar="© 2025 بيزتوك — الإنجليزية التجارية للمهنيين الجزائريين">
+      © 2025 BizTalk — Business English for Algerian Professionals
+    </div>
+  </div>
+</div>
 
 <script>
-const testQuestions=[
-  {q:"Which phrase is most appropriate to open a formal business email?",opts:["Hey, what's up?","Dear Mr. Ahmed, I hope this email finds you well.","Yo, I'm writing to you about…","Hello friend,"],ans:1},
-  {q:"Your manager asks for a 'brief'. What does this mean?",opts:["A type of undergarment","A short summary document","A long detailed report","An informal conversation"],ans:1},
-  {q:"Choose the correct phrase: 'We need to _____ the deadline for this project.'",opts:["postpone","postphone","post-pone","postpound"],ans:0},
-  {q:"What does 'KPI' stand for in a business context?",opts:["Keep People Informed","Key Performance Indicator","Known Priority Issue","Key Project Investment"],ans:1},
-  {q:"Which is the most professional way to decline a meeting?",opts:["I can't come, I'm busy.","Unfortunately, I have a prior commitment at that time. Could we reschedule?","No thanks.","That doesn't work for me at all."],ans:1},
-  {q:"What does it mean to 'CC' someone in an email?",opts:["Cancel the message","Send a copy to a secondary recipient","Confirm the content","Create a calendar invite"],ans:1},
-  {q:"Which phrase correctly expresses agreement in a professional context?",opts:["Yeah, that sounds fine.","I concur with your assessment.","Whatever you say.","OK sure."],ans:1},
-  {q:"Your client says 'Please revert by EOD'. What do they mean?",opts:["Please return the product by evening","Please reply before end of day","Please reverse the decision","Please review the document"],ans:1}
+/* ===================== LANGUAGE SWITCHER ===================== */
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  const html = document.documentElement;
+
+  if (lang === 'ar') {
+    html.setAttribute('lang', 'ar');
+    html.setAttribute('dir', 'rtl');
+    document.getElementById('btnEN').classList.remove('active');
+    document.getElementById('btnAR').classList.add('active');
+  } else {
+    html.setAttribute('lang', 'en');
+    html.setAttribute('dir', 'ltr');
+    document.getElementById('btnEN').classList.add('active');
+    document.getElementById('btnAR').classList.remove('active');
+  }
+
+  // Translate all data-en / data-ar elements
+  document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+    el.textContent = el.getAttribute('data-' + lang);
+  });
+}
+
+/* ===================== MOBILE NAV ===================== */
+function toggleMobileMenu() {
+  const panel = document.getElementById('mobileNav');
+  panel.classList.toggle('open');
+}
+
+function closeMobileMenu() {
+  document.getElementById('mobileNav').classList.remove('open');
+}
+
+/* Navbar scroll shadow */
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 10);
+});
+
+/* ===================== PAGE NAVIGATION ===================== */
+function showPage(name, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links button, .mobile-nav-panel button').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  if (btn) btn.classList.add('active');
+  if (name === 'test') renderTest();
+  if (name === 'courses') renderCourseList();
+  if (name === 'coaching') renderCalendar();
+  if (name === 'vocab') renderVocab();
+  window.scrollTo(0, 0);
+}
+
+/* ===================== PLACEMENT TEST ===================== */
+const testQuestions = [
+  { q: "Which phrase is most appropriate to open a formal business email?", opts: ["Hey, what's up?", "Dear Mr. Ahmed, I hope this email finds you well.", "Yo, I'm writing to you about…", "Hello friend,"], ans: 1 },
+  { q: "Your manager asks for a 'brief'. What does this mean?", opts: ["A type of undergarment", "A short summary document", "A long detailed report", "An informal conversation"], ans: 1 },
+  { q: "Choose the correct phrase: 'We need to _____ the deadline for this project.'", opts: ["postpone", "postphone", "post-pone", "postpound"], ans: 0 },
+  { q: "What does 'KPI' stand for in a business context?", opts: ["Keep People Informed", "Key Performance Indicator", "Known Priority Issue", "Key Project Investment"], ans: 1 },
+  { q: "Which is the most professional way to decline a meeting?", opts: ["I can't come, I'm busy.", "Unfortunately, I have a prior commitment at that time. Could we reschedule?", "No thanks.", "That doesn't work for me at all."], ans: 1 },
+  { q: "What does it mean to 'CC' someone in an email?", opts: ["Cancel the message", "Send a copy to a secondary recipient", "Confirm the content", "Create a calendar invite"], ans: 1 },
+  { q: "Which phrase correctly expresses agreement in a professional context?", opts: ["Yeah, that sounds fine.", "I concur with your assessment.", "Whatever you say.", "OK sure."], ans: 1 },
+  { q: "Your client says 'Please revert by EOD'. What do they mean?", opts: ["Please return the product by evening", "Please reply before end of day", "Please reverse the decision", "Please review the document"], ans: 1 }
 ];
 
-let testAnswers={},testDone=false;
+let testAnswers = {}, testDone = false;
 
-function renderTest(){
-  const c=document.getElementById('testContent');
-  if(testDone){c.innerHTML=buildResult();return}
-  let html=`<div class="progress-bar"><div class="progress-fill" style="width:${(Object.keys(testAnswers).length/testQuestions.length)*100}%"></div></div>
+function renderTest() {
+  const c = document.getElementById('testContent');
+  if (testDone) { c.innerHTML = buildResult(); return; }
+  let html = `<div class="progress-bar" style="margin-bottom:0.4rem"><div class="progress-fill" style="width:${(Object.keys(testAnswers).length / testQuestions.length) * 100}%"></div></div>
   <div class="step-indicator">${Object.keys(testAnswers).length} of ${testQuestions.length} answered</div>`;
-  testQuestions.forEach((q,i)=>{
-    html+=`<div class="quiz-q"><div class="qtext">${i+1}. ${q.q}</div><div class="quiz-opt">`;
-    q.opts.forEach((o,j)=>{
-      const checked=testAnswers[i]===j?'checked':'';
-      html+=`<label><input type="radio" name="tq${i}" value="${j}" ${checked} onchange="testAnswers[${i}]=${j};renderTest()"> ${o}</label>`;
+  testQuestions.forEach((q, i) => {
+    html += `<div class="quiz-q"><div class="qtext">${i + 1}. ${q.q}</div><div class="quiz-opt">`;
+    q.opts.forEach((o, j) => {
+      const checked = testAnswers[i] === j ? 'checked' : '';
+      html += `<label><input type="radio" name="tq${i}" value="${j}" ${checked} onchange="testAnswers[${i}]=${j};renderTest()"> ${o}</label>`;
     });
-    html+=`</div></div>`;
+    html += `</div></div>`;
   });
-  const allDone=Object.keys(testAnswers).length===testQuestions.length;
-  html+=`<button class="btn btn-primary" ${allDone?'':'disabled'} style="opacity:${allDone?1:0.5}" onclick="submitTest()">See my level →</button>`;
-  if(!allDone) html+=`<div class="notif">Answer all questions to see your Business English level.</div>`;
-  c.innerHTML=html;
+  const allDone = Object.keys(testAnswers).length === testQuestions.length;
+  html += `<button class="btn btn-primary" ${allDone ? '' : 'disabled'} style="opacity:${allDone ? 1 : 0.5};font-size:15px;padding:12px 28px" onclick="submitTest()"><i class="fas fa-arrow-right"></i> See my level</button>`;
+  if (!allDone) html += `<div class="notif"><i class="fas fa-info-circle"></i> Answer all questions to see your Business English level.</div>`;
+  c.innerHTML = html;
 }
 
-function submitTest(){
-  testDone=true;
-  const c=document.getElementById('testContent');
-  c.innerHTML=buildResult();
+function submitTest() {
+  testDone = true;
+  document.getElementById('testContent').innerHTML = buildResult();
 }
 
-function buildResult(){
-  const score=Object.entries(testAnswers).filter(([i,a])=>testQuestions[i].ans===a).length;
-  const pct=score/testQuestions.length;
-  let level,color,desc;
-  if(pct<0.4){level='Beginner';color='#d97706';desc='You are starting your Business English journey. We recommend our Beginner courses on emails and professional greetings.';}
-  else if(pct<0.75){level='Intermediate';color='#1B4FD8';desc='You have a solid foundation in Business English. Focus on advanced email writing and corporate vocabulary to level up.';}
-  else{level='Advanced';color='#059669';desc='Excellent! You have strong Business English skills. Our advanced courses on negotiations and executive communication will take you further.';}
-  return `<div class="result-box" style="background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary)">
-    <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:8px">Your Business English level</div>
-    <div style="font-size:36px;font-weight:500;color:${color};margin-bottom:8px">${level}</div>
-    <div style="font-size:14px;color:var(--color-text-secondary);margin-bottom:1rem">${score} / ${testQuestions.length} correct</div>
-    <p style="font-size:14px;color:var(--color-text-primary);line-height:1.6;max-width:480px;margin:0 auto 1.5rem">${desc}</p>
-    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="showPage('courses',document.querySelectorAll('.nav-links button')[2])">View recommended courses →</button>
-      <button class="btn btn-outline" onclick="testAnswers={};testDone=false;renderTest()">Retake test</button>
+function buildResult() {
+  const score = Object.entries(testAnswers).filter(([i, a]) => testQuestions[i].ans === a).length;
+  const pct = score / testQuestions.length;
+  let level, color, desc, icon;
+  if (pct < 0.4) {
+    level = 'Beginner'; color = '#D97706'; icon = '🌱';
+    desc = 'You are starting your Business English journey. We recommend our Beginner courses on emails and professional greetings.';
+  } else if (pct < 0.75) {
+    level = 'Intermediate'; color = 'var(--primary)'; icon = '📈';
+    desc = 'You have a solid foundation in Business English. Focus on advanced email writing and corporate vocabulary to level up.';
+  } else {
+    level = 'Advanced'; color = 'var(--green)'; icon = '🏆';
+    desc = 'Excellent! You have strong Business English skills. Our advanced courses on negotiations and executive communication will take you further.';
+  }
+  return `<div class="result-box">
+    <div style="font-size:48px;margin-bottom:0.75rem">${icon}</div>
+    <div style="font-size:13px;color:var(--text-2);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:1px">Your Business English Level</div>
+    <div style="font-size:40px;font-weight:700;color:${color};margin-bottom:6px">${level}</div>
+    <div style="font-size:14px;color:var(--text-2);margin-bottom:1rem;font-weight:600">${score} / ${testQuestions.length} correct</div>
+    <p style="font-size:14.5px;color:var(--text);line-height:1.75;max-width:500px;margin:0 auto 1.75rem">${desc}</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="showPage('courses', document.querySelectorAll('#navLinks button')[2])"><i class="fas fa-book-open"></i> View recommended courses</button>
+      <button class="btn btn-outline" onclick="testAnswers={};testDone=false;renderTest()"><i class="fas fa-redo"></i> Retake test</button>
     </div>
   </div>`;
 }
 
-const courses=[
-  {id:0,title:"Professional email writing",level:"Beginner",free:true,slides:[
-    {title:"What is a professional email?",content:`<p style="line-height:1.7;margin-bottom:1rem">A professional email is a formal written communication used in business contexts. It must be <strong>clear, concise, and polite</strong>.</p><p style="line-height:1.7;margin-bottom:1rem">Every business email has 5 key parts:</p><ol style="padding-left:1.2rem;display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--color-text-secondary)"><li>Subject line</li><li>Salutation (greeting)</li><li>Body</li><li>Closing phrase</li><li>Signature</li></ol>`},
-    {title:"Email structure example",content:`<div class="email-example"><div class="label">Example — request for a meeting</div><br><strong>Subject:</strong> Request for a Meeting — Q3 Report Review<br><br>Dear Mr. Benali,<br><br>I hope this message finds you well. I am writing to request a brief meeting to discuss the Q3 financial report at your earliest convenience.<br><br>Please let me know your availability, and I will arrange the schedule accordingly.<br><br>Thank you for your time.<br><br>Best regards,<br>Karima Oussama<br>Finance Department</div>`},
-    {title:"Key vocabulary",content:`<div class="vocab-grid"><div class="vocab-item"><div class="vocab-term">At your earliest convenience</div><div class="vocab-def">As soon as possible, when you have time</div></div><div class="vocab-item"><div class="vocab-term">I am writing to…</div><div class="vocab-def">Standard opening phrase to state your purpose</div></div><div class="vocab-item"><div class="vocab-term">Best regards</div><div class="vocab-def">Professional email closing phrase</div></div><div class="vocab-item"><div class="vocab-term">Please do not hesitate to contact me</div><div class="vocab-def">Invite the recipient to ask questions</div></div></div>`},
-    {title:"Common mistakes to avoid",content:`<div style="display:flex;flex-direction:column;gap:8px"><div class="card" style="border-left:3px solid #EF4444;border-radius:4px"><strong style="font-size:13px;color:#EF4444">❌ Too informal:</strong><p style="font-size:13px;margin-top:4px;color:var(--color-text-secondary)">"Hey! Can we meet tmrw? Let me know ASAP."</p></div><div class="card" style="border-left:3px solid #059669;border-radius:4px"><strong style="font-size:13px;color:#059669">✓ Professional:</strong><p style="font-size:13px;margin-top:4px;color:var(--color-text-secondary)">"Dear Mr. Hamid, Could we schedule a meeting for tomorrow? I look forward to your confirmation."</p></div></div>`}
-  ],quiz:[
-    {q:"Which subject line is most professional?",opts:["hey about the meeting","RE: Meeting Request — Budget Review Q4","meeting???","talk later"],ans:1},
-    {q:"How should you close a formal business email?",opts:["Bye!","See ya","Best regards,","Cheers mate"],ans:2},
-    {q:"What does 'at your earliest convenience' mean?",opts:["Never","When you are very busy","As soon as possible for you","Only on weekdays"],ans:2}
-  ]},
-  {id:1,title:"Business meeting language",level:"Intermediate",free:false,slides:[
-    {title:"Opening a meeting",content:`<p style="line-height:1.7;margin-bottom:1rem">The chairperson (person leading the meeting) uses specific phrases to open, manage, and close meetings professionally.</p><div class="vocab-grid"><div class="vocab-item"><div class="vocab-term">Shall we get started?</div><div class="vocab-def">Polite way to begin the meeting</div></div><div class="vocab-item"><div class="vocab-term">Let's go through the agenda</div><div class="vocab-def">Review meeting points</div></div><div class="vocab-item"><div class="vocab-term">I'd like to hand over to…</div><div class="vocab-def">Introduce another speaker</div></div></div>`},
-    {title:"Expressing opinions professionally",content:`<div style="display:flex;flex-direction:column;gap:8px"><div class="vocab-item"><div class="vocab-term">In my view…</div><div class="vocab-def">Use to share your perspective</div><div class="vocab-ex">"In my view, we should delay the product launch."</div></div><div class="vocab-item"><div class="vocab-term">I'd like to point out that…</div><div class="vocab-def">Draw attention to something important</div><div class="vocab-ex">"I'd like to point out that the deadline is next Friday."</div></div><div class="vocab-item"><div class="vocab-term">If I may add…</div><div class="vocab-def">Politely interrupt to add a point</div><div class="vocab-ex">"If I may add, we also need to consider the budget."</div></div></div>`},
-    {title:"Closing a meeting",content:`<div class="email-example"><div class="label">Closing phrases</div><br>• "Let's wrap up here."<br>• "To summarize what we've agreed on…"<br>• "The next steps are… and [Name] will be responsible."<br>• "Thank you all for attending. The minutes will be circulated by end of day."</div>`}
-  ],quiz:[
-    {q:"What does 'minutes of the meeting' refer to?",opts:["How long the meeting lasted","The written record of what was discussed","A short meeting","The meeting agenda"],ans:1},
-    {q:"Which phrase is best for politely interrupting in a meeting?",opts:["Shut up, I want to speak","If I may add…","Wait, no—","EXCUSE ME"],ans:1},
-    {q:"What does 'Let's table this for now' mean in a business meeting?",opts:["Put it on the table physically","Postpone discussing this topic","Agree on this point","Delete it from the agenda"],ans:1}
-  ]},
-  {id:2,title:"Business report writing",level:"Advanced",free:false,slides:[
-    {title:"Structure of a business report",content:`<ol style="padding-left:1.2rem;display:flex;flex-direction:column;gap:10px;font-size:14px"><li><strong>Title page</strong> — Report name, author, date</li><li><strong>Executive summary</strong> — 3–5 sentence overview</li><li><strong>Introduction</strong> — Context and purpose</li><li><strong>Findings</strong> — Data and analysis</li><li><strong>Recommendations</strong> — What to do next</li><li><strong>Conclusion</strong> — Summary of key points</li></ol>`},
-    {title:"Executive summary example",content:`<div class="email-example"><div class="label">Example executive summary</div><br>This report examines the performance of the sales department for Q3 2024. Key findings indicate a 12% increase in revenue compared to Q2, driven primarily by the launch of the new product line in the southern region. However, operational costs rose by 8%, which requires immediate attention. It is recommended that management review staffing levels and logistics expenses in the coming quarter.</div>`},
-    {title:"Report vocabulary",content:`<div class="vocab-grid"><div class="vocab-item"><div class="vocab-term">To outline</div><div class="vocab-def">To describe briefly</div><div class="vocab-ex">"This report outlines our key challenges."</div></div><div class="vocab-item"><div class="vocab-term">It is evident that</div><div class="vocab-def">It is clear from the data</div></div><div class="vocab-item"><div class="vocab-term">As a result</div><div class="vocab-def">Consequence/outcome connector</div></div><div class="vocab-item"><div class="vocab-term">It is recommended that</div><div class="vocab-def">Formal way to suggest action</div></div></div>`}
-  ],quiz:[
-    {q:"Where does the executive summary appear in a business report?",opts:["At the end","After the conclusion","Near the beginning, before the main body","In the middle"],ans:2},
-    {q:"Which phrase is appropriate in a formal business report?",opts:["We think this is bad","The data clearly shows a decline in performance.","Honestly it wasn't great","Things went wrong"],ans:1},
-    {q:"What is the purpose of the 'Recommendations' section?",opts:["Summarize past events","List references","Suggest actions based on findings","Introduce the report topic"],ans:2}
-  ]}
+/* ===================== COURSES ===================== */
+const courses = [
+  {
+    id: 0, title: "Professional email writing", level: "Beginner", free: true,
+    emoji: "📧",
+    slides: [
+      { title: "What is a professional email?", content: `<p style="line-height:1.8;margin-bottom:1rem">A professional email is a formal written communication used in business contexts. It must be <strong>clear, concise, and polite</strong>.</p><p style="line-height:1.8;margin-bottom:1rem">Every business email has 5 key parts:</p><ol style="padding-left:1.4rem;display:flex;flex-direction:column;gap:8px;font-size:14px;color:var(--text-2)"><li>Subject line</li><li>Salutation (greeting)</li><li>Body</li><li>Closing phrase</li><li>Signature</li></ol>` },
+      { title: "Email structure example", content: `<div class="email-example"><div class="label">Example — request for a meeting</div><br><strong>Subject:</strong> Request for a Meeting — Q3 Report Review<br><br>Dear Mr. Benali,<br><br>I hope this message finds you well. I am writing to request a brief meeting to discuss the Q3 financial report at your earliest convenience.<br><br>Please let me know your availability, and I will arrange the schedule accordingly.<br><br>Thank you for your time.<br><br>Best regards,<br>Karima Oussama<br>Finance Department</div>` },
+      { title: "Key vocabulary", content: `<div class="vocab-grid"><div class="vocab-item"><div class="vocab-term">At your earliest convenience</div><div class="vocab-def">As soon as possible, when you have time</div></div><div class="vocab-item"><div class="vocab-term">I am writing to…</div><div class="vocab-def">Standard opening phrase to state your purpose</div></div><div class="vocab-item"><div class="vocab-term">Best regards</div><div class="vocab-def">Professional email closing phrase</div></div><div class="vocab-item"><div class="vocab-term">Please do not hesitate to contact me</div><div class="vocab-def">Invite the recipient to ask questions</div></div></div>` },
+      { title: "Common mistakes to avoid", content: `<div style="display:flex;flex-direction:column;gap:10px"><div class="card" style="border-left:4px solid #EF4444;border-top:none;border-right:none;border-bottom:none;border-radius:0 10px 10px 0"><strong style="font-size:13px;color:#EF4444">❌ Too informal:</strong><p style="font-size:13.5px;margin-top:6px">"Hey! Can we meet tmrw? Let me know ASAP."</p></div><div class="card" style="border-left:4px solid #059669;border-top:none;border-right:none;border-bottom:none;border-radius:0 10px 10px 0"><strong style="font-size:13px;color:#059669">✓ Professional:</strong><p style="font-size:13.5px;margin-top:6px">"Dear Mr. Hamid, Could we schedule a meeting for tomorrow? I look forward to your confirmation."</p></div></div>` }
+    ],
+    quiz: [
+      { q: "Which subject line is most professional?", opts: ["hey about the meeting", "RE: Meeting Request — Budget Review Q4", "meeting???", "talk later"], ans: 1 },
+      { q: "How should you close a formal business email?", opts: ["Bye!", "See ya", "Best regards,", "Cheers mate"], ans: 2 },
+      { q: "What does 'at your earliest convenience' mean?", opts: ["Never", "When you are very busy", "As soon as possible for you", "Only on weekdays"], ans: 2 }
+    ]
+  },
+  {
+    id: 1, title: "Business meeting language", level: "Intermediate", free: false,
+    emoji: "🤝",
+    slides: [
+      { title: "Opening a meeting", content: `<p style="line-height:1.8;margin-bottom:1rem">The chairperson (person leading the meeting) uses specific phrases to open, manage, and close meetings professionally.</p><div class="vocab-grid"><div class="vocab-item"><div class="vocab-term">Shall we get started?</div><div class="vocab-def">Polite way to begin the meeting</div></div><div class="vocab-item"><div class="vocab-term">Let's go through the agenda</div><div class="vocab-def">Review meeting points</div></div><div class="vocab-item"><div class="vocab-term">I'd like to hand over to…</div><div class="vocab-def">Introduce another speaker</div></div></div>` },
+      { title: "Expressing opinions professionally", content: `<div style="display:flex;flex-direction:column;gap:10px"><div class="vocab-item"><div class="vocab-term">In my view…</div><div class="vocab-def">Use to share your perspective</div><div class="vocab-ex">"In my view, we should delay the product launch."</div></div><div class="vocab-item"><div class="vocab-term">I'd like to point out that…</div><div class="vocab-def">Draw attention to something important</div><div class="vocab-ex">"I'd like to point out that the deadline is next Friday."</div></div><div class="vocab-item"><div class="vocab-term">If I may add…</div><div class="vocab-def">Politely interrupt to add a point</div><div class="vocab-ex">"If I may add, we also need to consider the budget."</div></div></div>` },
+      { title: "Closing a meeting", content: `<div class="email-example"><div class="label">Closing phrases</div><br>• "Let's wrap up here."<br>• "To summarize what we've agreed on…"<br>• "The next steps are… and [Name] will be responsible."<br>• "Thank you all for attending. The minutes will be circulated by end of day."</div>` }
+    ],
+    quiz: [
+      { q: "What does 'minutes of the meeting' refer to?", opts: ["How long the meeting lasted", "The written record of what was discussed", "A short meeting", "The meeting agenda"], ans: 1 },
+      { q: "Which phrase is best for politely interrupting in a meeting?", opts: ["Shut up, I want to speak", "If I may add…", "Wait, no—", "EXCUSE ME"], ans: 1 },
+      { q: "What does 'Let's table this for now' mean in a business meeting?", opts: ["Put it on the table physically", "Postpone discussing this topic", "Agree on this point", "Delete it from the agenda"], ans: 1 }
+    ]
+  },
+  {
+    id: 2, title: "Business report writing", level: "Advanced", free: false,
+    emoji: "📊",
+    slides: [
+      { title: "Structure of a business report", content: `<ol style="padding-left:1.4rem;display:flex;flex-direction:column;gap:12px;font-size:14px"><li><strong>Title page</strong> — Report name, author, date</li><li><strong>Executive summary</strong> — 3–5 sentence overview</li><li><strong>Introduction</strong> — Context and purpose</li><li><strong>Findings</strong> — Data and analysis</li><li><strong>Recommendations</strong> — What to do next</li><li><strong>Conclusion</strong> — Summary of key points</li></ol>` },
+      { title: "Executive summary example", content: `<div class="email-example"><div class="label">Example executive summary</div><br>This report examines the performance of the sales department for Q3 2024. Key findings indicate a 12% increase in revenue compared to Q2, driven primarily by the launch of the new product line in the southern region. However, operational costs rose by 8%, which requires immediate attention. It is recommended that management review staffing levels and logistics expenses in the coming quarter.</div>` },
+      { title: "Report vocabulary", content: `<div class="vocab-grid"><div class="vocab-item"><div class="vocab-term">To outline</div><div class="vocab-def">To describe briefly</div><div class="vocab-ex">"This report outlines our key challenges."</div></div><div class="vocab-item"><div class="vocab-term">It is evident that</div><div class="vocab-def">It is clear from the data</div></div><div class="vocab-item"><div class="vocab-term">As a result</div><div class="vocab-def">Consequence/outcome connector</div></div><div class="vocab-item"><div class="vocab-term">It is recommended that</div><div class="vocab-def">Formal way to suggest action</div></div></div>` }
+    ],
+    quiz: [
+      { q: "Where does the executive summary appear in a business report?", opts: ["At the end", "After the conclusion", "Near the beginning, before the main body", "In the middle"], ans: 2 },
+      { q: "Which phrase is appropriate in a formal business report?", opts: ["We think this is bad", "The data clearly shows a decline in performance.", "Honestly it wasn't great", "Things went wrong"], ans: 1 },
+      { q: "What is the purpose of the 'Recommendations' section?", opts: ["Summarize past events", "List references", "Suggest actions based on findings", "Introduce the report topic"], ans: 2 }
+    ]
+  }
 ];
 
-let currentCourse=null,currentSlide=0,quizMode=false,quizAnswers={},quizDone=false;
+let currentCourse = null, currentSlide = 0, quizMode = false, quizAnswers = {}, quizDone = false;
 
-function renderCourseList(){
-  const cl=document.getElementById('courseList');
-  const lv=document.getElementById('lessonView');
-  cl.style.display='block';lv.style.display='none';
-  let html='<div class="grid-3">';
-  courses.forEach(c=>{
-    html+=`<div class="card" style="cursor:pointer" onclick="openCourse(${c.id})">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem">
-        <span class="badge badge-${c.level==='Beginner'?'green':c.level==='Intermediate'?'blue':'amber'}">${c.level}</span>
-        ${c.free?'<span class="tag-free">Free</span>':'<span class="tag-pro">Pro</span>'}
+function renderCourseList() {
+  const cl = document.getElementById('courseList');
+  const lv = document.getElementById('lessonView');
+  cl.style.display = 'block'; lv.style.display = 'none';
+  const topColors = ['course-card-top-0', 'course-card-top-1', 'course-card-top-2'];
+  let html = '<div class="grid-3">';
+  courses.forEach(c => {
+    html += `<div class="course-card" onclick="openCourse(${c.id})">
+      <div class="course-card-top ${topColors[c.id]}">${c.emoji || '📚'}</div>
+      <div class="course-card-body">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <span class="badge badge-${c.level === 'Beginner' ? 'green' : c.level === 'Intermediate' ? 'blue' : 'amber'}">${c.level}</span>
+          ${c.free ? '<span class="tag-free">Free</span>' : '<span class="tag-pro">Pro</span>'}
+        </div>
+        <h3 style="font-size:15.5px;font-weight:700;margin-bottom:6px">${c.title}</h3>
+        <p style="font-size:13px;color:var(--text-2);margin-bottom:14px">${c.slides.length} slides + quiz</p>
+        <button class="btn btn-primary" style="width:100%;font-size:13.5px">${c.free ? '<i class="fas fa-play"></i> Start lesson' : '<i class="fas fa-lock"></i> Unlock lesson'}</button>
       </div>
-      <h3 style="font-size:15px;font-weight:500;margin-bottom:6px">${c.title}</h3>
-      <p style="font-size:13px;color:var(--color-text-secondary)">${c.slides.length} slides + quiz</p>
-      <button class="btn btn-primary" style="margin-top:12px;width:100%;font-size:13px">${c.free?'Start lesson →':'Unlock lesson →'}</button>
     </div>`;
   });
-  html+='</div>';
-  cl.innerHTML=html;
+  html += '</div>';
+  cl.innerHTML = html;
 }
 
-function openCourse(id){
-  currentCourse=id;currentSlide=0;quizMode=false;quizAnswers={};quizDone=false;
-  document.getElementById('courseList').style.display='none';
-  document.getElementById('lessonView').style.display='block';
+function openCourse(id) {
+  currentCourse = id; currentSlide = 0; quizMode = false; quizAnswers = {}; quizDone = false;
+  document.getElementById('courseList').style.display = 'none';
+  document.getElementById('lessonView').style.display = 'block';
   renderLesson();
 }
 
-function renderLesson(){
-  const c=courses[currentCourse];
-  const lv=document.getElementById('lessonView');
-  if(quizMode){renderQuiz();return}
-  const s=c.slides[currentSlide];
-  const total=c.slides.length;
-  lv.innerHTML=`<button onclick="renderCourseList()" style="background:none;border:none;cursor:pointer;color:var(--color-text-secondary);font-size:13px;margin-bottom:1rem;padding:0">← Back to courses</button>
-  <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:4px">${c.title}</div>
-  <div class="progress-bar"><div class="progress-fill" style="width:${((currentSlide+1)/total)*100}%"></div></div>
-  <div class="step-indicator" style="margin-top:4px">Slide ${currentSlide+1} of ${total}</div>
+function renderLesson() {
+  const c = courses[currentCourse];
+  const lv = document.getElementById('lessonView');
+  if (quizMode) { renderQuiz(); return; }
+  const s = c.slides[currentSlide];
+  const total = c.slides.length;
+  lv.innerHTML = `<button class="back-btn" onclick="renderCourseList()"><i class="fas fa-arrow-left"></i> Back to courses</button>
+  <div style="font-size:13px;color:var(--text-2);margin-bottom:6px;font-weight:600">${c.title}</div>
+  <div class="progress-bar"><div class="progress-fill" style="width:${((currentSlide + 1) / total) * 100}%"></div></div>
+  <div class="step-indicator" style="margin-top:6px">Slide ${currentSlide + 1} of ${total}</div>
   <div class="card" style="margin-top:1rem">
-    <h3 style="font-size:16px;font-weight:500;margin-bottom:1rem">${s.title}</h3>
+    <h3 style="font-size:17px;font-weight:700;margin-bottom:1rem">${s.title}</h3>
     <div class="slide-content">${s.content}</div>
   </div>
   <div class="slide-nav">
-    <button class="btn btn-outline" ${currentSlide===0?'disabled style="opacity:0.4"':''} onclick="currentSlide--;renderLesson()">← Previous</button>
-    ${currentSlide<total-1?`<button class="btn btn-primary" onclick="currentSlide++;renderLesson()">Next →</button>`:`<button class="btn btn-primary" onclick="quizMode=true;renderLesson()">Take quiz →</button>`}
+    <button class="btn btn-outline" ${currentSlide === 0 ? 'disabled style="opacity:0.4"' : ''} onclick="currentSlide--;renderLesson()"><i class="fas fa-arrow-left"></i> Previous</button>
+    ${currentSlide < total - 1
+      ? `<button class="btn btn-primary" onclick="currentSlide++;renderLesson()">Next <i class="fas fa-arrow-right"></i></button>`
+      : `<button class="btn btn-primary" onclick="quizMode=true;renderLesson()">Take quiz <i class="fas fa-arrow-right"></i></button>`}
   </div>`;
 }
 
-function renderQuiz(){
-  const c=courses[currentCourse];
-  const lv=document.getElementById('lessonView');
-  if(quizDone){
-    const score=Object.entries(quizAnswers).filter(([i,a])=>c.quiz[i].ans===a).length;
-    lv.innerHTML=`<button onclick="renderCourseList()" style="background:none;border:none;cursor:pointer;color:var(--color-text-secondary);font-size:13px;margin-bottom:1rem;padding:0">← Back to courses</button>
-    <div class="result-box" style="background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary)">
-      <div style="font-size:14px;color:var(--color-text-secondary);margin-bottom:8px">Quiz result</div>
-      <div style="font-size:32px;font-weight:500;color:${score===c.quiz.length?'#059669':score>=c.quiz.length/2?'#1B4FD8':'#d97706'}">${score}/${c.quiz.length}</div>
-      <p style="font-size:14px;color:var(--color-text-secondary);margin:8px 0 1.5rem">${score===c.quiz.length?'Perfect score! Excellent work.':score>=c.quiz.length/2?'Good job! Review the slides to improve further.':'Keep practicing! Go back and review the lesson.'}</p>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btn-outline" onclick="currentSlide=0;quizMode=false;renderLesson()">Review lesson</button>
-        <button class="btn btn-primary" onclick="renderCourseList()">Back to courses</button>
+function renderQuiz() {
+  const c = courses[currentCourse];
+  const lv = document.getElementById('lessonView');
+  if (quizDone) {
+    const score = Object.entries(quizAnswers).filter(([i, a]) => c.quiz[i].ans === a).length;
+    lv.innerHTML = `<button class="back-btn" onclick="renderCourseList()"><i class="fas fa-arrow-left"></i> Back to courses</button>
+    <div class="result-box">
+      <div style="font-size:13px;color:var(--text-2);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:1px">Quiz result</div>
+      <div style="font-size:42px;font-weight:700;color:${score === c.quiz.length ? 'var(--green)' : score >= c.quiz.length / 2 ? 'var(--primary)' : '#D97706'}">${score}/${c.quiz.length}</div>
+      <p style="font-size:14.5px;color:var(--text-2);margin:10px 0 1.75rem;line-height:1.7">${score === c.quiz.length ? '🏆 Perfect score! Excellent work.' : score >= c.quiz.length / 2 ? '📈 Good job! Review the slides to improve further.' : '📚 Keep practicing! Go back and review the lesson.'}</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-outline" onclick="currentSlide=0;quizMode=false;renderLesson()"><i class="fas fa-book-open"></i> Review lesson</button>
+        <button class="btn btn-primary" onclick="renderCourseList()"><i class="fas fa-th"></i> Back to courses</button>
       </div>
-    </div>`;return;
+    </div>`;
+    return;
   }
-  let html=`<button onclick="quizMode=false;currentSlide=courses[currentCourse].slides.length-1;renderLesson()" style="background:none;border:none;cursor:pointer;color:var(--color-text-secondary);font-size:13px;margin-bottom:1rem;padding:0">← Back to slides</button>
-  <h3 style="font-size:16px;font-weight:500;margin-bottom:1rem">Lesson quiz — ${c.title}</h3>`;
-  c.quiz.forEach((q,i)=>{
-    html+=`<div class="quiz-q"><div class="qtext">${i+1}. ${q.q}</div><div class="quiz-opt">`;
-    q.opts.forEach((o,j)=>{
-      html+=`<label><input type="radio" name="lq${i}" value="${j}" ${quizAnswers[i]===j?'checked':''} onchange="quizAnswers[${i}]=${j};document.getElementById('lessonView').querySelectorAll('button[data-submit]')[0].disabled=Object.keys(quizAnswers).length<${c.quiz.length}"> ${o}</label>`;
+  let html = `<button class="back-btn" onclick="quizMode=false;currentSlide=courses[currentCourse].slides.length-1;renderLesson()"><i class="fas fa-arrow-left"></i> Back to slides</button>
+  <h3 style="font-size:18px;font-weight:700;margin-bottom:1.5rem">Lesson quiz — ${c.title}</h3>`;
+  c.quiz.forEach((q, i) => {
+    html += `<div class="quiz-q"><div class="qtext">${i + 1}. ${q.q}</div><div class="quiz-opt">`;
+    q.opts.forEach((o, j) => {
+      html += `<label><input type="radio" name="lq${i}" value="${j}" ${quizAnswers[i] === j ? 'checked' : ''} onchange="quizAnswers[${i}]=${j};document.getElementById('lessonView').querySelectorAll('button[data-submit]')[0].disabled=Object.keys(quizAnswers).length<${c.quiz.length}"> ${o}</label>`;
     });
-    html+=`</div></div>`;
+    html += `</div></div>`;
   });
-  const allDone=Object.keys(quizAnswers).length===c.quiz.length;
-  html+=`<button data-submit class="btn btn-primary" ${allDone?'':'disabled'} style="opacity:${allDone?1:0.5}" onclick="quizDone=true;renderQuiz()">Submit quiz →</button>`;
-  lv.innerHTML=html;
+  const allDone = Object.keys(quizAnswers).length === c.quiz.length;
+  html += `<button data-submit class="btn btn-primary" style="font-size:15px;padding:12px 28px;opacity:${allDone ? 1 : 0.5}" ${allDone ? '' : 'disabled'} onclick="quizDone=true;renderQuiz()">Submit quiz <i class="fas fa-arrow-right"></i></button>`;
+  lv.innerHTML = html;
 }
 
+/* ===================== CALENDAR ===================== */
 function renderCalendar() {
   const cv = document.getElementById('calendarView');
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const times = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
 
-  let step = 1;
-  let selDay = null;
-  let selTime = null;
+  let step = 1, selDay = null, selTime = null;
 
   function render() {
     let html = `
       <div class="tab-bar" style="margin-bottom:1.5rem">
-        <button class="${step >= 1 ? 'active' : ''}">1. Choose date</button>
-        <button class="${step >= 2 ? 'active' : ''}">2. Choose time</button>
-        <button class="${step >= 3 ? 'active' : ''}">3. Confirm</button>
-      </div>
-    `;
+        <button class="${step >= 1 ? 'active' : ''}"><i class="fas fa-calendar"></i> 1. Choose date</button>
+        <button class="${step >= 2 ? 'active' : ''}"><i class="fas fa-clock"></i> 2. Choose time</button>
+        <button class="${step >= 3 ? 'active' : ''}"><i class="fas fa-check"></i> 3. Confirm</button>
+      </div>`;
 
     if (step === 1) {
-      html += `<h3 style="font-size:15px;font-weight:500;margin-bottom:0.5rem">Select a date — May 2025</h3>`;
+      html += `<h3 style="font-size:15.5px;font-weight:700;margin-bottom:0.75rem">Select a date — May 2025</h3>`;
       html += `<div class="cal-grid">`;
       days.forEach(d => html += `<div class="cal-hdr">${d}</div>`);
-      // محاذاة الأيام (1 مايو 2025 كان خميس)
       for (let i = 0; i < 3; i++) html += `<div class="cal-day empty"></div>`;
       for (let d = 1; d <= 31; d++) {
         const past = d < 8;
         const avail = !past && (d % 7 !== 5 && d % 7 !== 6);
         const selected = selDay === d;
-        html += `<div class="cal-day ${past ? 'past' : avail ? 'available' : ''} ${selected ? 'selected' : ''}" 
-          onclick="${avail && !past ? `window.calSetDay(${d})` : ''}">${d}</div>`;
+        html += `<div class="cal-day ${past ? 'past' : avail ? 'available' : ''} ${selected ? 'selected' : ''}" onclick="${avail && !past ? `window.calSetDay(${d})` : ''}">${d}</div>`;
       }
-      html += `</div><div class="notif">Available dates are highlighted. Sessions are 45 minutes via video call.</div>`;
-    } 
-    else if (step === 2) {
-      html += `<div style="font-size:14px;margin-bottom:1rem">
-        Selected date: <strong>May ${selDay}, 2025</strong> 
-        <button onclick="window.calGoToStep(1)" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:13px;padding:0;margin-left:8px">Change</button>
-      </div>`;
-      html += `<h3 style="font-size:15px;font-weight:500;margin-bottom:0.75rem">Choose a time slot</h3>`;
+      html += `</div><div class="notif"><i class="fas fa-info-circle"></i> Available dates are highlighted. Sessions are 45 minutes via video call.</div>`;
+    } else if (step === 2) {
+      html += `<div style="font-size:14px;margin-bottom:1rem">Selected date: <strong>May ${selDay}, 2025</strong> <button onclick="window.calGoToStep(1)" style="background:none;border:none;cursor:pointer;color:var(--primary);font-size:13px;padding:0;margin-left:8px;font-weight:600">Change</button></div>`;
+      html += `<h3 style="font-size:15.5px;font-weight:700;margin-bottom:0.75rem">Choose a time slot</h3>`;
       html += `<div class="time-slots">`;
       times.forEach(t => {
         const selected = selTime === t;
         html += `<div class="time-slot ${selected ? 'selected' : ''}" onclick="window.calSetTime('${t}')">${t}</div>`;
       });
       html += `</div>`;
-    } 
-    else if (step === 3) {
-      html += `<div class="card" style="max-width:420px">
-        <h3 style="font-size:15px;font-weight:500;margin-bottom:1rem">Booking summary</h3>
-        <table style="width:100%;font-size:14px"><tbody>
-          <tr><td style="color:var(--muted);padding:4px 0">Date</td><td style="text-align:right">May ${selDay}, 2025</td></tr>
-          <tr><td style="color:var(--muted);padding:4px 0">Time</td><td style="text-align:right">${selTime}</td></tr>
-          <tr><td style="color:var(--muted);padding:4px 0">Duration</td><td style="text-align:right">45 minutes</td></tr>
-          <tr><td style="color:var(--muted);padding:4px 0">Format</td><td style="text-align:right">Video call</td></tr>
-          <tr><td style="color:var(--muted);padding:4px 0">Price</td><td style="text-align:right;font-weight:500">3,500 DZD</td></tr>
+    } else if (step === 3) {
+      html += `<div class="card" style="max-width:440px">
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:1.25rem"><i class="fas fa-calendar-check" style="color:var(--primary);margin-right:8px"></i>Booking summary</h3>
+        <table style="width:100%;font-size:14px;border-collapse:collapse"><tbody>
+          <tr><td style="color:var(--text-2);padding:9px 0;border-bottom:1px solid var(--border)">Date</td><td style="text-align:right;padding:9px 0;border-bottom:1px solid var(--border);font-weight:600">May ${selDay}, 2025</td></tr>
+          <tr><td style="color:var(--text-2);padding:9px 0;border-bottom:1px solid var(--border)">Time</td><td style="text-align:right;padding:9px 0;border-bottom:1px solid var(--border);font-weight:600">${selTime}</td></tr>
+          <tr><td style="color:var(--text-2);padding:9px 0;border-bottom:1px solid var(--border)">Duration</td><td style="text-align:right;padding:9px 0;border-bottom:1px solid var(--border);font-weight:600">45 minutes</td></tr>
+          <tr><td style="color:var(--text-2);padding:9px 0;border-bottom:1px solid var(--border)">Format</td><td style="text-align:right;padding:9px 0;border-bottom:1px solid var(--border);font-weight:600">Video call</td></tr>
+          <tr><td style="color:var(--text-2);padding:9px 0">Price</td><td style="text-align:right;padding:9px 0;font-weight:700;color:var(--primary)">3,500 DZD</td></tr>
         </tbody></table>
-        <div style="margin-top:1rem;display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn btn-primary" onclick="window.calConfirmBooking()">Confirm booking</button>
+        <div style="margin-top:1.25rem;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="window.calConfirmBooking()"><i class="fab fa-whatsapp"></i> Confirm booking</button>
           <button class="btn btn-outline" onclick="window.calReset()">Start over</button>
         </div>
       </div>`;
@@ -569,66 +1968,70 @@ function renderCalendar() {
   render();
 }
 
-const vocabData={
-  "Meetings":[ {t:"Agenda",d:"A list of topics to be discussed in a meeting",e:"Please review the agenda before the meeting."},
-    {t:"Minutes",d:"The written record of a meeting",e:"Can you circulate the minutes to everyone?"},
-    {t:"Action item",d:"A task assigned during a meeting",e:"The action item is to prepare the report by Friday."},
-    {t:"Chair/Chairperson",d:"The person who leads the meeting",e:"The chairperson opened the session at 9 AM."},
-    {t:"Quorum",d:"Minimum number of people needed for a valid meeting",e:"We can't proceed — we don't have a quorum."}],
-  "Emails":[{t:"Re:",d:"In reply to (subject line prefix)",e:"Re: Contract renewal — follow-up"},
-    {t:"CC",d:"Carbon copy — send a copy to another person",e:"Please CC the finance team on this email."},
-    {t:"FYI",d:"For your information",e:"FYI, the meeting has been rescheduled."},
-    {t:"EOM",d:"End of message — nothing follows",e:"Meeting at 3PM confirmed. EOM"},
-    {t:"Per my last email",d:"Referring back to a previous message",e:"Per my last email, the deadline is Thursday."}],
-  "Finance":[{t:"Invoice",d:"A document requesting payment for goods or services",e:"Please send the invoice to our accounts department."},
-    {t:"ROI",d:"Return on Investment — profit relative to cost",e:"The campaign showed a strong ROI of 35%."},
-    {t:"Cash flow",d:"The movement of money in and out of a business",e:"We need to monitor our cash flow carefully."},
-    {t:"Budget",d:"A financial plan for a specific period",e:"The marketing budget has been approved."},
-    {t:"Overhead",d:"Regular operating costs not tied to production",e:"We need to reduce our overhead costs."}],
-  "HR & Career":[{t:"Onboarding",d:"The process of integrating a new employee",e:"Your onboarding starts on Monday."},
-    {t:"Performance review",d:"A formal evaluation of an employee's work",e:"Annual performance reviews are in December."},
-    {t:"KPI",d:"Key Performance Indicator — measurable goal",e:"Your KPI for this quarter is 95% client satisfaction."},
-    {t:"Probation period",d:"Trial period at the start of employment",e:"The probation period is 3 months."},
-    {t:"Resignation",d:"Formally leaving a job",e:"She submitted her resignation letter yesterday."}]
+/* ===================== VOCABULARY ===================== */
+const vocabData = {
+  "Meetings": [
+    { t: "Agenda", d: "A list of topics to be discussed in a meeting", e: "Please review the agenda before the meeting." },
+    { t: "Minutes", d: "The written record of a meeting", e: "Can you circulate the minutes to everyone?" },
+    { t: "Action item", d: "A task assigned during a meeting", e: "The action item is to prepare the report by Friday." },
+    { t: "Chair/Chairperson", d: "The person who leads the meeting", e: "The chairperson opened the session at 9 AM." },
+    { t: "Quorum", d: "Minimum number of people needed for a valid meeting", e: "We can't proceed — we don't have a quorum." }
+  ],
+  "Emails": [
+    { t: "Re:", d: "In reply to (subject line prefix)", e: "Re: Contract renewal — follow-up" },
+    { t: "CC", d: "Carbon copy — send a copy to another person", e: "Please CC the finance team on this email." },
+    { t: "FYI", d: "For your information", e: "FYI, the meeting has been rescheduled." },
+    { t: "EOM", d: "End of message — nothing follows", e: "Meeting at 3PM confirmed. EOM" },
+    { t: "Per my last email", d: "Referring back to a previous message", e: "Per my last email, the deadline is Thursday." }
+  ],
+  "Finance": [
+    { t: "Invoice", d: "A document requesting payment for goods or services", e: "Please send the invoice to our accounts department." },
+    { t: "ROI", d: "Return on Investment — profit relative to cost", e: "The campaign showed a strong ROI of 35%." },
+    { t: "Cash flow", d: "The movement of money in and out of a business", e: "We need to monitor our cash flow carefully." },
+    { t: "Budget", d: "A financial plan for a specific period", e: "The marketing budget has been approved." },
+    { t: "Overhead", d: "Regular operating costs not tied to production", e: "We need to reduce our overhead costs." }
+  ],
+  "HR & Career": [
+    { t: "Onboarding", d: "The process of integrating a new employee", e: "Your onboarding starts on Monday." },
+    { t: "Performance review", d: "A formal evaluation of an employee's work", e: "Annual performance reviews are in December." },
+    { t: "KPI", d: "Key Performance Indicator — measurable goal", e: "Your KPI for this quarter is 95% client satisfaction." },
+    { t: "Probation period", d: "Trial period at the start of employment", e: "The probation period is 3 months." },
+    { t: "Resignation", d: "Formally leaving a job", e: "She submitted her resignation letter yesterday." }
+  ]
 };
 
-let activeVocabTab=Object.keys(vocabData)[0];
-function renderVocab(){
-  const cats=Object.keys(vocabData);
-  let tabs='';
-  cats.forEach(c=>tabs+=`<button class="${c===activeVocabTab?'active':''}" onclick="activeVocabTab='${c}';renderVocab()">${c}</button>`);
-  document.getElementById('vocabTabs').innerHTML=tabs;
-  let html='';
-  vocabData[activeVocabTab].forEach(v=>{
-    html+=`<div class="vocab-item"><div class="vocab-term">${v.t}</div><div class="vocab-def">${v.d}</div><div class="vocab-ex">${v.e}</div></div>`;
+let activeVocabTab = Object.keys(vocabData)[0];
+
+function renderVocab() {
+  const cats = Object.keys(vocabData);
+  let tabs = '';
+  cats.forEach(c => tabs += `<button class="${c === activeVocabTab ? 'active' : ''}" onclick="activeVocabTab='${c}';renderVocab()">${c}</button>`);
+  document.getElementById('vocabTabs').innerHTML = tabs;
+  let html = '';
+  vocabData[activeVocabTab].forEach(v => {
+    html += `<div class="vocab-item"><div class="vocab-term">${v.t}</div><div class="vocab-def">${v.d}</div><div class="vocab-ex">${v.e}</div></div>`;
   });
-  document.getElementById('vocabGrid').innerHTML=html;
+  document.getElementById('vocabGrid').innerHTML = html;
 }
 
-function openService(type){
-  const labels={email:"Professional email writing",report:"Business report translation",message:"Business message translation"};
-  const sf=document.getElementById('serviceForm');
-  sf.style.display='block';
-  sf.innerHTML=`<hr class="divider"><h3 style="font-size:16px;font-weight:500;margin-bottom:1rem">Request: ${labels[type]}</h3>
-  <div style="display:flex;flex-direction:column;gap:12px;max-width:540px">
-    <div><label style="font-size:13px;color:var(--color-text-secondary);display:block;margin-bottom:4px">Your full name</label><input type="text" placeholder="e.g. Amina Bouzid" style="width:100%"></div>
-    <div><label style="font-size:13px;color:var(--color-text-secondary);display:block;margin-bottom:4px">WhatsApp number</label><input type="text" placeholder="+213 6XX XXX XXX" style="width:100%"></div>
-    <div><label style="font-size:13px;color:var(--color-text-secondary);display:block;margin-bottom:4px">Describe what you need</label><textarea style="width:100%;height:90px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);padding:8px 10px;font-size:14px;font-family:inherit;background:var(--color-background-primary);color:var(--color-text-primary);resize:vertical" placeholder="Explain your request in detail…"></textarea></div>
-    <div><label style="font-size:13px;color:var(--color-text-secondary);display:block;margin-bottom:4px">Language direction</label><select style="width:100%"><option>Arabic → English</option><option>French → English</option><option>English → Arabic</option><option>English → French</option><option>Other</option></select></div>
-    <button class="btn btn-primary" style="width:fit-content" onclick="alert('Request submitted! Our team will contact you within 24 hours via WhatsApp.')">Submit request</button>
+/* ===================== SERVICES FORM ===================== */
+function openService(type) {
+  const labels = { email: "Professional email writing", report: "Business report translation", message: "Business message translation" };
+  const sf = document.getElementById('serviceForm');
+  sf.style.display = 'block';
+  sf.innerHTML = `<hr class="divider">
+  <h3 style="font-size:17px;font-weight:700;margin-bottom:1.25rem"><i class="fas fa-paper-plane" style="color:var(--primary);margin-right:8px"></i>Request: ${labels[type]}</h3>
+  <div style="display:flex;flex-direction:column;gap:14px;max-width:560px">
+    <div><label class="form-label">Your full name</label><input type="text" placeholder="e.g. Amina Bouzid"></div>
+    <div><label class="form-label">WhatsApp number</label><input type="text" placeholder="+213 6XX XXX XXX"></div>
+    <div><label class="form-label">Describe what you need</label><textarea placeholder="Explain your request in detail…"></textarea></div>
+    <div><label class="form-label">Language direction</label>
+      <select><option>Arabic → English</option><option>French → English</option><option>English → Arabic</option><option>English → French</option><option>Other</option></select>
+    </div>
+    <button class="btn btn-primary" style="width:fit-content" onclick="alert('Request submitted! Our team will contact you within 24 hours via WhatsApp.')"><i class="fas fa-check"></i> Submit request</button>
   </div>`;
-  sf.scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-
-function showPage(name,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
-  if(btn) btn.classList.add('active');
-  if(name==='test') renderTest();
-  if(name==='courses') renderCourseList();
-  if(name==='coaching') renderCalendar();
-  if(name==='vocab') renderVocab();
-  window.scrollTo(0,0);
+  sf.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 </script>
+</body>
+</html>

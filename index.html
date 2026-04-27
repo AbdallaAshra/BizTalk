@@ -7,15 +7,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
 <style>
-/* ===================== RESET & BASE ===================== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
   --primary: #1A3FAA;
   --primary-dark: #122D87;
   --primary-light: #EEF3FF;
+  --primary-glow: rgba(26,63,170,0.18);
   --accent: #F59E0B;
   --accent-light: #FEF3C7;
   --teal: #0D9488;
@@ -32,14 +34,16 @@
   --bg: #F8FAFF;
   --bg-2: #F1F5FE;
   --white: #FFFFFF;
-  --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(26,63,170,0.08);
-  --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.08), 0 12px 32px rgba(26,63,170,0.15);
-  --radius: 14px;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 20px rgba(26,63,170,0.07);
+  --card-shadow-hover: 0 6px 24px rgba(0,0,0,0.08), 0 16px 48px rgba(26,63,170,0.16);
+  --radius: 16px;
   --radius-sm: 8px;
-  --radius-lg: 20px;
+  --radius-lg: 24px;
   --font: 'Sora', system-ui, sans-serif;
   --font-ar: 'IBM Plex Sans Arabic', 'Sora', system-ui, sans-serif;
   --nav-h: 68px;
+  --glass-bg: rgba(255,255,255,0.08);
+  --glass-border: rgba(255,255,255,0.18);
 }
 
 body {
@@ -51,18 +55,16 @@ body {
   overflow-x: hidden;
 }
 
-[dir="rtl"] body, [dir="rtl"] * {
-  font-family: var(--font-ar);
-}
+[dir="rtl"] body, [dir="rtl"] * { font-family: var(--font-ar); }
 
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
 
 /* ===================== NAVBAR ===================== */
 nav {
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(226,232,240,0.8);
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(226,232,240,0.6);
   padding: 0 2rem;
   display: flex;
   align-items: center;
@@ -72,10 +74,14 @@ nav {
   top: 0;
   z-index: 1000;
   gap: 1rem;
-  transition: box-shadow 0.3s;
+  transition: box-shadow 0.4s cubic-bezier(0.4,0,0.2,1), background 0.4s;
+  will-change: transform;
 }
 
-nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
+nav.scrolled {
+  box-shadow: 0 4px 32px rgba(26,63,170,0.10), 0 1px 0 rgba(26,63,170,0.06);
+  background: rgba(255,255,255,0.94);
+}
 
 .logo {
   font-size: 22px;
@@ -95,7 +101,13 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
   border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
   color: white; font-size: 16px;
-  box-shadow: 0 2px 8px rgba(26,63,170,0.3);
+  box-shadow: 0 2px 12px rgba(26,63,170,0.35);
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+}
+
+.logo:hover .logo-icon {
+  transform: rotate(-8deg) scale(1.1);
+  box-shadow: 0 4px 20px rgba(26,63,170,0.45);
 }
 
 .logo-text { color: var(--text); }
@@ -121,13 +133,27 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
   font-size: 13.5px;
   font-weight: 500;
   color: var(--text-2);
-  transition: all 0.18s;
+  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
   white-space: nowrap;
   font-family: inherit;
+  position: relative;
+}
+
+.nav-links button::after {
+  content: '';
+  position: absolute;
+  bottom: 2px; left: 50%; right: 50%;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 2px;
+  transition: left 0.2s, right 0.2s;
 }
 
 .nav-links button:hover { background: var(--bg-2); color: var(--primary); }
 .nav-links button.active { background: var(--primary-light); color: var(--primary); }
+
+.nav-links button:hover::after,
+.nav-links button.active::after { left: 12px; right: 12px; }
 
 .nav-right {
   display: flex;
@@ -155,7 +181,7 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
   font-weight: 600;
   color: var(--text-2);
   font-family: inherit;
-  transition: all 0.15s;
+  transition: all 0.2s;
 }
 
 .lang-btn.active {
@@ -165,7 +191,7 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
 }
 
 .nav-cta {
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, #3B6EF8 100%);
   color: white !important;
   border: none;
   padding: 9px 20px;
@@ -174,49 +200,117 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
   font-size: 13px;
   font-weight: 600;
   font-family: inherit;
-  transition: all 0.18s;
+  transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
   white-space: nowrap;
+  box-shadow: 0 2px 12px rgba(26,63,170,0.3);
+  position: relative;
+  overflow: hidden;
 }
 
-.nav-cta:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,63,170,0.3); }
+.nav-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.nav-cta:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 24px rgba(26,63,170,0.4);
+}
+
+.nav-cta:hover::before { opacity: 1; }
+.nav-cta:active { transform: scale(0.97); }
 
 /* ===================== PAGES ===================== */
-.page { display: none; padding-bottom: 4rem; animation: pageFade 0.35s ease; }
-.page.active { display: block; }
+.page { display: none; padding-bottom: 4rem; }
+.page.active { display: block; animation: pageFade 0.45s cubic-bezier(0.4,0,0.2,1); }
 
 @keyframes pageFade {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 /* ===================== HERO ===================== */
 .hero {
-  background: linear-gradient(135deg, #0F2475 0%, #1A3FAA 45%, #2563EB 80%, #0EA5E9 100%);
-  min-height: 600px;
+  background-image: url('https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=1600&q=80&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  min-height: 620px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 5rem 2rem;
   position: relative;
   overflow: hidden;
+  will-change: transform;
+}
+
+.hero-parallax-bg {
+  position: absolute;
+  inset: -40px;
+  background-image: url('https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=1600&q=80&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center top;
+  will-change: transform;
+  z-index: 0;
 }
 
 .hero::before {
   content: '';
   position: absolute; inset: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background: linear-gradient(
+    135deg,
+    rgba(8, 20, 78, 0.92) 0%,
+    rgba(20, 52, 150, 0.85) 40%,
+    rgba(30, 85, 210, 0.75) 75%,
+    rgba(10, 140, 210, 0.65) 100%
+  );
+  z-index: 1;
 }
 
-.hero-orb {
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.hero-mesh {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-mesh-circle {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.25;
+  filter: blur(70px);
+  mix-blend-mode: screen;
+  will-change: transform;
 }
 
-.hero-orb-1 { width: 400px; height: 400px; background: #60A5FA; top: -100px; right: -100px; }
-.hero-orb-2 { width: 300px; height: 300px; background: #A78BFA; bottom: -80px; left: -60px; }
-.hero-orb-3 { width: 200px; height: 200px; background: #34D399; top: 50%; right: 20%; }
+.hmc-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(99,179,255,0.22) 0%, transparent 70%); top: -150px; right: -100px; }
+.hmc-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(167,139,250,0.18) 0%, transparent 70%); bottom: -100px; left: -80px; }
+.hmc-3 { width: 280px; height: 280px; background: radial-gradient(circle, rgba(52,211,153,0.15) 0%, transparent 70%); top: 40%; right: 22%; }
+
+.hero-grid-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
 
 .hero-inner {
   max-width: 1100px;
@@ -226,7 +320,7 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
   align-items: center;
   gap: 4rem;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .hero-content { color: white; }
@@ -235,63 +329,81 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.25);
-  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.22);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-radius: 50px;
   padding: 6px 16px;
   font-size: 12.5px;
   font-weight: 600;
   color: rgba(255,255,255,0.95);
   margin-bottom: 1.5rem;
-  animation: slideDown 0.6s ease both;
+  opacity: 0;
+  will-change: transform, opacity;
 }
 
 .hero-badge-dot {
   width: 8px; height: 8px;
   background: #4ADE80;
   border-radius: 50%;
-  animation: pulse 2s infinite;
+  box-shadow: 0 0 8px rgba(74,222,128,0.6);
+  animation: pulse 2.5s ease-in-out infinite;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(0.85); }
+  0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 8px rgba(74,222,128,0.6); }
+  50% { opacity: 0.7; transform: scale(0.85); box-shadow: 0 0 14px rgba(74,222,128,0.3); }
 }
 
 .hero h1 {
-  font-size: clamp(28px, 4.5vw, 50px);
+  font-size: clamp(28px, 4.5vw, 52px);
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1.12;
   margin-bottom: 1.25rem;
-  letter-spacing: -0.5px;
-  animation: slideDown 0.65s 0.1s ease both;
+  letter-spacing: -0.8px;
+  opacity: 0;
+  will-change: transform, opacity;
 }
 
 .hero h1 .highlight {
-  color: #FBD34C;
+  color: #FBBF24;
   position: relative;
+  display: inline-block;
+}
+
+.hero h1 .highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #FBBF24, rgba(251,191,36,0.3));
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: underlineReveal 0.8s 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+
+@keyframes underlineReveal {
+  to { transform: scaleX(1); }
 }
 
 .hero p {
   font-size: clamp(14px, 1.8vw, 17px);
-  opacity: 0.88;
-  line-height: 1.75;
+  opacity: 0;
+  line-height: 1.8;
   margin-bottom: 2.25rem;
   max-width: 480px;
-  animation: slideDown 0.65s 0.2s ease both;
-}
-
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-16px); }
-  to { opacity: 1; transform: translateY(0); }
+  color: rgba(255,255,255,0.88);
+  will-change: transform, opacity;
 }
 
 .hero-btns {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  animation: slideDown 0.65s 0.3s ease both;
+  opacity: 0;
+  will-change: transform, opacity;
 }
 
 .btn-hero-primary {
@@ -304,62 +416,84 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
   font-weight: 700;
   cursor: pointer;
   font-family: inherit;
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.18), 0 0 0 0 rgba(255,255,255,0.4);
+  position: relative;
+  overflow: hidden;
 }
 
-.btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.btn-hero-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(26,63,170,0.06), transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.btn-hero-primary:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 32px rgba(0,0,0,0.22);
+}
+
+.btn-hero-primary:hover::before { opacity: 1; }
+.btn-hero-primary:active { transform: scale(0.97); }
 
 .btn-hero-secondary {
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.1);
   color: white;
-  border: 1.5px solid rgba(255,255,255,0.35);
+  border: 1.5px solid rgba(255,255,255,0.3);
   padding: 12px 24px;
   border-radius: 10px;
   font-size: 14.5px;
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
-  transition: all 0.2s;
-  backdrop-filter: blur(4px);
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-.btn-hero-secondary:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.6); }
+.btn-hero-secondary:hover {
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.55);
+  transform: translateY(-2px);
+}
+
+.btn-hero-secondary:active { transform: scale(0.97); }
 
 .hero-stats {
   display: flex;
   gap: 1.5rem;
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid rgba(255,255,255,0.18);
-  animation: slideDown 0.65s 0.4s ease both;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  opacity: 0;
+  will-change: opacity, transform;
 }
 
 .hero-stat-num {
   font-size: 22px;
   font-weight: 700;
   color: white;
+  letter-spacing: -0.5px;
 }
 
 .hero-stat-label {
   font-size: 12px;
-  color: rgba(255,255,255,0.7);
-  margin-top: 1px;
+  color: rgba(255,255,255,0.65);
+  margin-top: 2px;
 }
 
 .hero-visual {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: slideUp 0.7s 0.2s ease both;
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  opacity: 0;
+  will-change: transform, opacity;
 }
 
 .hero-card-stack {
@@ -369,20 +503,33 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
 }
 
 .hero-card-main {
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 20px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 22px;
   padding: 2rem;
   color: white;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-card-main::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 160px; height: 160px;
+  background: radial-gradient(circle, rgba(99,179,255,0.2) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .hero-card-label {
-  font-size: 11.5px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.65);
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.55);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   margin-bottom: 1rem;
 }
 
@@ -390,21 +537,23 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
   font-size: 17px;
   font-weight: 600;
   margin-bottom: 0.75rem;
+  letter-spacing: -0.2px;
 }
 
 .hero-lesson-bar {
   height: 5px;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.12);
   border-radius: 5px;
   margin-bottom: 1.5rem;
   overflow: hidden;
 }
 
 .hero-lesson-fill {
-  width: 65%;
+  width: 0%;
   height: 100%;
   background: linear-gradient(90deg, #4ADE80, #22D3EE);
   border-radius: 5px;
+  transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
 }
 
 .hero-vocab-list {
@@ -417,129 +566,179 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 8px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 9px;
   padding: 8px 12px;
   font-size: 13px;
+  transition: background 0.2s, transform 0.2s;
 }
+
+.hero-vocab-item:hover { background: rgba(255,255,255,0.14); transform: translateX(3px); }
 
 .hero-vocab-dot {
   width: 8px; height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
+  box-shadow: 0 0 8px currentColor;
 }
 
 .hero-card-float {
   position: absolute;
   background: white;
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 12px 16px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
   font-size: 13px;
   color: var(--text);
   display: flex;
   align-items: center;
   gap: 10px;
   white-space: nowrap;
+  border: 1px solid rgba(226,232,240,0.8);
+  will-change: transform;
 }
 
-.hero-card-float-1 {
-  bottom: -20px;
-  left: -30px;
-  animation: float1 4s ease-in-out infinite;
-}
-
-.hero-card-float-2 {
-  top: -16px;
-  right: -20px;
-  animation: float2 4.5s ease-in-out infinite;
-}
-
-@keyframes float1 {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-@keyframes float2 {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(8px); }
-}
+.hero-card-float-1 { bottom: -20px; left: -30px; }
+.hero-card-float-2 { top: -16px; right: -20px; }
 
 .float-icon {
   width: 32px; height: 32px;
-  border-radius: 8px;
+  border-radius: 9px;
   display: flex; align-items: center; justify-content: center;
   font-size: 16px;
 }
 
 /* ===================== SECTION LAYOUT ===================== */
-.section { padding: 3rem 2rem; max-width: 1080px; margin: 0 auto; }
+.section { padding: 3.5rem 2rem; max-width: 1080px; margin: 0 auto; }
 .section-sm { padding: 2rem 2rem; max-width: 1080px; margin: 0 auto; }
 
 .section-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12.5px;
+  font-size: 11.5px;
   font-weight: 700;
   color: var(--primary);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 0.75rem;
-  background: var(--primary-light);
-  padding: 4px 12px;
+  letter-spacing: 1.8px;
+  margin-bottom: 0.85rem;
+  background: linear-gradient(135deg, var(--primary-light), rgba(219,234,254,0.7));
+  padding: 5px 14px;
   border-radius: 50px;
+  border: 1px solid rgba(26,63,170,0.12);
+  box-shadow: 0 1px 6px rgba(26,63,170,0.08);
+  will-change: transform, opacity;
 }
 
 .section-title {
-  font-size: clamp(22px, 3vw, 32px);
+  font-size: clamp(22px, 3vw, 34px);
   font-weight: 700;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.6px;
   margin-bottom: 0.6rem;
-  line-height: 1.25;
+  line-height: 1.22;
+  background: linear-gradient(135deg, var(--text) 0%, #2a3d70 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  will-change: transform, opacity;
 }
 
 .section-sub {
   color: var(--text-2);
   font-size: 15.5px;
   max-width: 560px;
-  line-height: 1.75;
+  line-height: 1.8;
   margin-bottom: 2.5rem;
+  will-change: transform, opacity;
 }
 
-/* Section Backgrounds */
 .section-bg-subtle {
-  background: var(--bg);
+  background: linear-gradient(180deg, var(--bg) 0%, var(--white) 100%);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-bg-subtle::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 400px;
+  background: radial-gradient(ellipse at center, rgba(26,63,170,0.04) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .section-bg-blue {
-  background: linear-gradient(135deg, #EEF3FF 0%, #F0F7FF 100%);
+  position: relative;
+  background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1400&q=75&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   border-top: 1px solid #D9E8FF;
   border-bottom: 1px solid #D9E8FF;
+  overflow: hidden;
 }
 
-.section-bg-dark {
-  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
-  color: white;
+.section-bg-blue::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(238,243,255,0.97) 0%, rgba(240,247,255,0.95) 100%);
+  z-index: 0;
 }
+
+.section-bg-blue > .section { position: relative; z-index: 1; }
+
+.section-bg-dark {
+  position: relative;
+  background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=75&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+  overflow: hidden;
+}
+
+.section-bg-dark::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(10,16,40,0.96) 0%, rgba(20,32,58,0.92) 100%);
+  z-index: 0;
+}
+
+.section-bg-dark > .section { position: relative; z-index: 1; }
 
 /* ===================== CARDS ===================== */
 .card {
   background: var(--white);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(226,232,240,0.8);
   border-radius: var(--radius);
   padding: 1.5rem;
   box-shadow: var(--card-shadow);
-  transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+  transition: transform 0.3s cubic-bezier(0.34,1.36,0.64,1), box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(26,63,170,0.03), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
 }
 
 .card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--card-shadow-hover);
-  border-color: rgba(26,63,170,0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08), 0 24px 56px rgba(26,63,170,0.12);
+  border-color: rgba(26,63,170,0.18);
 }
+
+.card:hover::before { opacity: 1; }
 
 .card h3 {
   font-size: 15.5px;
@@ -551,7 +750,7 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
 .card p {
   font-size: 13.5px;
   color: var(--text-2);
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
@@ -560,18 +759,21 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
 
 .icon-box {
   width: 48px; height: 48px;
-  border-radius: 12px;
+  border-radius: 14px;
   display: flex; align-items: center; justify-content: center;
   font-size: 20px;
   margin-bottom: 1rem;
   flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
 }
 
-.ib-blue { background: var(--primary-light); }
-.ib-teal { background: var(--teal-light); }
-.ib-amber { background: var(--accent-light); }
-.ib-pink { background: var(--rose-light); }
-.ib-green { background: var(--green-light); }
+.card:hover .icon-box { transform: scale(1.12) rotate(-4deg); }
+
+.ib-blue { background: linear-gradient(135deg, #E8EFFF, var(--primary-light)); }
+.ib-teal { background: linear-gradient(135deg, #CCFBF1, var(--teal-light)); }
+.ib-amber { background: linear-gradient(135deg, var(--accent-light), #FDE68A); }
+.ib-pink { background: linear-gradient(135deg, var(--rose-light), #FECDD3); }
+.ib-green { background: linear-gradient(135deg, var(--green-light), #A7F3D0); }
 
 /* ===================== BUTTONS ===================== */
 .btn {
@@ -579,32 +781,43 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
   align-items: center;
   gap: 7px;
   padding: 10px 22px;
-  border-radius: 9px;
+  border-radius: 10px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
   border: none;
   font-family: inherit;
-  transition: all 0.18s;
+  transition: all 0.25s cubic-bezier(0.34,1.36,0.64,1);
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
 }
 
-.btn:active { transform: scale(0.97); }
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.12);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.btn:hover::after { opacity: 1; }
+.btn:active { transform: scale(0.96) !important; }
 
 .btn-primary {
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, #3B6EF8 100%);
   color: white;
-  box-shadow: 0 2px 8px rgba(26,63,170,0.25);
+  box-shadow: 0 2px 10px rgba(26,63,170,0.28);
 }
 
 .btn-primary:hover {
-  background: var(--primary-dark);
-  box-shadow: 0 4px 16px rgba(26,63,170,0.35);
-  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(26,63,170,0.42);
+  transform: translateY(-2px) scale(1.02);
 }
 
 .btn-white { background: white; color: var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-.btn-white:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.15); transform: translateY(-1px); }
+.btn-white:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.15); transform: translateY(-2px); }
 
 .btn-outline {
   background: transparent;
@@ -612,7 +825,7 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
   color: var(--text);
 }
 
-.btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+.btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); transform: translateY(-1px); }
 
 .btn-ghost {
   background: transparent;
@@ -623,18 +836,10 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(26,63,170,0.10); }
 }
 
 .btn-ghost:hover { color: var(--primary); background: var(--primary-light); }
-
 .btn-sm { padding: 7px 16px; font-size: 13px; }
 
 /* ===================== BADGES ===================== */
-.badge {
-  display: inline-block;
-  padding: 3px 11px;
-  border-radius: 50px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
+.badge { display: inline-block; padding: 3px 11px; border-radius: 50px; font-size: 12px; font-weight: 600; }
 .badge-blue { background: var(--primary-light); color: var(--primary); }
 .badge-green { background: var(--green-light); color: var(--green); }
 .badge-amber { background: var(--accent-light); color: #92400E; }
@@ -648,7 +853,7 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0
 
 /* ===================== PROGRESS ===================== */
 .progress-bar { height: 7px; background: var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 0.5rem; }
-.progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #3B6EF8); border-radius: 10px; transition: width 0.4s ease; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #3B6EF8); border-radius: 10px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
 .step-indicator { font-size: 13px; color: var(--text-2); margin-bottom: 1.5rem; }
 
 /* ===================== QUIZ ===================== */
@@ -665,21 +870,22 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0
   border: 1.5px solid var(--border);
   cursor: pointer;
   font-size: 14px;
-  transition: all 0.15s;
+  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
   color: var(--text);
   background: white;
 }
 
-.quiz-opt label:hover { border-color: var(--primary); background: var(--primary-light); }
+.quiz-opt label:hover { border-color: var(--primary); background: var(--primary-light); transform: translateX(4px); }
 .quiz-opt input[type=radio] { accent-color: var(--primary); width: 16px; height: 16px; }
 
 .result-box {
-  border-radius: var(--radius);
-  padding: 2rem;
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
   text-align: center;
   margin-top: 1.5rem;
   background: linear-gradient(135deg, #EEF3FF, #F0F7FF);
-  border: 1px solid #D9E8FF;
+  border: 1px solid #C7D8FF;
+  box-shadow: 0 4px 32px rgba(26,63,170,0.08);
 }
 
 /* ===================== VOCAB ===================== */
@@ -688,13 +894,32 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0
 .vocab-item {
   background: white;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 1rem 1.2rem;
-  transition: all 0.2s;
+  transition: all 0.25s cubic-bezier(0.34,1.36,0.64,1);
   box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  position: relative;
+  overflow: hidden;
 }
 
-.vocab-item:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(26,63,170,0.1); }
+.vocab-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), #3B6EF8);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+
+.vocab-item:hover {
+  border-color: rgba(26,63,170,0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(26,63,170,0.12);
+}
+
+.vocab-item:hover::before { transform: scaleX(1); }
+
 .vocab-term { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
 .vocab-def { font-size: 13px; color: var(--text-2); line-height: 1.5; }
 .vocab-ex { font-size: 12px; color: var(--text-3); font-style: italic; margin-top: 6px; line-height: 1.4; }
@@ -722,7 +947,7 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0
   color: var(--text-2);
   border-bottom: 2.5px solid transparent;
   white-space: nowrap;
-  transition: all 0.15s;
+  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
   font-family: inherit;
   margin-bottom: -1px;
 }
@@ -738,14 +963,20 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0
   padding: 2rem;
   position: relative;
   box-shadow: var(--card-shadow);
-  transition: all 0.22s;
+  transition: all 0.3s cubic-bezier(0.34,1.36,0.64,1);
+  will-change: transform;
 }
 
-.pricing-card:hover { transform: translateY(-4px); box-shadow: var(--card-shadow-hover); }
+.pricing-card:hover { transform: translateY(-6px); box-shadow: var(--card-shadow-hover); }
 
 .pricing-card.featured {
   border: 2px solid var(--primary);
   background: linear-gradient(135deg, #F0F5FF 0%, #EEF3FF 100%);
+  box-shadow: 0 8px 40px rgba(26,63,170,0.16);
+}
+
+.pricing-card.featured:hover {
+  box-shadow: 0 16px 56px rgba(26,63,170,0.24);
 }
 
 .pricing-badge {
@@ -761,7 +992,7 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0
   font-weight: 700;
   white-space: nowrap;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 12px rgba(26,63,170,0.3);
+  box-shadow: 0 4px 16px rgba(26,63,170,0.35);
 }
 
 .price-plan-label { font-size: 13px; color: var(--text-2); font-weight: 600; margin-bottom: 4px; }
@@ -796,13 +1027,13 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0
   font-weight: 500;
   cursor: pointer;
   border: 1.5px solid transparent;
-  transition: all 0.15s;
+  transition: all 0.2s cubic-bezier(0.34,1.36,0.64,1);
   color: var(--text);
 }
 
-.cal-day:hover:not(.empty):not(.past) { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
-.cal-day.selected { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 2px 8px rgba(26,63,170,0.3); }
-.cal-day.past { color: var(--text-3); opacity: 0.5; cursor: default; }
+.cal-day:hover:not(.empty):not(.past) { background: var(--primary-light); border-color: var(--primary); color: var(--primary); transform: scale(1.1); }
+.cal-day.selected { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 2px 12px rgba(26,63,170,0.35); transform: scale(1.08); }
+.cal-day.past { color: var(--text-3); opacity: 0.4; cursor: default; }
 .cal-day.empty { cursor: default; }
 .cal-day.available { background: var(--bg); }
 .cal-hdr { font-size: 11.5px; font-weight: 600; color: var(--text-2); display: flex; align-items: center; justify-content: center; padding-bottom: 8px; }
@@ -817,13 +1048,13 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0
   font-weight: 600;
   cursor: pointer;
   text-align: center;
-  transition: all 0.15s;
+  transition: all 0.2s cubic-bezier(0.34,1.36,0.64,1);
   background: white;
   color: var(--text);
 }
 
-.time-slot:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
-.time-slot.selected { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 2px 8px rgba(26,63,170,0.25); }
+.time-slot:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); transform: translateY(-2px); }
+.time-slot.selected { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 2px 12px rgba(26,63,170,0.28); }
 
 /* ===================== SERVICES ===================== */
 .service-card {
@@ -835,10 +1066,18 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0
   flex-direction: column;
   gap: 10px;
   box-shadow: var(--card-shadow);
-  transition: all 0.22s;
+  transition: transform 0.3s cubic-bezier(0.34,1.36,0.64,1), box-shadow 0.3s, border-color 0.3s;
+  border-top: 3px solid transparent;
+  will-change: transform;
 }
 
-.service-card:hover { transform: translateY(-3px); box-shadow: var(--card-shadow-hover); border-color: rgba(26,63,170,0.15); }
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--card-shadow-hover);
+  border-color: var(--primary);
+  border-top-color: var(--primary);
+}
+
 .service-card h3 { font-size: 15.5px; font-weight: 700; }
 .service-card p { font-size: 13.5px; color: var(--text-2); line-height: 1.65; flex: 1; }
 .service-price { font-size: 14px; color: var(--primary); font-weight: 700; }
@@ -868,8 +1107,8 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0
 
 /* ===================== NOTIF ===================== */
 .notif {
-  background: var(--primary-light);
-  border: 1px solid rgba(26,63,170,0.15);
+  background: linear-gradient(135deg, var(--primary-light), rgba(219,234,254,0.6));
+  border: 1px solid rgba(26,63,170,0.14);
   border-radius: 10px;
   padding: 12px 16px;
   font-size: 13.5px;
@@ -886,12 +1125,24 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0
 
 /* ===================== FOOTER ===================== */
 .footer {
-  background: #0F172A;
-  color: rgba(255,255,255,0.5);
-  padding: 2rem;
+  position: relative;
+  background-image: url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&q=70&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: rgba(255,255,255,0.6);
+  padding: 2.5rem 2rem;
   text-align: center;
   font-size: 13px;
   margin-top: 3rem;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(8,14,36,0.98) 0%, rgba(12,20,46,0.97) 100%);
+  z-index: 0;
 }
 
 .footer-inner {
@@ -901,6 +1152,8 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .footer-logo { color: white; font-size: 18px; font-weight: 700; }
@@ -911,19 +1164,34 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0
   position: fixed;
   bottom: 28px;
   right: 28px;
-  background: #25D366;
+  background: linear-gradient(135deg, #25D366, #1fbe5a);
   color: white;
   width: 60px; height: 60px;
   border-radius: 60px;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 6px 24px rgba(37,211,102,0.4);
-  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 6px 28px rgba(37,211,102,0.42);
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
   z-index: 999;
   text-decoration: none;
   border: 3px solid white;
 }
 
-.wa-float:hover { transform: scale(1.1); box-shadow: 0 10px 32px rgba(37,211,102,0.5); }
+.wa-float:hover { transform: scale(1.12); box-shadow: 0 12px 40px rgba(37,211,102,0.55); }
+.wa-float:active { transform: scale(0.95); }
+
+.wa-float::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 60px;
+  border: 2px solid rgba(37,211,102,0.38);
+  animation: wa-ring 3s ease-in-out infinite;
+}
+
+@keyframes wa-ring {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 0; }
+}
 
 [dir="rtl"] .wa-float { right: auto; left: 28px; }
 
@@ -931,19 +1199,20 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0
 input[type=text], input[type=email], textarea, select {
   width: 100%;
   padding: 10px 14px;
-  border-radius: 9px;
+  border-radius: 10px;
   border: 1.5px solid var(--border);
   font-size: 14px;
   font-family: inherit;
   background: white;
   color: var(--text);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
   outline: none;
 }
 
 input[type=text]:focus, input[type=email]:focus, textarea:focus, select:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(26,63,170,0.12);
+  box-shadow: 0 0 0 3px rgba(26,63,170,0.1);
+  transform: translateY(-1px);
 }
 
 label.form-label { font-size: 13px; font-weight: 600; color: var(--text-2); display: block; margin-bottom: 5px; }
@@ -956,11 +1225,12 @@ textarea { height: 96px; resize: vertical; }
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--card-shadow);
-  transition: all 0.22s;
+  transition: all 0.3s cubic-bezier(0.34,1.36,0.64,1);
   cursor: pointer;
+  will-change: transform;
 }
 
-.course-card:hover { transform: translateY(-4px); box-shadow: var(--card-shadow-hover); }
+.course-card:hover { transform: translateY(-6px); box-shadow: var(--card-shadow-hover); }
 
 .course-card-top {
   height: 110px;
@@ -968,12 +1238,14 @@ textarea { height: 96px; resize: vertical; }
   align-items: center;
   justify-content: center;
   font-size: 40px;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
 }
 
-.course-card-top-0 { background: linear-gradient(135deg, #EEF3FF, #DBEAFE); }
+.course-card:hover .course-card-top { transform: scale(1.04); }
+
+.course-card-top-0 { background: linear-gradient(135deg, #DBEAFE, #EEF3FF); }
 .course-card-top-1 { background: linear-gradient(135deg, #CCFBF1, #D1FAE5); }
 .course-card-top-2 { background: linear-gradient(135deg, #FEF3C7, #FFE4E6); }
-
 .course-card-body { padding: 1.25rem; }
 
 /* ===================== FEATURES STRIP ===================== */
@@ -988,6 +1260,7 @@ textarea { height: 96px; resize: vertical; }
   overflow-x: auto;
   scrollbar-width: none;
   flex-wrap: wrap;
+  box-shadow: 0 2px 12px rgba(26,63,170,0.04);
 }
 
 .feature-item {
@@ -998,9 +1271,11 @@ textarea { height: 96px; resize: vertical; }
   color: var(--text-2);
   white-space: nowrap;
   font-weight: 500;
+  transition: color 0.2s, transform 0.2s;
 }
 
-.feature-item i { color: var(--primary); font-size: 14px; }
+.feature-item:hover { color: var(--primary); transform: translateY(-1px); }
+.feature-item i { color: var(--primary); font-size: 14px; filter: drop-shadow(0 1px 4px rgba(26,63,170,0.22)); }
 
 /* ===================== RTL SUPPORT ===================== */
 [dir="rtl"] nav { padding: 0 2rem; }
@@ -1008,7 +1283,7 @@ textarea { height: 96px; resize: vertical; }
 [dir="rtl"] .email-example { border-left: none; border-right: 4px solid var(--primary); }
 [dir="rtl"] .hero-card-float-1 { left: auto; right: -30px; }
 [dir="rtl"] .hero-card-float-2 { right: auto; left: -20px; }
-[dir="rtl"] .notif { }
+[dir="rtl"] .quiz-opt label:hover { transform: translateX(-4px); }
 
 /* ===================== TESTIMONIAL ===================== */
 .testimonial-card {
@@ -1017,13 +1292,68 @@ textarea { height: 96px; resize: vertical; }
   border-radius: var(--radius);
   padding: 1.5rem;
   box-shadow: var(--card-shadow);
+  transition: transform 0.3s cubic-bezier(0.34,1.36,0.64,1), box-shadow 0.3s;
+  will-change: transform;
+  position: relative;
+  overflow: hidden;
 }
 
-.testimonial-text { font-size: 14px; line-height: 1.75; color: var(--text-2); margin-bottom: 1rem; font-style: italic; }
+.testimonial-card::before {
+  content: '"';
+  position: absolute;
+  top: -10px; right: 16px;
+  font-size: 80px;
+  color: rgba(26,63,170,0.06);
+  font-family: Georgia, serif;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.testimonial-card:hover { transform: translateY(-5px); box-shadow: var(--card-shadow-hover); }
+
+.testimonial-text { font-size: 14px; line-height: 1.8; color: var(--text-2); margin-bottom: 1rem; font-style: italic; }
 .testimonial-author { display: flex; align-items: center; gap: 10px; }
-.testimonial-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.testimonial-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-light), #DBEAFE); display: flex; align-items: center; justify-content: center; font-size: 18px; border: 2px solid rgba(26,63,170,0.1); }
 .testimonial-name { font-size: 14px; font-weight: 600; }
 .testimonial-role { font-size: 12px; color: var(--text-2); }
+
+/* ===================== TESTIMONIALS SECTION WRAPPER ===================== */
+.testimonials-bg-wrapper {
+  position: relative;
+  background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1400&q=75&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+.testimonials-bg-wrapper::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(248,250,255,0.97) 0%, rgba(241,245,254,0.97) 100%);
+  z-index: 0;
+}
+
+.testimonials-bg-wrapper > .section { position: relative; z-index: 1; }
+
+/* ===================== WHAT WE OFFER SECTION ===================== */
+.offers-bg-wrapper {
+  position: relative;
+  background-image: url('https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=1400&q=75&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center 40%;
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+.offers-bg-wrapper::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(248,250,255,0.98) 0%, rgba(241,245,254,0.97) 100%);
+  z-index: 0;
+}
+
+.offers-bg-wrapper > * { position: relative; z-index: 1; }
 
 /* ===================== BACK BUTTON ===================== */
 .back-btn {
@@ -1040,31 +1370,28 @@ textarea { height: 96px; resize: vertical; }
   padding: 6px 10px;
   border-radius: 8px;
   font-family: inherit;
-  transition: all 0.15s;
+  transition: all 0.2s cubic-bezier(0.34,1.36,0.64,1);
 }
 
-.back-btn:hover { color: var(--primary); background: var(--primary-light); }
+.back-btn:hover { color: var(--primary); background: var(--primary-light); transform: translateX(-3px); }
 
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 768px) {
   :root { --nav-h: 60px; }
-  
   nav { padding: 0 1rem; }
   .nav-links { display: none; }
   .nav-right { gap: 8px; }
-  
   .hero { min-height: auto; padding: 3rem 1.25rem; }
   .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
   .hero-btns { justify-content: center; }
   .hero p { margin: 0 auto 2rem; }
   .hero-stats { justify-content: center; }
   .hero-visual { display: none; }
-  
   .section, .section-sm { padding: 2rem 1.25rem; }
   .grid-3, .grid-2, .grid-4 { grid-template-columns: 1fr; }
-  
   .features-strip { gap: 1.5rem; }
   .hero-stat-num { font-size: 18px; }
+  .section-bg-blue, .section-bg-dark, .testimonials-bg-wrapper, .offers-bg-wrapper, .footer { background-attachment: scroll; }
 }
 
 /* Mobile nav toggle */
@@ -1078,25 +1405,30 @@ textarea { height: 96px; resize: vertical; }
   padding: 6px;
 }
 
-@media (max-width: 768px) {
-  .nav-mobile-menu { display: flex; }
-}
+@media (max-width: 768px) { .nav-mobile-menu { display: flex; } }
 
 .mobile-nav-panel {
   display: none;
   position: fixed;
   top: var(--nav-h);
   left: 0; right: 0;
-  background: white;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
   padding: 1rem;
   z-index: 999;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.1);
   flex-direction: column;
   gap: 4px;
 }
 
-.mobile-nav-panel.open { display: flex; }
+.mobile-nav-panel.open { display: flex; animation: slideDown 0.25s cubic-bezier(0.4,0,0.2,1); }
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 .mobile-nav-panel button {
   background: none;
@@ -1119,7 +1451,7 @@ textarea { height: 96px; resize: vertical; }
 
 [dir="rtl"] .mobile-nav-panel button { text-align: right; }
 
-/* ===================== TOOLTIP HELPER ===================== */
+/* ===================== PAYMENT INFO ===================== */
 .payment-info {
   background: linear-gradient(135deg, #F0F5FF, #EEF3FF);
   border: 1px solid #C7D8FF;
@@ -1141,7 +1473,10 @@ textarea { height: 96px; resize: vertical; }
   align-items: center;
   box-shadow: var(--card-shadow);
   margin-bottom: 2rem;
+  transition: box-shadow 0.3s, transform 0.3s;
 }
+
+.coach-card:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-2px); }
 
 .coach-avatar {
   width: 64px; height: 64px;
@@ -1151,6 +1486,7 @@ textarea { height: 96px; resize: vertical; }
   font-size: 28px;
   flex-shrink: 0;
   color: white;
+  box-shadow: 0 4px 16px rgba(26,63,170,0.3);
 }
 
 .coach-name { font-size: 16px; font-weight: 700; margin-bottom: 3px; }
@@ -1159,18 +1495,88 @@ textarea { height: 96px; resize: vertical; }
 
 /* ===================== PAGE HEADER ===================== */
 .page-header {
-  background: linear-gradient(135deg, #EEF3FF 0%, #F0F7FF 100%);
+  position: relative;
+  background-image: url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1400&q=75&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center 30%;
+  background-attachment: fixed;
   border-bottom: 1px solid #D9E8FF;
-  padding: 3rem 2rem;
+  padding: 3.5rem 2rem;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) { .page-header { background-attachment: scroll; } }
+
+.page-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(238,243,255,0.97) 0%, rgba(240,247,255,0.95) 60%, rgba(219,234,254,0.90) 100%);
+  z-index: 0;
 }
 
 .page-header-inner {
   max-width: 1080px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .page-header h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
 .page-header p { font-size: 15px; color: var(--text-2); max-width: 520px; }
+
+/* ===================== GSAP ANIMATION CLASSES ===================== */
+.gsap-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: transform, opacity;
+}
+
+.gsap-reveal-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  will-change: transform, opacity;
+}
+
+.gsap-reveal-right {
+  opacity: 0;
+  transform: translateX(28px);
+  will-change: transform, opacity;
+}
+
+.gsap-scale-in {
+  opacity: 0;
+  transform: scale(0.92);
+  will-change: transform, opacity;
+}
+
+/* Legacy fade-up support */
+.fade-up { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+.fade-up.show { opacity: 1; transform: translateY(0); }
+
+/* Float animations for hero cards */
+@keyframes floatA {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-8px) rotate(1deg); }
+  66% { transform: translateY(-4px) rotate(-0.5deg); }
+}
+
+@keyframes floatB {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  40% { transform: translateY(-10px) rotate(-1deg); }
+  70% { transform: translateY(-3px) rotate(0.8deg); }
+}
+
+/* Shimmer for hero lesson bar */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.hero-lesson-fill.animated {
+  background: linear-gradient(90deg, #4ADE80 0%, #22D3EE 50%, #4ADE80 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
 </style>
 </head>
 <body>
@@ -1221,25 +1627,28 @@ textarea { height: 96px; resize: vertical; }
 
   <!-- Hero -->
   <div class="hero">
-    <div class="hero-orb hero-orb-1"></div>
-    <div class="hero-orb hero-orb-2"></div>
-    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-mesh">
+      <div class="hero-mesh-circle hmc-1" id="heroOrb1"></div>
+      <div class="hero-mesh-circle hmc-2" id="heroOrb2"></div>
+      <div class="hero-mesh-circle hmc-3" id="heroOrb3"></div>
+    </div>
+    <div class="hero-grid-lines"></div>
 
     <div class="hero-inner">
       <div class="hero-content">
-        <div class="hero-badge">
+        <div class="hero-badge" id="heroBadge">
           <div class="hero-badge-dot"></div>
           <span data-en="Built for Algerian professionals" data-ar="مصمم للمهنيين الجزائريين">Built for Algerian professionals</span>
         </div>
-        <h1>
+        <h1 id="heroH1">
           <span data-en="Business English for" data-ar="الإنجليزية التجارية">Business English for</span><br>
           <span class="highlight" data-en="Algerian Professionals" data-ar="للمهنيين الجزائريين">Algerian Professionals</span>
         </h1>
-        <p data-en="Master professional communication, corporate writing, and Business English to unlock career opportunities in local and international companies."
+        <p id="heroP" data-en="Master professional communication, corporate writing, and Business English to unlock career opportunities in local and international companies."
            data-ar="أتقن التواصل المهني والكتابة التجارية واللغة الإنجليزية للأعمال لفتح فرص وظيفية في الشركات المحلية والدولية.">
           Master professional communication, corporate writing, and Business English to unlock career opportunities in local and international companies.
         </p>
-        <div class="hero-btns">
+        <div class="hero-btns" id="heroBtns">
           <button class="btn-hero-primary" onclick="showPage('test', document.querySelectorAll('#navLinks button')[1])">
             <i class="fas fa-bolt"></i>
             <span data-en="Take Placement Test" data-ar="ابدأ اختبار المستوى">Take Placement Test</span>
@@ -1248,7 +1657,7 @@ textarea { height: 96px; resize: vertical; }
             <span data-en="Explore Courses" data-ar="استكشف الدورات">Explore Courses</span>
           </button>
         </div>
-        <div class="hero-stats">
+        <div class="hero-stats" id="heroStats">
           <div>
             <div class="hero-stat-num">3 +</div>
             <div class="hero-stat-label" data-en="Courses" data-ar="دورات">Courses</div>
@@ -1266,12 +1675,12 @@ textarea { height: 96px; resize: vertical; }
         </div>
       </div>
 
-      <div class="hero-visual">
+      <div class="hero-visual" id="heroVisual">
         <div class="hero-card-stack">
           <div class="hero-card-main">
             <div class="hero-card-label" data-en="Current Lesson" data-ar="الدرس الحالي">Current Lesson</div>
             <div class="hero-lesson-title" data-en="Professional Email Writing" data-ar="كتابة البريد الإلكتروني المهني">Professional Email Writing</div>
-            <div class="hero-lesson-bar"><div class="hero-lesson-fill"></div></div>
+            <div class="hero-lesson-bar"><div class="hero-lesson-fill" id="heroLessonFill"></div></div>
             <div class="hero-vocab-list">
               <div class="hero-vocab-item">
                 <div class="hero-vocab-dot" style="background:#4ADE80"></div>
@@ -1288,7 +1697,7 @@ textarea { height: 96px; resize: vertical; }
             </div>
           </div>
 
-          <div class="hero-card-float hero-card-float-1">
+          <div class="hero-card-float hero-card-float-1" id="heroFloat1">
             <div class="float-icon" style="background:#D1FAE5">✓</div>
             <div>
               <div style="font-weight:700;font-size:13px">Quiz passed!</div>
@@ -1296,7 +1705,7 @@ textarea { height: 96px; resize: vertical; }
             </div>
           </div>
 
-          <div class="hero-card-float hero-card-float-2">
+          <div class="hero-card-float hero-card-float-2" id="heroFloat2">
             <div class="float-icon" style="background:#FEF3C7">📅</div>
             <div>
               <div style="font-weight:700;font-size:13px" data-en="Session booked" data-ar="تم حجز الجلسة">Session booked</div>
@@ -1319,26 +1728,26 @@ textarea { height: 96px; resize: vertical; }
 
   <!-- Why Section -->
   <div class="section">
-    <div class="section-eyebrow"><i class="fas fa-star"></i> <span data-en="Why BizTalk" data-ar="لماذا بيزتوك">Why BizTalk</span></div>
-    <h2 class="section-title" data-en="Why Business English matters" data-ar="لماذا تهم لغة الأعمال الإنجليزية">Why Business English matters</h2>
-    <p class="section-sub" data-en="In today's competitive Algerian market, strong Business English skills help you communicate confidently with international partners, write professional emails, and advance your career."
+    <div class="section-eyebrow gsap-reveal"><i class="fas fa-star"></i> <span data-en="Why BizTalk" data-ar="لماذا بيزتوك">Why BizTalk</span></div>
+    <h2 class="section-title gsap-reveal" data-en="Why Business English matters" data-ar="لماذا تهم لغة الأعمال الإنجليزية">Why Business English matters</h2>
+    <p class="section-sub gsap-reveal" data-en="In today's competitive Algerian market, strong Business English skills help you communicate confidently with international partners, write professional emails, and advance your career."
        data-ar="في سوق العمل الجزائري التنافسي اليوم، تساعدك مهارات الإنجليزية التجارية القوية على التواصل بثقة مع الشركاء الدوليين وكتابة رسائل بريد إلكتروني احترافية والتقدم في مسيرتك المهنية.">
       In today's competitive Algerian market, strong Business English skills help you communicate confidently with international partners, write professional emails, and advance your career.
     </p>
     <div class="grid-3">
-      <div class="card">
+      <div class="card gsap-reveal">
         <div class="icon-box ib-blue"><i class="fas fa-briefcase" style="color:var(--primary)"></i></div>
         <h3 data-en="Corporate Communication" data-ar="التواصل المؤسسي">Corporate Communication</h3>
         <p data-en="Write clear professional emails, reports, and proposals that impress colleagues and clients."
            data-ar="اكتب رسائل بريد إلكتروني وتقارير ومقترحات مهنية واضحة تبهر الزملاء والعملاء.">Write clear professional emails, reports, and proposals that impress colleagues and clients.</p>
       </div>
-      <div class="card">
+      <div class="card gsap-reveal">
         <div class="icon-box ib-teal"><i class="fas fa-chart-line" style="color:var(--teal)"></i></div>
         <h3 data-en="Career Advancement" data-ar="التطور الوظيفي">Career Advancement</h3>
         <p data-en="Stand out in interviews and meetings with polished Business English and professional vocabulary."
            data-ar="تميز في المقابلات والاجتماعات بإنجليزية تجارية مصقولة ومفردات مهنية.">Stand out in interviews and meetings with polished Business English and professional vocabulary.</p>
       </div>
-      <div class="card">
+      <div class="card gsap-reveal">
         <div class="icon-box ib-amber"><i class="fas fa-globe" style="color:#D97706"></i></div>
         <h3 data-en="International Reach" data-ar="الوصول الدولي">International Reach</h3>
         <p data-en="Communicate effectively with multinational companies operating in Algeria and across Africa."
@@ -1348,14 +1757,14 @@ textarea { height: 96px; resize: vertical; }
   </div>
 
   <!-- What we offer -->
-  <div class="section-bg-subtle">
+  <div class="offers-bg-wrapper section-bg-subtle">
     <div class="section">
-      <div class="section-eyebrow"><i class="fas fa-th"></i> <span data-en="Platform" data-ar="المنصة">Platform</span></div>
-      <h2 class="section-title" data-en="What BizTalk offers" data-ar="ما تقدمه بيزتوك">What BizTalk offers</h2>
-      <p class="section-sub" data-en="A complete platform built for professionals in Algeria — from beginner to advanced."
+      <div class="section-eyebrow gsap-reveal"><i class="fas fa-th"></i> <span data-en="Platform" data-ar="المنصة">Platform</span></div>
+      <h2 class="section-title gsap-reveal" data-en="What BizTalk offers" data-ar="ما تقدمه بيزتوك">What BizTalk offers</h2>
+      <p class="section-sub gsap-reveal" data-en="A complete platform built for professionals in Algeria — from beginner to advanced."
          data-ar="منصة متكاملة مصممة للمهنيين في الجزائر — من المبتدئ إلى المتقدم.">A complete platform built for professionals in Algeria — from beginner to advanced.</p>
       <div class="grid-2">
-        <div class="card" style="display:flex;gap:14px;align-items:flex-start">
+        <div class="card gsap-reveal" style="display:flex;gap:14px;align-items:flex-start">
           <div class="icon-box ib-blue" style="margin-bottom:0"><i class="fas fa-book-open" style="color:var(--primary)"></i></div>
           <div>
             <h3 data-en="Structured courses" data-ar="دورات منظمة">Structured courses</h3>
@@ -1363,7 +1772,7 @@ textarea { height: 96px; resize: vertical; }
                data-ar="دروس مبنية على الشرائح تغطي رسائل البريد والتقارير والاجتماعات والمفاوضات. كل درس ينتهي باختبار.">Slide-based lessons covering emails, reports, meetings, and negotiations. Each lesson ends with a quiz.</p>
           </div>
         </div>
-        <div class="card" style="display:flex;gap:14px;align-items:flex-start">
+        <div class="card gsap-reveal" style="display:flex;gap:14px;align-items:flex-start">
           <div class="icon-box ib-teal" style="margin-bottom:0"><i class="fas fa-user-tie" style="color:var(--teal)"></i></div>
           <div>
             <h3 data-en="1-on-1 coaching" data-ar="تدريب فردي">1-on-1 coaching</h3>
@@ -1371,7 +1780,7 @@ textarea { height: 96px; resize: vertical; }
                data-ar="احجز جلسات خاصة مع مدرب الإنجليزية التجارية من خلال نظام التقويم لدينا.">Book private sessions with a Business English coach via our calendar system.</p>
           </div>
         </div>
-        <div class="card" style="display:flex;gap:14px;align-items:flex-start">
+        <div class="card gsap-reveal" style="display:flex;gap:14px;align-items:flex-start">
           <div class="icon-box ib-pink" style="margin-bottom:0"><i class="fas fa-pen-nib" style="color:#E11D48"></i></div>
           <div>
             <h3 data-en="Business writing services" data-ar="خدمات الكتابة التجارية">Business writing services</h3>
@@ -1379,7 +1788,7 @@ textarea { height: 96px; resize: vertical; }
                data-ar="احصل على رسائل بريد إلكتروني وتقارير ووثائق مهنية مكتوبة أو مترجمة من قبل خبراء.">Get professional emails, reports, and documents written or translated by experts.</p>
           </div>
         </div>
-        <div class="card" style="display:flex;gap:14px;align-items:flex-start">
+        <div class="card gsap-reveal" style="display:flex;gap:14px;align-items:flex-start">
           <div class="icon-box ib-amber" style="margin-bottom:0"><i class="fas fa-spell-check" style="color:#D97706"></i></div>
           <div>
             <h3 data-en="Business vocabulary" data-ar="المفردات التجارية">Business vocabulary</h3>
@@ -1392,11 +1801,12 @@ textarea { height: 96px; resize: vertical; }
   </div>
 
   <!-- Testimonials -->
+  <div class="testimonials-bg-wrapper">
   <div class="section">
-    <div class="section-eyebrow"><i class="fas fa-quote-left"></i> <span data-en="Testimonials" data-ar="آراء المستخدمين">Testimonials</span></div>
-    <h2 class="section-title" data-en="What learners say" data-ar="ما يقوله المتعلمون">What learners say</h2>
+    <div class="section-eyebrow gsap-reveal"><i class="fas fa-quote-left"></i> <span data-en="Testimonials" data-ar="آراء المستخدمين">Testimonials</span></div>
+    <h2 class="section-title gsap-reveal" data-en="What learners say" data-ar="ما يقوله المتعلمون">What learners say</h2>
     <div class="grid-3">
-      <div class="testimonial-card">
+      <div class="testimonial-card gsap-reveal">
         <div style="color:var(--accent);font-size:13px;margin-bottom:0.75rem">★★★★★</div>
         <div class="testimonial-text">"BizTalk helped me write professional emails to our French partners. My manager was impressed by the quality of my communication."</div>
         <div class="testimonial-author">
@@ -1404,7 +1814,7 @@ textarea { height: 96px; resize: vertical; }
           <div><div class="testimonial-name">Amina B.</div><div class="testimonial-role">Finance Manager, Algiers</div></div>
         </div>
       </div>
-      <div class="testimonial-card">
+      <div class="testimonial-card gsap-reveal">
         <div style="color:var(--accent);font-size:13px;margin-bottom:0.75rem">★★★★★</div>
         <div class="testimonial-text">"The placement test immediately showed me what I needed to work on. The coaching sessions were excellent and very practical."</div>
         <div class="testimonial-author">
@@ -1412,7 +1822,7 @@ textarea { height: 96px; resize: vertical; }
           <div><div class="testimonial-name">Karim M.</div><div class="testimonial-role">IT Consultant, Oran</div></div>
         </div>
       </div>
-      <div class="testimonial-card">
+      <div class="testimonial-card gsap-reveal">
         <div style="color:var(--accent);font-size:13px;margin-bottom:0.75rem">★★★★☆</div>
         <div class="testimonial-text">"The vocabulary section is fantastic. I now use Business English terms correctly in meetings and presentations with confidence."</div>
         <div class="testimonial-author">
@@ -1422,15 +1832,16 @@ textarea { height: 96px; resize: vertical; }
       </div>
     </div>
   </div>
+  </div>
 
   <!-- CTA -->
   <div class="section-bg-blue">
     <div class="section" style="text-align:center">
-      <div style="font-size:60px;margin-bottom:1rem">🧑‍💻</div>
-      <h2 class="section-title" style="margin:0 auto 0.75rem" data-en="Not sure where to start?" data-ar="لا تعرف من أين تبدأ؟">Not sure where to start?</h2>
-      <p class="section-sub" style="margin:0 auto 2rem" data-en="Take our free 10-question placement test and discover your Business English level in 5 minutes."
+      <div style="font-size:40px;margin-bottom:1rem" class="gsap-scale-in">🎯</div>
+      <h2 class="section-title gsap-reveal" style="margin:0 auto 0.75rem" data-en="Not sure where to start?" data-ar="لا تعرف من أين تبدأ؟">Not sure where to start?</h2>
+      <p class="section-sub gsap-reveal" style="margin:0 auto 2rem" data-en="Take our free 10-question placement test and discover your Business English level in 5 minutes."
          data-ar="خذ اختبار التحديد المجاني المكون من 10 أسئلة واكتشف مستواك في الإنجليزية التجارية في 5 دقائق.">Take our free 10-question placement test and discover your Business English level in 5 minutes.</p>
-      <button class="btn btn-primary" style="font-size:15px;padding:14px 32px"
+      <button class="btn btn-primary gsap-reveal" style="font-size:15px;padding:14px 32px"
               onclick="showPage('test', document.querySelectorAll('#navLinks button')[1])">
         <i class="fas fa-bolt"></i>
         <span data-en="Start free placement test" data-ar="ابدأ اختبار المستوى المجاني">Start free placement test</span>
@@ -1640,9 +2051,9 @@ textarea { height: 96px; resize: vertical; }
 <div class="footer">
   <div class="footer-inner">
     <div class="footer-logo">Biz<span>Talk</span></div>
-    <div data-en="© 2026 BizTalk — Business English for Algerian Professionals"
-         data-ar="© 2026 بيزتوك — الإنجليزية التجارية للمهنيين الجزائريين">
-      © 2026 BizTalk — Business English for Algerian Professionals
+    <div data-en="© 2025 BizTalk — Business English for Algerian Professionals"
+         data-ar="© 2025 بيزتوك — الإنجليزية التجارية للمهنيين الجزائريين">
+      © 2025 BizTalk — Business English for Algerian Professionals
     </div>
   </div>
 </div>
@@ -1667,7 +2078,6 @@ function setLang(lang) {
     document.getElementById('btnAR').classList.remove('active');
   }
 
-  // Translate all data-en / data-ar elements
   document.querySelectorAll('[data-' + lang + ']').forEach(el => {
     el.textContent = el.getAttribute('data-' + lang);
   });
@@ -1699,6 +2109,7 @@ function showPage(name, btn) {
   if (name === 'coaching') renderCalendar();
   if (name === 'vocab') renderVocab();
   window.scrollTo(0, 0);
+  setTimeout(() => initScrollAnimations(), 100);
 }
 
 /* ===================== PLACEMENT TEST ===================== */
@@ -1784,63 +2195,72 @@ const courses = [
     ]
   },
   {
-    id: 1, title: "Business meeting language", level: "Intermediate", free: false,
+    id: 1, title: "Running effective meetings", level: "Intermediate", free: true,
     emoji: "🤝",
     slides: [
-      { title: "Opening a meeting", content: `<p style="line-height:1.8;margin-bottom:1rem">The chairperson (person leading the meeting) uses specific phrases to open, manage, and close meetings professionally.</p><div class="vocab-grid"><div class="vocab-item"><div class="vocab-term">Shall we get started?</div><div class="vocab-def">Polite way to begin the meeting</div></div><div class="vocab-item"><div class="vocab-term">Let's go through the agenda</div><div class="vocab-def">Review meeting points</div></div><div class="vocab-item"><div class="vocab-term">I'd like to hand over to…</div><div class="vocab-def">Introduce another speaker</div></div></div>` },
-      { title: "Expressing opinions professionally", content: `<div style="display:flex;flex-direction:column;gap:10px"><div class="vocab-item"><div class="vocab-term">In my view…</div><div class="vocab-def">Use to share your perspective</div><div class="vocab-ex">"In my view, we should delay the product launch."</div></div><div class="vocab-item"><div class="vocab-term">I'd like to point out that…</div><div class="vocab-def">Draw attention to something important</div><div class="vocab-ex">"I'd like to point out that the deadline is next Friday."</div></div><div class="vocab-item"><div class="vocab-term">If I may add…</div><div class="vocab-def">Politely interrupt to add a point</div><div class="vocab-ex">"If I may add, we also need to consider the budget."</div></div></div>` },
-      { title: "Closing a meeting", content: `<div class="email-example"><div class="label">Closing phrases</div><br>• "Let's wrap up here."<br>• "To summarize what we've agreed on…"<br>• "The next steps are… and [Name] will be responsible."<br>• "Thank you all for attending. The minutes will be circulated by end of day."</div>` }
+      { title: "Meeting roles and vocabulary", content: `<p style="margin-bottom:1rem;line-height:1.8">Every professional meeting has defined roles. Knowing them makes you more effective:</p><div class="grid-2"><div class="card"><strong>Chairperson</strong><p style="margin-top:6px">The leader who opens, manages, and closes the meeting</p></div><div class="card"><strong>Minute-taker</strong><p style="margin-top:6px">Records decisions and action items</p></div><div class="card"><strong>Participants</strong><p style="margin-top:6px">Active contributors to discussion</p></div><div class="card"><strong>Observer</strong><p style="margin-top:6px">Attends without contributing (e.g., a trainee)</p></div></div>` },
+      { title: "Opening a meeting professionally", content: `<div class="email-example"><div class="label">Opening phrases — use these</div><br>✓ "Good morning everyone, let's get started."<br>✓ "Thank you all for being here. The purpose of today's meeting is to…"<br>✓ "Could we please begin? We have a lot to cover today."<br>✓ "Let's move on to the first item on the agenda."</div>` },
+      { title: "Managing disagreements", content: `<p style="margin-bottom:1rem;line-height:1.8">Disagreements are normal. Use these phrases to stay professional:</p><div class="vocab-grid"><div class="vocab-item"><div class="vocab-term">"I see your point, however…"</div><div class="vocab-def">Acknowledge before disagreeing</div></div><div class="vocab-item"><div class="vocab-term">"With respect, I disagree…"</div><div class="vocab-def">Polite firm disagreement</div></div><div class="vocab-item"><div class="vocab-term">"Could we table this for now?"</div><div class="vocab-def">Delay a topic to later</div></div><div class="vocab-item"><div class="vocab-term">"Let's find a middle ground."</div><div class="vocab-def">Propose a compromise</div></div></div>` }
     ],
     quiz: [
-      { q: "What does 'minutes of the meeting' refer to?", opts: ["How long the meeting lasted", "The written record of what was discussed", "A short meeting", "The meeting agenda"], ans: 1 },
-      { q: "Which phrase is best for politely interrupting in a meeting?", opts: ["Shut up, I want to speak", "If I may add…", "Wait, no—", "EXCUSE ME"], ans: 1 },
-      { q: "What does 'Let's table this for now' mean in a business meeting?", opts: ["Put it on the table physically", "Postpone discussing this topic", "Agree on this point", "Delete it from the agenda"], ans: 1 }
+      { q: "What is the role of a 'minute-taker' in a meeting?", opts: ["Someone who arrives exactly on time", "Someone who records the meeting", "Someone who times the speakers", "The meeting organiser"], ans: 1 },
+      { q: "Which is the best way to disagree professionally?", opts: ["You're wrong.", "I see your point, however I think…", "That's a bad idea.", "No way."], ans: 1 },
+      { q: "What does 'tabling a discussion' mean?", opts: ["Writing it on a table", "Delaying it to a later time", "Cancelling it permanently", "Announcing it publicly"], ans: 1 }
     ]
   },
   {
-    id: 2, title: "Business report writing", level: "Advanced", free: false,
+    id: 2, title: "Business reports & proposals", level: "Advanced", free: false,
     emoji: "📊",
     slides: [
-      { title: "Structure of a business report", content: `<ol style="padding-left:1.4rem;display:flex;flex-direction:column;gap:12px;font-size:14px"><li><strong>Title page</strong> — Report name, author, date</li><li><strong>Executive summary</strong> — 3–5 sentence overview</li><li><strong>Introduction</strong> — Context and purpose</li><li><strong>Findings</strong> — Data and analysis</li><li><strong>Recommendations</strong> — What to do next</li><li><strong>Conclusion</strong> — Summary of key points</li></ol>` },
-      { title: "Executive summary example", content: `<div class="email-example"><div class="label">Example executive summary</div><br>This report examines the performance of the sales department for Q3 2024. Key findings indicate a 12% increase in revenue compared to Q2, driven primarily by the launch of the new product line in the southern region. However, operational costs rose by 8%, which requires immediate attention. It is recommended that management review staffing levels and logistics expenses in the coming quarter.</div>` },
-      { title: "Report vocabulary", content: `<div class="vocab-grid"><div class="vocab-item"><div class="vocab-term">To outline</div><div class="vocab-def">To describe briefly</div><div class="vocab-ex">"This report outlines our key challenges."</div></div><div class="vocab-item"><div class="vocab-term">It is evident that</div><div class="vocab-def">It is clear from the data</div></div><div class="vocab-item"><div class="vocab-term">As a result</div><div class="vocab-def">Consequence/outcome connector</div></div><div class="vocab-item"><div class="vocab-term">It is recommended that</div><div class="vocab-def">Formal way to suggest action</div></div></div>` }
+      { title: "Report structure", content: `<p style="margin-bottom:1rem;line-height:1.8">A professional business report follows this structure:</p><ol style="padding-left:1.4rem;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--text-2)"><li><strong style="color:var(--text)">Executive Summary</strong> — A brief overview of findings and recommendations</li><li><strong style="color:var(--text)">Introduction</strong> — Context and purpose of the report</li><li><strong style="color:var(--text)">Findings</strong> — Data and analysis</li><li><strong style="color:var(--text)">Conclusions</strong> — What the findings mean</li><li><strong style="color:var(--text)">Recommendations</strong> — Suggested actions</li></ol>` },
+      { title: "Formal language in reports", content: `<div style="display:flex;flex-direction:column;gap:10px"><div class="email-example wrong"><div class="label">Informal — avoid this</div>We looked at the numbers and things are going OK but could be better. The team needs to work harder.</div><div class="email-example correct"><div class="label">Formal — use this</div>The financial analysis indicates moderate performance. It is recommended that the team increase productivity targets for Q4.</div></div>` },
+      { title: "Key report phrases", content: `<div class="vocab-grid"><div class="vocab-item"><div class="vocab-term">"The data indicates…"</div><div class="vocab-def">Formal way to present evidence</div></div><div class="vocab-item"><div class="vocab-term">"It is recommended that…"</div><div class="vocab-def">Formal recommendation structure</div></div><div class="vocab-item"><div class="vocab-term">"The findings suggest…"</div><div class="vocab-def">Drawing conclusions from data</div></div><div class="vocab-item"><div class="vocab-term">"In conclusion…"</div><div class="vocab-def">Closing summary phrase</div></div></div>` }
     ],
     quiz: [
-      { q: "Where does the executive summary appear in a business report?", opts: ["At the end", "After the conclusion", "Near the beginning, before the main body", "In the middle"], ans: 2 },
-      { q: "Which phrase is appropriate in a formal business report?", opts: ["We think this is bad", "The data clearly shows a decline in performance.", "Honestly it wasn't great", "Things went wrong"], ans: 1 },
-      { q: "What is the purpose of the 'Recommendations' section?", opts: ["Summarize past events", "List references", "Suggest actions based on findings", "Introduce the report topic"], ans: 2 }
+      { q: "What section of a business report gives a brief overview of everything?", opts: ["Introduction", "Conclusion", "Executive Summary", "Recommendations"], ans: 2 },
+      { q: "Which sentence uses the most formal register?", opts: ["Things are going well.", "The data indicates positive progress.", "Stuff looks good.", "It's going fine."], ans: 1 },
+      { q: "What does 'It is recommended that...' signal in a report?", opts: ["A finding", "A recommendation for action", "A greeting", "A table reference"], ans: 1 }
     ]
   }
 ];
 
-let currentCourse = null, currentSlide = 0, quizMode = false, quizAnswers = {}, quizDone = false;
+let currentCourse = 0, currentSlide = 0, quizMode = false, quizAnswers = {}, quizDone = false;
 
 function renderCourseList() {
   const cl = document.getElementById('courseList');
   const lv = document.getElementById('lessonView');
-  cl.style.display = 'block'; lv.style.display = 'none';
-  const topColors = ['course-card-top-0', 'course-card-top-1', 'course-card-top-2'];
-  let html = '<div class="grid-3">';
-  courses.forEach(c => {
-    html += `<div class="course-card" onclick="openCourse(${c.id})">
-      <div class="course-card-top ${topColors[c.id]}">${c.emoji || '📚'}</div>
+  lv.style.display = 'none';
+  cl.style.display = 'block';
+  let html = `<div class="grid-3">`;
+  courses.forEach((c, i) => {
+    html += `<div class="course-card" onclick="openCourse(${i})">
+      <div class="course-card-top course-card-top-${i}">${c.emoji}</div>
       <div class="course-card-body">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-          <span class="badge badge-${c.level === 'Beginner' ? 'green' : c.level === 'Intermediate' ? 'blue' : 'amber'}">${c.level}</span>
-          ${c.free ? '<span class="tag-free">Free</span>' : '<span class="tag-pro">Pro</span>'}
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span class="${c.free ? 'tag-free' : 'tag-pro'}">${c.free ? 'Free' : 'Pro'}</span>
+          <span class="badge badge-blue">${c.level}</span>
         </div>
-        <h3 style="font-size:15.5px;font-weight:700;margin-bottom:6px">${c.title}</h3>
-        <p style="font-size:13px;color:var(--text-2);margin-bottom:14px">${c.slides.length} slides + quiz</p>
-        <button class="btn btn-primary" style="width:100%;font-size:13.5px">${c.free ? '<i class="fas fa-play"></i> Start lesson' : '<i class="fas fa-lock"></i> Unlock lesson'}</button>
+        <h3 style="font-size:15px;font-weight:600;margin-bottom:6px">${c.title}</h3>
+        <p style="font-size:13px;color:var(--text-2)">${c.slides.length} slides · Quiz included</p>
       </div>
     </div>`;
   });
-  html += '</div>';
+  html += `</div>`;
   cl.innerHTML = html;
+  setTimeout(() => {
+    gsap.from('.course-card', {
+      opacity: 0, y: 24, stagger: 0.1, duration: 0.5,
+      ease: 'power3.out'
+    });
+  }, 50);
 }
 
-function openCourse(id) {
-  currentCourse = id; currentSlide = 0; quizMode = false; quizAnswers = {}; quizDone = false;
+function openCourse(idx) {
+  currentCourse = idx;
+  currentSlide = 0;
+  quizMode = false;
+  quizAnswers = {};
+  quizDone = false;
   document.getElementById('courseList').style.display = 'none';
   document.getElementById('lessonView').style.display = 'block';
   renderLesson();
@@ -1849,31 +2269,33 @@ function openCourse(id) {
 function renderLesson() {
   const c = courses[currentCourse];
   const lv = document.getElementById('lessonView');
-  if (quizMode) { renderQuiz(); return; }
-  const s = c.slides[currentSlide];
-  const total = c.slides.length;
-  lv.innerHTML = `<button class="back-btn" onclick="renderCourseList()"><i class="fas fa-arrow-left"></i> Back to courses</button>
-  <div style="font-size:13px;color:var(--text-2);margin-bottom:6px;font-weight:600">${c.title}</div>
-  <div class="progress-bar"><div class="progress-fill" style="width:${((currentSlide + 1) / total) * 100}%"></div></div>
-  <div class="step-indicator" style="margin-top:6px">Slide ${currentSlide + 1} of ${total}</div>
-  <div class="card" style="margin-top:1rem">
-    <h3 style="font-size:17px;font-weight:700;margin-bottom:1rem">${s.title}</h3>
-    <div class="slide-content">${s.content}</div>
-  </div>
-  <div class="slide-nav">
-    <button class="btn btn-outline" ${currentSlide === 0 ? 'disabled style="opacity:0.4"' : ''} onclick="currentSlide--;renderLesson()"><i class="fas fa-arrow-left"></i> Previous</button>
-    ${currentSlide < total - 1
-      ? `<button class="btn btn-primary" onclick="currentSlide++;renderLesson()">Next <i class="fas fa-arrow-right"></i></button>`
-      : `<button class="btn btn-primary" onclick="quizMode=true;renderLesson()">Take quiz <i class="fas fa-arrow-right"></i></button>`}
-  </div>`;
+  const slide = c.slides[currentSlide];
+  const isLast = currentSlide === c.slides.length - 1;
+  lv.innerHTML = `
+    <button class="back-btn" onclick="renderCourseList()"><i class="fas fa-arrow-left"></i> Back to courses</button>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;flex-wrap:wrap">
+      <span class="${c.free ? 'tag-free' : 'tag-pro'}">${c.free ? 'Free' : 'Pro'}</span>
+      <span class="badge badge-blue">${c.level}</span>
+      <span style="font-size:14px;font-weight:600;color:var(--text)">${c.title}</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${((currentSlide+1)/c.slides.length)*100}%"></div></div>
+    <div class="step-indicator">Slide ${currentSlide+1} of ${c.slides.length}</div>
+    <h3 style="font-size:18px;font-weight:700;margin-bottom:1.25rem">${slide.title}</h3>
+    <div class="slide-content">${slide.content}</div>
+    <div class="slide-nav">
+      <button class="btn btn-outline" ${currentSlide === 0 ? 'disabled style="opacity:0.4"' : ''} onclick="currentSlide--;renderLesson()"><i class="fas fa-arrow-left"></i> Previous</button>
+      ${isLast
+        ? `<button class="btn btn-primary" onclick="quizMode=true;quizAnswers={};quizDone=false;renderQuiz()"><i class="fas fa-pen"></i> Take quiz</button>`
+        : `<button class="btn btn-primary" onclick="currentSlide++;renderLesson()">Next <i class="fas fa-arrow-right"></i></button>`}
+    </div>`;
 }
 
 function renderQuiz() {
   const c = courses[currentCourse];
   const lv = document.getElementById('lessonView');
   if (quizDone) {
-    const score = Object.entries(quizAnswers).filter(([i, a]) => c.quiz[i].ans === a).length;
-    lv.innerHTML = `<button class="back-btn" onclick="renderCourseList()"><i class="fas fa-arrow-left"></i> Back to courses</button>
+    const score = c.quiz.filter((q, i) => quizAnswers[i] === q.ans).length;
+    lv.innerHTML = `<button class="back-btn" onclick="quizMode=false;currentSlide=0;renderLesson()"><i class="fas fa-arrow-left"></i> Back</button>
     <div class="result-box">
       <div style="font-size:13px;color:var(--text-2);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:1px">Quiz result</div>
       <div style="font-size:42px;font-weight:700;color:${score === c.quiz.length ? 'var(--green)' : score >= c.quiz.length / 2 ? 'var(--primary)' : '#D97706'}">${score}/${c.quiz.length}</div>
@@ -2012,6 +2434,7 @@ function renderVocab() {
     html += `<div class="vocab-item"><div class="vocab-term">${v.t}</div><div class="vocab-def">${v.d}</div><div class="vocab-ex">${v.e}</div></div>`;
   });
   document.getElementById('vocabGrid').innerHTML = html;
+  gsap.from('.vocab-item', { opacity: 0, y: 16, stagger: 0.07, duration: 0.4, ease: 'power3.out' });
 }
 
 /* ===================== SERVICES FORM ===================== */
@@ -2030,8 +2453,216 @@ function openService(type) {
     </div>
     <button class="btn btn-primary" style="width:fit-content" onclick="alert('Request submitted! Our team will contact you within 24 hours via WhatsApp.')"><i class="fas fa-check"></i> Submit request</button>
   </div>`;
+  gsap.from(sf, { opacity: 0, y: 20, duration: 0.5, ease: 'power3.out' });
   sf.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 </script>
+
+<script>
+/* ===================== GSAP ANIMATION ENGINE ===================== */
+gsap.registerPlugin(ScrollTrigger);
+
+/* ---- HERO ENTRANCE SEQUENCE ---- */
+function animateHero() {
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+  tl.to('#heroBadge', { opacity: 1, y: 0, duration: 0.7, delay: 0.1 })
+    .to('#heroH1', { opacity: 1, y: 0, duration: 0.7 }, '-=0.4')
+    .to('#heroP', { opacity: 1, y: 0, duration: 0.65 }, '-=0.45')
+    .to('#heroBtns', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
+    .to('#heroStats', { opacity: 1, y: 0, duration: 0.6 }, '-=0.35')
+    .to('#heroVisual', { opacity: 1, y: 0, duration: 0.8, ease: 'power4.out' }, '-=0.5');
+
+  /* Progress bar fill animation */
+  setTimeout(() => {
+    const fill = document.getElementById('heroLessonFill');
+    if (fill) {
+      fill.style.width = '65%';
+      fill.classList.add('animated');
+    }
+  }, 1200);
+
+  /* Float cards GSAP loop */
+  setTimeout(() => {
+    const f1 = document.getElementById('heroFloat1');
+    const f2 = document.getElementById('heroFloat2');
+    if (f1) {
+      gsap.to(f1, { y: -10, rotation: 1, duration: 3.5, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+    }
+    if (f2) {
+      gsap.to(f2, { y: -12, rotation: -1.2, duration: 4, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 0.8 });
+    }
+  }, 1000);
+
+  /* Orb parallax drift */
+  const orb1 = document.getElementById('heroOrb1');
+  const orb2 = document.getElementById('heroOrb2');
+  const orb3 = document.getElementById('heroOrb3');
+
+  if (orb1) gsap.to(orb1, { x: 30, y: -20, duration: 8, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+  if (orb2) gsap.to(orb2, { x: -20, y: 25, duration: 9, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1 });
+  if (orb3) gsap.to(orb3, { x: 15, y: -15, duration: 7, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 2 });
+}
+
+/* ---- SCROLL-TRIGGERED SECTION REVEALS ---- */
+function initScrollAnimations() {
+  ScrollTrigger.getAll().forEach(t => t.kill());
+
+  const revealEls = document.querySelectorAll('.gsap-reveal');
+  revealEls.forEach(el => {
+    gsap.fromTo(el,
+      { opacity: 0, y: 32 },
+      {
+        opacity: 1, y: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 88%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
+
+  const staggerParents = document.querySelectorAll('.grid-3, .grid-2, .grid-4');
+  staggerParents.forEach(parent => {
+    const children = parent.querySelectorAll('.card, .testimonial-card, .service-card, .pricing-card, .course-card');
+    if (children.length > 0) {
+      gsap.fromTo(children,
+        { opacity: 0, y: 36, scale: 0.96 },
+        {
+          opacity: 1, y: 0, scale: 1,
+          duration: 0.65,
+          ease: 'power3.out',
+          stagger: 0.12,
+          scrollTrigger: {
+            trigger: parent,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    }
+  });
+
+  /* Scale-in elements */
+  document.querySelectorAll('.gsap-scale-in').forEach(el => {
+    gsap.fromTo(el,
+      { opacity: 0, scale: 0.8 },
+      {
+        opacity: 1, scale: 1,
+        duration: 0.6,
+        ease: 'back.out(1.7)',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 88%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
+
+  /* Trust strip items stagger */
+  const stripItems = document.querySelectorAll('.feature-item');
+  if (stripItems.length > 0) {
+    gsap.fromTo(stripItems,
+      { opacity: 0, y: 12 },
+      {
+        opacity: 1, y: 0,
+        duration: 0.4,
+        stagger: 0.08,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.features-strip',
+          start: 'top 95%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  }
+
+  /* Parallax on section backgrounds */
+  document.querySelectorAll('.section-bg-blue, .section-bg-dark, .testimonials-bg-wrapper, .offers-bg-wrapper').forEach(section => {
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top bottom',
+      end: 'bottom top',
+      onUpdate: self => {
+        const progress = self.progress;
+        section.style.backgroundPositionY = `${50 + progress * 15}%`;
+      }
+    });
+  });
+
+  /* Navbar logo entrance */
+  gsap.from('#mainNav', {
+    y: -20,
+    opacity: 0,
+    duration: 0.6,
+    ease: 'power3.out',
+    delay: 0.05,
+    clearProps: 'all'
+  });
+}
+
+/* ---- HERO MOUSE PARALLAX ---- */
+const hero = document.querySelector('.hero');
+if (hero) {
+  hero.addEventListener('mousemove', (e) => {
+    const rect = hero.getBoundingClientRect();
+    const cx = (e.clientX - rect.left) / rect.width - 0.5;
+    const cy = (e.clientY - rect.top) / rect.height - 0.5;
+
+    const orb1 = document.getElementById('heroOrb1');
+    const orb2 = document.getElementById('heroOrb2');
+    const orb3 = document.getElementById('heroOrb3');
+
+    if (orb1) gsap.to(orb1, { x: cx * 40, y: cy * 30, duration: 1.2, ease: 'power2.out', overwrite: 'auto' });
+    if (orb2) gsap.to(orb2, { x: cx * -30, y: cy * 20, duration: 1.4, ease: 'power2.out', overwrite: 'auto' });
+    if (orb3) gsap.to(orb3, { x: cx * 20, y: cy * -25, duration: 1.0, ease: 'power2.out', overwrite: 'auto' });
+
+    const heroFloat1 = document.getElementById('heroFloat1');
+    const heroFloat2 = document.getElementById('heroFloat2');
+    if (heroFloat1) gsap.to(heroFloat1, { x: cx * 14, y: cy * 10, duration: 0.8, ease: 'power2.out', overwrite: 'auto' });
+    if (heroFloat2) gsap.to(heroFloat2, { x: cx * -10, y: cy * 12, duration: 0.9, ease: 'power2.out', overwrite: 'auto' });
+  });
+}
+
+/* ---- BUTTON MICRO-INTERACTIONS ---- */
+document.addEventListener('mousedown', (e) => {
+  const btn = e.target.closest('.btn, .btn-hero-primary, .btn-hero-secondary, .nav-cta');
+  if (btn) {
+    gsap.to(btn, { scale: 0.96, duration: 0.1, ease: 'power2.out' });
+  }
+});
+
+document.addEventListener('mouseup', (e) => {
+  const btn = e.target.closest('.btn, .btn-hero-primary, .btn-hero-secondary, .nav-cta');
+  if (btn) {
+    gsap.to(btn, { scale: 1, duration: 0.3, ease: 'elastic.out(1, 0.5)' });
+  }
+});
+
+/* ---- SCROLL NAVBAR ---- */
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 10);
+});
+
+/* ---- INIT ---- */
+window.addEventListener('DOMContentLoaded', () => {
+  animateHero();
+  initScrollAnimations();
+});
+
+/* Legacy IntersectionObserver for .fade-up elements */
+const legacyObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('show');
+  });
+});
+document.querySelectorAll('.fade-up').forEach(el => legacyObserver.observe(el));
+</script>
+
 </body>
 </html>

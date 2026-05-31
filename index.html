@@ -1082,6 +1082,139 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0
 .service-card p { font-size: 13.5px; color: var(--text-2); line-height: 1.65; flex: 1; }
 .service-price { font-size: 14px; color: var(--primary); font-weight: 700; }
 
+/* ===================== INTERPRETER BOOKING MODAL ===================== */
+.interp-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.interp-modal-overlay.open {
+  display: flex;
+  animation: modalFadeIn 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.interp-modal {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.18), 0 4px 24px rgba(26,63,170,0.12);
+  animation: modalSlideUp 0.35s cubic-bezier(0.34,1.36,0.64,1);
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(32px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.interp-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.interp-modal-title-wrap { display: flex; align-items: center; gap: 14px; }
+
+.interp-modal-icon {
+  width: 52px; height: 52px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #E8EFFF, var(--primary-light));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.interp-modal-close {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--text-2);
+  font-size: 15px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.interp-modal-close:hover { background: var(--rose-light); color: var(--rose); border-color: var(--rose); }
+
+.interp-form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.interp-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 480px) { .interp-form-row { grid-template-columns: 1fr; } }
+
+.interp-type-btns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 8px;
+}
+
+.interp-type-btn {
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-2);
+  font-family: inherit;
+  transition: all 0.2s cubic-bezier(0.34,1.36,0.64,1);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.interp-type-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); transform: translateY(-2px); }
+.interp-type-btn.selected { border-color: var(--primary); background: var(--primary-light); color: var(--primary); box-shadow: 0 2px 10px rgba(26,63,170,0.18); }
+
+.interp-success {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.interp-success-icon {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--green-light), #A7F3D0);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 30px;
+  margin: 0 auto 1.25rem;
+  box-shadow: 0 4px 20px rgba(5,150,105,0.22);
+}
+
 /* ===================== EMAIL EXAMPLE ===================== */
 .email-example {
   background: var(--bg-2);
@@ -1946,6 +2079,16 @@ textarea { height: 96px; resize: vertical; }
         <button class="btn btn-primary btn-sm" onclick="openService('message')" style="margin-top:4px;width:100%"
           data-en="Request now" data-ar="اطلب الآن">Request now</button>
       </div>
+
+      <div class="service-card">
+        <div class="icon-box" style="background:linear-gradient(135deg,#F0FDFA,#CCFBF1)"><i class="fas fa-language" style="color:var(--teal)"></i></div>
+        <h3 data-en="Interpreter Booking" data-ar="حجز مترجم">Interpreter Booking</h3>
+        <p data-en="Book professional interpreters for meetings, conferences, business negotiations, and corporate events."
+           data-ar="احجز مترجمين محترفين للاجتماعات والمؤتمرات والمفاوضات التجارية والفعاليات الخاصة بالشركات.">Book professional interpreters for meetings, conferences, business negotiations, and corporate events.</p>
+        <div class="service-price" data-en="From 8,000 DZD / session" data-ar="ابتداءً من 8,000 دينار / جلسة">From 8,000 DZD / session</div>
+        <button class="btn btn-primary btn-sm" onclick="openInterpreterModal()" style="margin-top:4px;width:100%;background:linear-gradient(135deg,var(--teal) 0%,#14B8A6 100%);box-shadow:0 2px 10px rgba(13,148,136,0.28)"
+          data-en="Book interpreter" data-ar="احجز مترجمًا">Book interpreter</button>
+      </div>
     </div>
     <div id="serviceForm" style="display:none"></div>
   </div>
@@ -2035,6 +2178,115 @@ textarea { height: 96px; resize: vertical; }
             data-ar="💳 يُقبل الدفع عبر CCP وبريديموب والتحويل البنكي. للخطط المؤسسية لشركتك، تواصل معنا عبر واتساب.">
         💳 Payment accepted via CCP, Baridimob, and bank transfer. For corporate plans for your company, contact us on WhatsApp.
       </span>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== INTERPRETER BOOKING MODAL ===================== -->
+<div class="interp-modal-overlay" id="interpModalOverlay" onclick="handleOverlayClick(event)">
+  <div class="interp-modal" id="interpModal" role="dialog" aria-modal="true" aria-labelledby="interpModalHeading">
+    <div class="interp-modal-header">
+      <div class="interp-modal-title-wrap">
+        <div class="interp-modal-icon"><i class="fas fa-language"></i></div>
+        <div>
+          <h3 id="interpModalHeading" style="font-size:17px;font-weight:700;letter-spacing:-0.3px;margin-bottom:3px"
+              data-en="Book an Interpreter" data-ar="احجز مترجمًا">Book an Interpreter</h3>
+          <p style="font-size:13px;color:var(--text-2)"
+             data-en="Professional simultaneous &amp; consecutive interpreting" data-ar="ترجمة شفهية متزامنة ومتتالية احترافية">Professional simultaneous &amp; consecutive interpreting</p>
+        </div>
+      </div>
+      <button class="interp-modal-close" onclick="closeInterpreterModal()" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div id="interpFormContent">
+      <div class="interp-form-grid">
+
+        <!-- Event type selector -->
+        <div>
+          <label class="form-label" data-en="Type of event" data-ar="نوع الفعالية">Type of event</label>
+          <div class="interp-type-btns" id="interpTypeBtns">
+            <button class="interp-type-btn selected" data-val="meeting" onclick="selectInterpType(this)"
+              data-en="🤝 Meeting" data-ar="🤝 اجتماع">🤝 Meeting</button>
+            <button class="interp-type-btn" data-val="conference" onclick="selectInterpType(this)"
+              data-en="🎤 Conference" data-ar="🎤 مؤتمر">🎤 Conference</button>
+            <button class="interp-type-btn" data-val="negotiation" onclick="selectInterpType(this)"
+              data-en="🤜 Negotiation" data-ar="🤜 تفاوض">🤜 Negotiation</button>
+            <button class="interp-type-btn" data-val="event" onclick="selectInterpType(this)"
+              data-en="🏢 Corporate event" data-ar="🏢 فعالية مؤسسية">🏢 Corporate event</button>
+          </div>
+        </div>
+
+        <!-- Name / WhatsApp -->
+        <div class="interp-form-row">
+          <div>
+            <label class="form-label" data-en="Full name" data-ar="الاسم الكامل">Full name</label>
+            <input type="text" id="interpName" placeholder="e.g. Amina Bouzid">
+          </div>
+          <div>
+            <label class="form-label" data-en="WhatsApp number" data-ar="رقم واتساب">WhatsApp number</label>
+            <input type="text" id="interpPhone" placeholder="+213 6XX XXX XXX">
+          </div>
+        </div>
+
+        <!-- Date / Duration -->
+        <div class="interp-form-row">
+          <div>
+            <label class="form-label" data-en="Event date" data-ar="تاريخ الفعالية">Event date</label>
+            <input type="text" id="interpDate" placeholder="DD / MM / YYYY">
+          </div>
+          <div>
+            <label class="form-label" data-en="Duration" data-ar="المدة">Duration</label>
+            <select id="interpDuration">
+              <option value="1h" data-en="1 hour" data-ar="ساعة واحدة">1 hour</option>
+              <option value="2h" data-en="2 hours" data-ar="ساعتان">2 hours</option>
+              <option value="half" data-en="Half day" data-ar="نصف يوم">Half day</option>
+              <option value="full" data-en="Full day" data-ar="يوم كامل">Full day</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Language pair -->
+        <div>
+          <label class="form-label" data-en="Language pair" data-ar="زوج اللغات">Language pair</label>
+          <select id="interpLang">
+            <option data-en="Arabic ↔ English" data-ar="عربي ↔ إنجليزي">Arabic ↔ English</option>
+            <option data-en="French ↔ English" data-ar="فرنسي ↔ إنجليزي">French ↔ English</option>
+            <option data-en="Arabic ↔ French" data-ar="عربي ↔ فرنسي">Arabic ↔ French</option>
+            <option data-en="Trilingual (AR / FR / EN)" data-ar="ثلاثي اللغات (عر / فر / إن)">Trilingual (AR / FR / EN)</option>
+            <option data-en="Other" data-ar="أخرى">Other</option>
+          </select>
+        </div>
+
+        <!-- Location / details -->
+        <div>
+          <label class="form-label" data-en="Location / platform" data-ar="الموقع / المنصة">Location / platform</label>
+          <input type="text" id="interpLocation" placeholder="e.g. Algiers, Zoom, Microsoft Teams…">
+        </div>
+
+        <!-- Additional info -->
+        <div>
+          <label class="form-label" data-en="Additional details (optional)" data-ar="تفاصيل إضافية (اختياري)">Additional details (optional)</label>
+          <textarea id="interpDetails" placeholder="Describe the subject, number of attendees, any special requirements…" style="height:82px"></textarea>
+        </div>
+
+        <!-- Price note -->
+        <div class="notif" style="margin-top:0">
+          <i class="fas fa-info-circle"></i>
+          <span data-en="Starting from 8,000 DZD/session. Final quote provided after review. Payment via CCP, Baridimob, or bank transfer."
+                data-ar="ابتداءً من 8,000 دينار/جلسة. يُقدَّم العرض النهائي بعد المراجعة. الدفع عبر CCP أو بريديموب أو تحويل بنكي.">
+            Starting from 8,000 DZD/session. Final quote provided after review. Payment via CCP, Baridimob, or bank transfer.
+          </span>
+        </div>
+
+        <button class="btn btn-primary" style="width:100%;font-size:14.5px;padding:12px 24px;background:linear-gradient(135deg,var(--teal) 0%,#14B8A6 100%);box-shadow:0 2px 10px rgba(13,148,136,0.28)"
+                onclick="submitInterpreterRequest()">
+          <i class="fas fa-check-circle"></i>
+          <span data-en="Submit booking request" data-ar="إرسال طلب الحجز">Submit booking request</span>
+        </button>
+
+      </div>
     </div>
   </div>
 </div>
@@ -2456,6 +2708,112 @@ function openService(type) {
   gsap.from(sf, { opacity: 0, y: 20, duration: 0.5, ease: 'power3.out' });
   sf.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
+
+/* ===================== INTERPRETER BOOKING MODAL ===================== */
+let selectedInterpType = 'meeting';
+
+function openInterpreterModal() {
+  const overlay = document.getElementById('interpModalOverlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('interpFormContent').innerHTML = document.getElementById('interpFormContent').innerHTML; // reset
+  // Re-apply language if needed
+  if (currentLang === 'ar') {
+    document.querySelectorAll('#interpModal [data-ar]').forEach(el => {
+      el.textContent = el.getAttribute('data-ar');
+    });
+  }
+}
+
+function closeInterpreterModal() {
+  const overlay = document.getElementById('interpModalOverlay');
+  gsap.to(document.getElementById('interpModal'), {
+    opacity: 0, y: 20, scale: 0.97, duration: 0.25, ease: 'power3.in',
+    onComplete: () => {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      gsap.set(document.getElementById('interpModal'), { clearProps: 'all' });
+    }
+  });
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('interpModalOverlay')) closeInterpreterModal();
+}
+
+function selectInterpType(btn) {
+  document.querySelectorAll('.interp-type-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedInterpType = btn.getAttribute('data-val');
+  gsap.from(btn, { scale: 0.93, duration: 0.3, ease: 'back.out(2)' });
+}
+
+function submitInterpreterRequest() {
+  const name = document.getElementById('interpName').value.trim();
+  const phone = document.getElementById('interpPhone').value.trim();
+  const date = document.getElementById('interpDate').value.trim();
+
+  if (!name || !phone || !date) {
+    const missing = document.querySelector('#interpFormContent .notif');
+    if (missing) {
+      gsap.fromTo(missing, { x: -6 }, { x: 0, duration: 0.4, ease: 'elastic.out(1,0.3)' });
+    }
+    // highlight empty fields
+    [document.getElementById('interpName'), document.getElementById('interpPhone'), document.getElementById('interpDate')].forEach(el => {
+      if (!el.value.trim()) {
+        el.style.borderColor = 'var(--rose)';
+        el.style.boxShadow = '0 0 0 3px rgba(225,29,72,0.1)';
+        el.addEventListener('input', () => { el.style.borderColor = ''; el.style.boxShadow = ''; }, { once: true });
+      }
+    });
+    return;
+  }
+
+  // Build WhatsApp message
+  const lang = document.getElementById('interpLang').options[document.getElementById('interpLang').selectedIndex].textContent;
+  const dur = document.getElementById('interpDuration').options[document.getElementById('interpDuration').selectedIndex].textContent;
+  const loc = document.getElementById('interpLocation').value.trim() || 'TBD';
+  const details = document.getElementById('interpDetails').value.trim();
+  const typeLabels = { meeting: 'Meeting', conference: 'Conference', negotiation: 'Negotiation', event: 'Corporate event' };
+  const msg = encodeURIComponent(
+    `Hello BizTalk Team, I'd like to book an interpreter.\n\nName: ${name}\nPhone: ${phone}\nEvent type: ${typeLabels[selectedInterpType]}\nDate: ${date}\nDuration: ${dur}\nLanguage pair: ${lang}\nLocation: ${loc}${details ? '\nDetails: ' + details : ''}`
+  );
+
+  // Show success state
+  const content = document.getElementById('interpFormContent');
+  content.innerHTML = `<div class="interp-success">
+    <div class="interp-success-icon"><i class="fas fa-check" style="color:var(--green)"></i></div>
+    <h4 style="font-size:18px;font-weight:700;margin-bottom:0.5rem" data-en="Request received!" data-ar="تم استلام الطلب!">Request received!</h4>
+    <p style="font-size:14px;color:var(--text-2);line-height:1.75;max-width:380px;margin:0 auto 1.5rem"
+       data-en="Our team will contact you within a few hours to confirm availability and send your quote."
+       data-ar="سيتصل بك فريقنا في غضون ساعات قليلة لتأكيد التوافر وإرسال عرض السعر.">
+      Our team will contact you within a few hours to confirm availability and send your quote.
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="https://wa.me/213656703816?text=${msg}" target="_blank" rel="noopener noreferrer"
+         class="btn btn-primary" style="background:linear-gradient(135deg,#25D366,#1fbe5a);box-shadow:0 2px 10px rgba(37,211,102,0.3)">
+        <i class="fab fa-whatsapp"></i>
+        <span data-en="Continue on WhatsApp" data-ar="المتابعة على واتساب">Continue on WhatsApp</span>
+      </a>
+      <button class="btn btn-outline" onclick="closeInterpreterModal()">
+        <span data-en="Close" data-ar="إغلاق">Close</span>
+      </button>
+    </div>
+  </div>`;
+
+  if (currentLang === 'ar') {
+    content.querySelectorAll('[data-ar]').forEach(el => el.textContent = el.getAttribute('data-ar'));
+  }
+
+  gsap.from(content.querySelector('.interp-success'), { opacity: 0, y: 18, scale: 0.96, duration: 0.5, ease: 'power3.out' });
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('interpModalOverlay').classList.contains('open')) {
+    closeInterpreterModal();
+  }
+});
 </script>
 
 <script>
